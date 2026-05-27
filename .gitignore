@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+data/raw/1000springs_urls.csv
+data/raw/sm
+tools/__pycache__/
