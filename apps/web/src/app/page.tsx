@@ -14,14 +14,16 @@ export default function HomePage() {
       <section className="relative text-white py-20 px-4 overflow-hidden">
         {/* Background photo */}
         <Image
-          src="/hero.jpg"
+          src="/Champagne-Pool-Waiotapu-SLIDER.jpg"
           alt=""
           fill
+          sizes="100vw"
+          quality={90}
           className="object-cover object-center"
           priority
         />
-        {/* Dark gradient overlay so text stays readable */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-teal-950/75 to-slate-900/80" />
+        {/* Lighter overlay so the photo shows through clearly */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-teal-950/50 to-slate-900/60" />
         {/* Content sits above the overlay */}
         <div className="relative max-w-4xl mx-auto text-center">
           <p className="text-teal-400 text-sm font-semibold uppercase tracking-widest mb-3">
