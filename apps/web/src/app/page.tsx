@@ -91,12 +91,12 @@ export default function HomePage() {
       <section className="border-y border-slate-200 py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-xl font-semibold text-slate-800 mb-1">Who uses this</h2>
-          <p className="text-slate-500 text-sm mb-8">Free and open to everyone — no sign-up, no ads.</p>
+          <p className="text-slate-500 text-sm mb-8">Free and open to everyone.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-16 gap-y-6">
             {[
               {
                 title: 'Tourists and visitors',
-                body: "Understand what you're looking at. Plain-language science, safety context, and site information — without hype.",
+                body: "Understand what you're looking at. Plain-language science, safety context, and site information.",
               },
               {
                 title: 'Students and teachers',
@@ -156,7 +156,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Safety notice — integrated, not interstitial */}
+      {/* Safety notice - integrated, not interstitial */}
       <section className="border-t border-slate-200 bg-slate-50 py-10 px-4">
         <div className="max-w-3xl mx-auto flex gap-6 items-start">
           <div className="w-px self-stretch bg-amber-400 flex-shrink-0" />
