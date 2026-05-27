@@ -21,6 +21,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'springs-images.nyc3.cdn.digitaloceanspaces.com',
       },
+      {
+        protocol: 'https',
+        hostname: '1000springs.org.nz',
+      },
     ],
   },
 }

@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
+
+const BASE = 'https://1000springs.org.nz/static/img/Methodologies'
 
 export const metadata: Metadata = {
   title: 'Methodologies',
@@ -169,6 +172,25 @@ export default function MethodologiesPage() {
         </div>
       </div>
 
+      {/* ── Dataflow diagram ────────────────────────────────────── */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-2">
+        <p className="text-xs font-bold uppercase tracking-widest text-teal-600 mb-3">Overview diagram</p>
+        <div className="rounded-xl overflow-hidden border border-slate-200">
+          <div className="relative w-full" style={{ paddingBottom: '40%' }}>
+            <Image
+              src={`${BASE}/1000-springs-dataflow.png`}
+              alt="1000 Springs data flow — from field sampling through analysis and computing to the online database"
+              fill
+              className="object-contain bg-white"
+              sizes="(max-width: 1024px) 100vw, 960px"
+            />
+          </div>
+          <p className="text-xs text-slate-500 text-center py-2 bg-slate-50 border-t border-slate-200">
+            Data flow from field sampling through laboratory analysis and computing to the online database
+          </p>
+        </div>
+      </div>
+
       {/* ══════════════════════════════════════════════════════════
           FEATURE SAMPLING
       ══════════════════════════════════════════════════════════ */}
@@ -227,6 +249,21 @@ export default function MethodologiesPage() {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* Field sampling photos */}
+        <div className="grid grid-cols-2 gap-4 mb-10">
+          {[
+            { src: `${BASE}/sampling/field_sampling_tiny.jpg`, caption: 'Collecting water samples using the telescopic sampling pole' },
+            { src: `${BASE}/sampling/field%20sampling_2_small.jpg`, caption: 'Field sampling documentation and mobile lab setup' },
+          ].map(img => (
+            <div key={img.src} className="rounded-xl overflow-hidden border border-slate-200">
+              <div className="relative h-48">
+                <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="50vw" />
+              </div>
+              <p className="text-xs text-slate-500 text-center py-2 bg-slate-50 border-t border-slate-200 px-3">{img.caption}</p>
+            </div>
+          ))}
         </div>
 
         {/* Field metadata */}
@@ -305,6 +342,21 @@ export default function MethodologiesPage() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Field & lab photos */}
+          <div className="grid grid-cols-2 gap-4 mb-10">
+            {[
+              { src: `${BASE}/field_lab/field_and_lab_tiny.jpg`, caption: 'The 4WD mobile laboratory used for field processing' },
+              { src: `${BASE}/field_lab/field_and_lab_2_tiny.jpg`, caption: 'Filtering samples through the Sterivex column' },
+            ].map(img => (
+              <div key={img.src} className="rounded-xl overflow-hidden border border-slate-200">
+                <div className="relative h-48">
+                  <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="50vw" />
+                </div>
+                <p className="text-xs text-slate-500 text-center py-2 bg-white border-t border-slate-200 px-3">{img.caption}</p>
+              </div>
+            ))}
           </div>
 
           {/* Processing table */}
@@ -529,6 +581,22 @@ export default function MethodologiesPage() {
           </div>
         </div>
 
+        {/* Sequencing equipment photos */}
+        <div className="grid grid-cols-3 gap-4 mb-12">
+          {[
+            { src: `${BASE}/sequencing/ion_torrent_small.jpg`, caption: 'Ion Torrent PGM sequencer' },
+            { src: `${BASE}/sequencing/loading_chip_tiny.jpg`, caption: 'Loading the Ion 318v2 chip' },
+            { src: `${BASE}/sequencing/ion_torrent_chips_tiny.jpg`, caption: 'Ion Torrent sequencing chips' },
+          ].map(img => (
+            <div key={img.src} className="rounded-xl overflow-hidden border border-slate-200">
+              <div className="relative h-40">
+                <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="33vw" />
+              </div>
+              <p className="text-xs text-slate-500 text-center py-2 bg-slate-50 border-t border-slate-200 px-2">{img.caption}</p>
+            </div>
+          ))}
+        </div>
+
         {/* Phase 3 — Post-sequencing */}
         <div>
           <div className="flex items-center gap-3 mb-5">
@@ -599,6 +667,21 @@ export default function MethodologiesPage() {
               through and sampling geothermal ecosystems. The project attempts to minimise
               environmental impact from sampling.
             </p>
+          </div>
+
+          {/* H&S photos */}
+          <div className="grid grid-cols-2 gap-4 mb-8">
+            {[
+              { src: `${BASE}/health_safety/h%26s_small.jpg`, caption: 'Team equipped for geothermal field work' },
+              { src: `${BASE}/health_safety/h%26s_2_tiny.jpg`, caption: 'Personal protective equipment for sampling' },
+            ].map(img => (
+              <div key={img.src} className="rounded-xl overflow-hidden border border-amber-200">
+                <div className="relative h-52">
+                  <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="50vw" />
+                </div>
+                <p className="text-xs text-amber-700 text-center py-2 bg-amber-50 border-t border-amber-200 px-3">{img.caption}</p>
+              </div>
+            ))}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

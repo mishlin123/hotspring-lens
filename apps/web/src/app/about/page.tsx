@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -6,6 +7,8 @@ export const metadata: Metadata = {
   description:
     'About the 1000 Springs Project — the research collaboration between GNS Science and the University of Waikato documenting geothermal ecosystems across the Taupō Volcanic Zone.',
 }
+
+const BASE = 'https://1000springs.org.nz/static/img'
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
@@ -62,7 +65,7 @@ const team = [
     group: 'Extremophiles Research Group',
     title: 'Senior Scientist, Microbiology & Microbial Ecology',
     roles: 'Co-PI · sampling · geochemistry · ecology',
-    contact: true,
+    photo: `${BASE}/about/ourteam/matthew_stott_2_tiny.jpg`,
   },
   {
     name: 'Craig Cary',
@@ -70,7 +73,7 @@ const team = [
     group: 'Thermophile Research Unit',
     title: 'Professor · Director DNA Sequencing · ERI Theme Leader',
     roles: 'Co-PI · ecology · bioinformatics · sequencing',
-    contact: true,
+    photo: null,
   },
   {
     name: 'Jean Power',
@@ -78,6 +81,7 @@ const team = [
     group: 'Extremophiles Research Group',
     title: 'Senior Technician & Doctoral Candidate',
     roles: 'Sampling coordination · geochemistry · ecology',
+    photo: `${BASE}/about/ourteam/jean_power_2_tiny.jpg`,
   },
   {
     name: 'Charlie Lee',
@@ -85,6 +89,7 @@ const team = [
     group: 'Thermophiles Research Group',
     title: 'Research Fellow, Bioinformatics & Microbial Ecology',
     roles: 'Bioinformatics · sequencing · ecology',
+    photo: `${BASE}/about/ourteam/charles_lee_tiny.jpg`,
   },
   {
     name: 'Ian McDonald',
@@ -92,6 +97,7 @@ const team = [
     group: 'Thermophile Research Unit',
     title: 'Associate Professor, Microbiology & Molecular Biology',
     roles: 'Phylogenetics · bioinformatics · sequencing · ecology',
+    photo: `${BASE}/about/ourteam/ian_mcdonald_tiny.jpg`,
   },
   {
     name: 'Melissa Climo',
@@ -99,6 +105,7 @@ const team = [
     group: 'Geothermal Resources',
     title: 'Research Coordinator',
     roles: 'Management · outreach · grant writing',
+    photo: `${BASE}/about/ourteam/melissa_climo_tiny.jpg`,
   },
   {
     name: 'Dave Evans',
@@ -106,6 +113,7 @@ const team = [
     group: 'Extremophiles Research Group',
     title: 'Field Staff',
     roles: 'Field sampling · sample processing',
+    photo: `${BASE}/about/ourteam/dave_evans_tiny.jpg`,
   },
   {
     name: 'Georgia Wakerley',
@@ -113,6 +121,7 @@ const team = [
     group: 'Thermophile Research Unit',
     title: 'Laboratory Technician',
     roles: 'DNA extraction · sequencing',
+    photo: `${BASE}/about/ourteam/georgia_wakerly_tiny_2.jpg`,
   },
   {
     name: 'Annika Hinze',
@@ -120,6 +129,7 @@ const team = [
     group: 'Computer Science',
     title: 'Lecturer, Information Systems & Databases',
     roles: 'Applications development · database design',
+    photo: null,
   },
   {
     name: 'Mathew Button',
@@ -127,6 +137,7 @@ const team = [
     group: '',
     title: 'Programmer, Applications Support',
     roles: 'Website & database development',
+    photo: `${BASE}/about/ourteam/mathew_button_tiny.jpg`,
   },
   {
     name: 'Duncan White',
@@ -134,44 +145,145 @@ const team = [
     group: 'Applications Group',
     title: 'Analyst Programmer',
     roles: 'Android & website development',
+    photo: `${BASE}/about/ourteam/duncan_white_tiny.jpg`,
   },
 ]
 
-const assistedMembers = ['Carlo Carere', 'Karen Houghton', 'Kevin Lee']
+const assistedMembers = [
+  { name: 'Carlo Carere', photo: `${BASE}/about/ourteam/carlo_carere_tiny.jpg` },
+  { name: 'Karen Houghton', photo: `${BASE}/about/ourteam/karen_houghton_tiny.jpg` },
+  { name: 'Kevin Lee', photo: `${BASE}/about/ourteam/kevin_lee_tiny.jpg` },
+  { name: 'Microbiology in Extreme Environments', photo: `${BASE}/about/ourteam/microbiology_tiny.jpg` },
+]
 
-const tourismPartners: { region: string; partners: { name: string; address: string; phone: string }[] }[] = [
+const contacts = [
+  {
+    name: 'Matthew Stott',
+    org: 'GNS Science',
+    email: 'm.stott@gns.cri.nz',
+    photo: `${BASE}/about/ourteam/matthew_stott_2_tiny.jpg`,
+  },
+  {
+    name: 'Craig Cary',
+    org: 'University of Waikato',
+    email: 'caryc@waikato.ac.nz',
+    photo: null,
+  },
+]
+
+const tourismPartners: {
+  region: string
+  partners: { name: string; address: string; phone: string; photo: string }[]
+}[] = [
   {
     region: 'Rotorua',
     partners: [
-      { name: "Hell's Gate – Tikitere", address: 'State Highway 30, Tikitere', phone: '+64 7 345 3151' },
-      { name: 'Te Puia', address: 'Hemo Rd, Te Whakarewarewa Valley', phone: '+64 7 348 9047' },
-      { name: 'Waikite Valley Thermal Pools', address: 'Waikite Valley Road', phone: '+64 7 333 1861' },
-      { name: 'Waimangu Volcanic Valley', address: 'Waikite Valley Road, off SH5', phone: '+64 7 366 6137' },
-      { name: 'Waiotapu Thermal Wonderland', address: '201 Waiotapu Loop Road RD 3', phone: '+64 7 366 6333' },
-      { name: 'Whakarewarewa Village', address: '17 Tryon Street, Whakarewarewa', phone: '+64 7 349 3463' },
+      {
+        name: "Hell's Gate – Tikitere",
+        address: 'State Highway 30, Tikitere',
+        phone: '+64 7 345 3151',
+        photo: `${BASE}/about/tourismpartners/hellsgate.jpg`,
+      },
+      {
+        name: 'Te Puia',
+        address: 'Hemo Rd, Te Whakarewarewa Valley',
+        phone: '+64 7 348 9047',
+        photo: `${BASE}/about/tourismpartners/te_puia.jpg`,
+      },
+      {
+        name: 'Waikite Valley Thermal Pools',
+        address: 'Waikite Valley Road',
+        phone: '+64 7 333 1861',
+        photo: `${BASE}/about/tourismpartners/waikite_valley_thermal_pools.jpg`,
+      },
+      {
+        name: 'Waimangu Volcanic Valley',
+        address: 'Waikite Valley Road, off SH5',
+        phone: '+64 7 366 6137',
+        photo: `${BASE}/about/tourismpartners/waimangu.jpg`,
+      },
+      {
+        name: 'Waiotapu Thermal Wonderland',
+        address: '201 Waiotapu Loop Road RD 3',
+        phone: '+64 7 366 6333',
+        photo: `${BASE}/about/tourismpartners/waiotapu_thermal_wonderland.jpg`,
+      },
+      {
+        name: 'Whakarewarewa Village',
+        address: '17 Tryon Street, Whakarewarewa',
+        phone: '+64 7 349 3463',
+        photo: `${BASE}/about/tourismpartners/whakarewarewa.jpg`,
+      },
     ],
   },
   {
     region: 'Taupō',
     partners: [
-      { name: 'Huka Prawn Park', address: 'Karetoto Road, Wairakei Tourist Park, SH1', phone: '+64 7 374 8474' },
-      { name: 'Orakei Korako Geothermal Park & Cave', address: '494 Orakeikorako Road, Reporoa', phone: '+64 7 378 3131' },
-      { name: 'Wairakei Terraces', address: 'Wairakei Rd, SH1 & 5', phone: '+64 7 378 0913' },
+      {
+        name: 'Huka Prawn Park',
+        address: 'Karetoto Road, Wairakei Tourist Park, SH1',
+        phone: '+64 7 374 8474',
+        photo: `${BASE}/about/tourismpartners/huka_prawn_park.jpg`,
+      },
+      {
+        name: 'Orakei Korako Geothermal Park & Cave',
+        address: '494 Orakeikorako Road, Reporoa',
+        phone: '+64 7 378 3131',
+        photo: `${BASE}/about/tourismpartners/orakei_korako.jpg`,
+      },
+      {
+        name: 'Wairakei Terraces',
+        address: 'Wairakei Rd, SH1 & 5',
+        phone: '+64 7 378 0913',
+        photo: `${BASE}/about/tourismpartners/wairakei_terraces.jpg`,
+      },
     ],
   },
   {
     region: 'Turangi',
     partners: [
-      { name: 'Tokaanu Thermal Walk and Pools', address: 'Mangaroa St, Tokaanu', phone: '+64 7 386 8575' },
+      {
+        name: 'Tokaanu Thermal Walk and Pools',
+        address: 'Mangaroa St, Tokaanu',
+        phone: '+64 7 386 8575',
+        photo: `${BASE}/about/tourismpartners/tokaanu_thermal_pools.jpg`,
+      },
     ],
   },
 ]
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
-    <p className="text-teal-600 text-xs font-bold uppercase tracking-widest mb-2">{children}</p>
+    <p className={`text-xs font-bold uppercase tracking-widest mb-2 ${light ? 'text-teal-300' : 'text-teal-600'}`}>
+      {children}
+    </p>
+  )
+}
+
+function Avatar({
+  photo,
+  name,
+  size = 'sm',
+}: {
+  photo: string | null
+  name: string
+  size?: 'sm' | 'lg'
+}) {
+  const dim = size === 'lg' ? 'w-14 h-14' : 'w-10 h-10'
+  const text = size === 'lg' ? 'text-base' : 'text-sm'
+  const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2)
+  return (
+    <div className={`${dim} rounded-full overflow-hidden bg-teal-100 relative flex-shrink-0`}>
+      {photo ? (
+        <Image src={photo} alt={name} fill className="object-cover" sizes="80px" />
+      ) : (
+        <div className={`w-full h-full flex items-center justify-center`}>
+          <span className={`text-teal-700 font-bold ${text}`}>{initials}</span>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -184,7 +296,7 @@ export default function AboutPage() {
       {/* ── Page header ─────────────────────────────────────────── */}
       <div className="bg-teal-900 text-white py-14 px-4">
         <div className="max-w-5xl mx-auto">
-          <SectionLabel>About</SectionLabel>
+          <SectionLabel light>About</SectionLabel>
           <h1 className="text-4xl font-bold mb-3 leading-tight">
             The 1000 Springs Project
           </h1>
@@ -211,11 +323,26 @@ export default function AboutPage() {
                 Volcanic Zone."
               </p>
             </blockquote>
-            <p className="text-slate-600 text-sm leading-relaxed">
+            <p className="text-slate-600 text-sm leading-relaxed mb-6">
               Beyond documentation, the project aims to assess the conservation, cultural,
               recreational, and resource development value of microbial components in these
               geothermal ecosystems — knowledge that informs science, policy, and kaitiakitanga.
             </p>
+            {/* TVZ map */}
+            <div className="rounded-xl overflow-hidden border border-slate-200">
+              <div className="relative h-52 w-full">
+                <Image
+                  src={`${BASE}/about/TVZ_hotspots_map_small.jpg`}
+                  alt="Map of geothermal systems in the Taupō Volcanic Zone"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 600px"
+                />
+              </div>
+              <p className="text-xs text-slate-500 text-center py-2 bg-slate-50 border-t border-slate-200">
+                Geothermal hotspot locations across the Taupō Volcanic Zone
+              </p>
+            </div>
           </div>
           <div className="lg:col-span-2 bg-teal-50 border border-teal-100 rounded-2xl p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-teal-600 mb-4">
@@ -315,13 +442,8 @@ export default function AboutPage() {
               key={person.name}
               className="bg-white border border-slate-200 rounded-xl p-5 flex flex-col gap-1"
             >
-              {/* Avatar placeholder */}
-              <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center mb-2">
-                <span className="text-teal-700 font-bold text-sm">
-                  {person.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                </span>
-              </div>
-              <p className="font-semibold text-slate-800">{person.name}</p>
+              <Avatar photo={person.photo} name={person.name} />
+              <p className="font-semibold text-slate-800 mt-1">{person.name}</p>
               <p className="text-xs font-semibold text-teal-600">{person.institution}</p>
               {person.group && (
                 <p className="text-xs text-slate-500">{person.group}</p>
@@ -336,21 +458,18 @@ export default function AboutPage() {
 
         {/* Assisted members */}
         <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
-          <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">
+          <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">
             Also assisted by
           </p>
-          <div className="flex flex-wrap gap-2">
-            {assistedMembers.map(name => (
-              <span
-                key={name}
-                className="bg-white border border-slate-200 text-slate-600 text-sm px-3 py-1 rounded-full"
-              >
-                {name}
-              </span>
+          <div className="flex flex-wrap gap-3">
+            {assistedMembers.map(m => (
+              <div key={m.name} className="flex items-center gap-2 bg-white border border-slate-200 rounded-full pl-1 pr-3 py-1">
+                <div className="w-7 h-7 rounded-full overflow-hidden relative flex-shrink-0">
+                  <Image src={m.photo} alt={m.name} fill className="object-cover" sizes="28px" />
+                </div>
+                <span className="text-sm text-slate-600">{m.name}</span>
+              </div>
             ))}
-            <span className="bg-white border border-slate-200 text-slate-600 text-sm px-3 py-1 rounded-full">
-              Microbiology in Extreme Environments
-            </span>
           </div>
         </div>
       </div>
@@ -373,10 +492,23 @@ export default function AboutPage() {
                 </h3>
                 <ul className="space-y-4">
                   {region.partners.map(p => (
-                    <li key={p.name} className="bg-white border border-slate-200 rounded-lg p-4">
-                      <p className="font-medium text-slate-800 text-sm mb-1">{p.name}</p>
-                      <p className="text-xs text-slate-500">{p.address}</p>
-                      <p className="text-xs text-teal-600 mt-1">{p.phone}</p>
+                    <li key={p.name} className="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                      {/* Photo */}
+                      <div className="relative h-36 w-full">
+                        <Image
+                          src={p.photo}
+                          alt={p.name}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 100vw, 33vw"
+                        />
+                      </div>
+                      {/* Info */}
+                      <div className="p-4">
+                        <p className="font-medium text-slate-800 text-sm mb-1">{p.name}</p>
+                        <p className="text-xs text-slate-500">{p.address}</p>
+                        <p className="text-xs text-teal-600 mt-1">{p.phone}</p>
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -391,24 +523,9 @@ export default function AboutPage() {
         <SectionLabel>Contact</SectionLabel>
         <h2 className="text-2xl font-bold text-slate-800 mb-6">Get in touch with the project</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-14">
-          {[
-            {
-              name: 'Matthew Stott',
-              org: 'GNS Science',
-              email: 'm.stott@gns.cri.nz',
-            },
-            {
-              name: 'Craig Cary',
-              org: 'University of Waikato',
-              email: 'caryc@waikato.ac.nz',
-            },
-          ].map(c => (
+          {contacts.map(c => (
             <div key={c.name} className="bg-white border border-slate-200 rounded-xl p-6 flex gap-4 items-start">
-              <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0">
-                <span className="text-teal-700 font-bold text-sm">
-                  {c.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                </span>
-              </div>
+              <Avatar photo={c.photo} name={c.name} size="lg" />
               <div>
                 <p className="font-semibold text-slate-800">{c.name}</p>
                 <p className="text-xs text-teal-600 mb-2">{c.org}</p>
@@ -433,7 +550,6 @@ export default function AboutPage() {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-            {/* What it is */}
             <div className="bg-slate-50 border border-slate-200 rounded-xl p-6">
               <h3 className="font-semibold text-slate-800 mb-3">What this is</h3>
               <ul className="space-y-2 text-sm text-slate-600">
@@ -449,7 +565,6 @@ export default function AboutPage() {
                 ))}
               </ul>
             </div>
-            {/* What it is not */}
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-6">
               <h3 className="font-semibold text-amber-900 mb-3">What this is not</h3>
               <ul className="space-y-2 text-sm text-amber-800">
@@ -468,7 +583,6 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Microbiology & cultural notes side by side */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
             <div>
               <h3 className="font-semibold text-slate-800 mb-2">A note on microbiology</h3>
@@ -497,7 +611,6 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* CTA row */}
           <div className="flex flex-wrap gap-3">
             <Link
               href="/explore"
