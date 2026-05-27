@@ -27,9 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
               <div>
                 <p className="font-semibold text-white mb-1">HotSpring Lens</p>
-                <p className="text-sm">
-                  Free, non-commercial educational tool. No ads, no subscriptions, no tracking.
-                </p>
+                <p className="text-sm">Free, non-commercial educational tool.</p>
               </div>
               <div>
                 <p className="font-semibold text-white mb-1">Data source</p>
