@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { getAllSprings, getUniqueGeothermalSystems } from '@/lib/data'
 
 export default function HomePage() {
@@ -10,8 +11,19 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-slate-900 via-teal-950 to-slate-900 text-white py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative text-white py-20 px-4 overflow-hidden">
+        {/* Background photo */}
+        <Image
+          src="/hero.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        {/* Dark gradient overlay so text stays readable */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-teal-950/75 to-slate-900/80" />
+        {/* Content sits above the overlay */}
+        <div className="relative max-w-4xl mx-auto text-center">
           <p className="text-teal-400 text-sm font-semibold uppercase tracking-widest mb-3">
             Aotearoa New Zealand
           </p>
