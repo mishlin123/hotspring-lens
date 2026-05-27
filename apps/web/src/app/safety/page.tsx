@@ -55,7 +55,7 @@ export default function SafetyPage() {
             {
               icon: '🗺️',
               title: 'Do not use this app for navigation',
-              body: 'HotSpring Lens is an educational tool. Do not use it to navigate to springs or plan routes. Location data may be approximate.',
+              body: '1000 Springs is an educational tool. Do not use it to navigate to springs or plan routes. Location data may be approximate.',
             },
             {
               icon: '🔒',

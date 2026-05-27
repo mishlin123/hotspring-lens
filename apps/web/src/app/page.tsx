@@ -35,7 +35,7 @@ export default function HomePage() {
             <span className="text-teal-300">Geothermal Springs</span>
           </h1>
           <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
-            HotSpring Lens is a free field guide to the microbiology, chemistry, and geothermal
+            1000 Springs is a free field guide to the microbiology, chemistry, and geothermal
             science of hot springs across Aotearoa — from Rotorua to White Island.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

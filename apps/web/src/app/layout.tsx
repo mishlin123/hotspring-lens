@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
-    default: 'HotSpring Lens | 1000 Springs Explorer',
-    template: '%s | HotSpring Lens',
+    default: '1000 Springs | NZ Geothermal Spring Explorer',
+    template: '%s | 1000 Springs',
   },
   description:
     'A free, non-commercial educational tool for exploring the microbiology, chemistry, and geothermal science of New Zealand hot springs.',
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
               <div>
-                <p className="font-semibold text-white mb-1">HotSpring Lens</p>
+                <p className="font-semibold text-white mb-1">1000 Springs</p>
                 <p className="text-sm">Free, non-commercial educational tool.</p>
               </div>
               <div>

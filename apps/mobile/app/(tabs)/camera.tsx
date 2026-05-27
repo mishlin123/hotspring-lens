@@ -94,7 +94,7 @@ export default function CameraScreen() {
       <SafeAreaView style={styles.permContainer}>
         <Text style={styles.permTitle}>Camera access needed</Text>
         <Text style={styles.permBody}>
-          HotSpring Lens uses your camera to overlay spring information on your view.
+          1000 Springs uses your camera to overlay spring information on your view.
         </Text>
         <TouchableOpacity style={styles.permBtn} onPress={requestCameraPermission}>
           <Text style={styles.permBtnText}>Allow camera access</Text>

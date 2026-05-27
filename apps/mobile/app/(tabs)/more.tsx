@@ -110,7 +110,7 @@ export default function MoreScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>ABOUT</Text>
           <View style={styles.card}>
-            <Text style={styles.aboutTitle}>HotSpring Lens</Text>
+            <Text style={styles.aboutTitle}>1000 Springs</Text>
             <Text style={styles.aboutVersion}>v0.1.0 — Website + Mobile MVP</Text>
             <Text style={styles.aboutBody}>
               A free, non-commercial educational tool for exploring the geothermal springs of

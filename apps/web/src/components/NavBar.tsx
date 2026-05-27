@@ -18,8 +18,7 @@ export default function NavBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
           <Link href="/" className="font-bold text-lg tracking-tight hover:text-teal-200 transition-colors">
-            HotSpring Lens
-            <span className="hidden sm:inline text-teal-400 font-normal text-sm ml-2">1000 Springs</span>
+            1000 Springs
           </Link>
           <div className="flex items-center gap-1 sm:gap-4">
             {LINKS.map(link => {

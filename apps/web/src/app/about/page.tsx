@@ -3,13 +3,13 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'About HotSpring Lens — a free, non-commercial educational tool.',
+  description: 'About 1000 Springs — a free, non-commercial educational tool.',
 }
 
 export default function AboutPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <h1 className="text-3xl font-bold text-slate-800 mb-2">About HotSpring Lens</h1>
+      <h1 className="text-3xl font-bold text-slate-800 mb-2">About 1000 Springs</h1>
       <p className="text-slate-500 mb-10">
         A free, non-commercial educational and research tool for exploring geothermal springs in
         Aotearoa New Zealand.
@@ -19,7 +19,7 @@ export default function AboutPage() {
         <h2 className="text-xl font-semibold text-slate-800 mb-3">What is this?</h2>
         <div className="prose prose-sm text-slate-600 space-y-3">
           <p>
-            HotSpring Lens is a web-based field guide to the geothermal springs of New Zealand's
+            1000 Springs is a web-based field guide to the geothermal springs of New Zealand's
             North Island. It lets tourists, students, teachers, and researchers explore 792 spring
             records drawn from the 1000 Springs Project — including physical measurements, chemical
             composition, and microbial diversity data.

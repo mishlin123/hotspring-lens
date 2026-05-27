@@ -39,7 +39,7 @@ export default function TabsLayout() {
         options={{
           title: 'Explore',
           tabBarIcon: ({ color }) => <TabIcon name="map-outline" color={color} />,
-          headerTitle: 'HotSpring Lens',
+          headerTitle: '1000 Springs',
           headerRight: () =>
             debugMode ? (
               <Text style={styles.debugBadge}>DEBUG</Text>

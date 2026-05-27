@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "HotSpring Lens",
-    "slug": "hotspring-lens",
+    "name": "1000 Springs",
+    "slug": "1000-springs",
     "version": "0.1.0",
     "orientation": "portrait",
-    "scheme": "hotspring-lens",
+    "scheme": "1000springs",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -32,13 +32,13 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "HotSpring Lens needs camera access to show spring overlays on your view."
+          "cameraPermission": "1000 Springs needs camera access to show spring overlays on your view."
         }
       ],
       [
         "expo-location",
         {
-          "locationWhenInUsePermission": "HotSpring Lens needs your location to find nearby springs and power the camera overlay."
+          "locationWhenInUsePermission": "1000 Springs needs your location to find nearby springs and power the camera overlay."
         }
       ],
       "expo-asset",
