@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react'
 import {
   View,
   Text,
@@ -6,7 +5,6 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  Animated,
   Dimensions,
 } from 'react-native'
 import { useRouter } from 'expo-router'
@@ -30,22 +28,10 @@ interface Props {
 
 export default function SpringSummaryPanel({ spring, onClose }: Props) {
   const router = useRouter()
-  const translateY = useRef(new Animated.Value(SHEET_HEIGHT)).current
-
-  // Slide up on mount
-  useEffect(() => {
-    Animated.spring(translateY, {
-      toValue: 0,
-      useNativeDriver: true,
-      tension: 60,
-      friction: 12,
-    }).start()
-  }, [])
-
   const tColor = tempColor(spring.temperature_c)
 
   return (
-    <Animated.View style={[styles.sheet, { transform: [{ translateY }] }]}>
+    <View style={styles.sheet}>
       {/* Drag handle */}
       <View style={styles.handleBar}>
         <View style={styles.handle} />
@@ -142,7 +128,7 @@ export default function SpringSummaryPanel({ spring, onClose }: Props) {
           <Text style={styles.profileBtnText}>Full profile →</Text>
         </TouchableOpacity>
       </View>
-    </Animated.View>
+    </View>
   )
 }
 

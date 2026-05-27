@@ -178,7 +178,6 @@ export default function ExploreScreen() {
               latitudeDelta: 2.5,
               longitudeDelta: 2.5,
             }}
-            onPress={() => setSelectedSpring(null)}
           >
             {withCoords.map(s => (
               <Marker
@@ -255,15 +254,28 @@ export default function ExploreScreen() {
         />
       )}
 
-      {/* Spring summary panel */}
-      {selectedSpring && view === 'map' && (
-        <View style={styles.panelOverlay}>
-          <SpringSummaryPanel
-            spring={selectedSpring}
-            onClose={() => setSelectedSpring(null)}
+      {/* Spring summary panel — transparent modal so sheet slides up over the map */}
+      <Modal
+        visible={selectedSpring !== null && view === 'map'}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setSelectedSpring(null)}
+      >
+        <View style={styles.sheetBackdrop}>
+          {/* Tap outside the sheet to dismiss */}
+          <TouchableOpacity
+            style={StyleSheet.absoluteFillObject}
+            activeOpacity={1}
+            onPress={() => setSelectedSpring(null)}
           />
+          {selectedSpring && (
+            <SpringSummaryPanel
+              spring={selectedSpring}
+              onClose={() => setSelectedSpring(null)}
+            />
+          )}
         </View>
-      )}
+      </Modal>
 
       {/* Filter modal */}
       <Modal visible={showFilters} animationType="slide" presentationStyle="pageSheet">
@@ -402,12 +414,10 @@ const styles = StyleSheet.create({
   legendRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   legendDot: { width: 10, height: 10, borderRadius: 5 },
   legendText: { fontSize: 11, color: '#475569' },
-  panelOverlay: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    overflow: 'visible',
+  sheetBackdrop: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'transparent',
   },
   list: { paddingBottom: 24 },
   empty: { alignItems: 'center', paddingTop: 64 },
