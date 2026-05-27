@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "HotSpring Lens",
+    "slug": "hotspring-lens",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "hotspring-lens",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#0f766e"
+    },
+    "ios": {
+      "bundleIdentifier": "nz.hotspringlens.app",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Used to show spring overlays on your camera view.",
+        "NSLocationWhenInUseUsageDescription": "Used to find springs near you and show overlays in camera mode.",
+        "NSMotionUsageDescription": "Used for compass heading in the camera overlay."
+      }
+    },
+    "android": {
+      "package": "nz.hotspringlens.app",
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "HotSpring Lens needs camera access to show spring overlays on your view."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "HotSpring Lens needs your location to find nearby springs and power the camera overlay."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
