@@ -1,0 +1,770 @@
+<!doctype html>
+<html>
+  <head>
+
+	
+    
+<link rel="stylesheet"
+	href="/static/js/snapSVG/style.css"
+	type="text/css" />
+<link type="text/css" rel="stylesheet" href="/static/style.css"/>
+
+
+    
+
+	<script type="text/javascript" src="/static/js/jQuery/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/static/js/layout.js"></script>
+
+    <title>Home - 1000 Springs</title>
+	
+    
+
+<!-- <script type="text/javascript" src="/static/js/jquery.js"></script> -->
+
+<script type="text/javascript"
+	src="/static/js/jQuery/jquery.opacityrollover.js"></script>
+<script type="text/javascript"
+	src="/static/js/maps.js"></script>
+<script type="text/javascript"
+	src="/static/js/Vis/radialTree/d3.js"></script>
+<script type="text/javascript"
+	src="/static/js/views/samplesite.js"></script>
+<script type="text/javascript"
+	src="/static/js/views/status.js"></script>
+<script type="text/javascript"
+	src="/static/js/snapSVG/snap.svg-min.js"></script>
+<script type="text/javascript"
+	src="/static/js/snapSVG/snap.svg-min.js"></script>	
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtyUSuYYv0EGyNMs4BaZA1kFHyngfROuQ"></script>
+
+<style>
+span.units {
+	color: rgb(29, 155, 171);
+	cursor: default;
+}
+</style>
+
+<script type="text/javascript">	
+
+	window.onload = function()
+	{
+		if (browserSupportsSvg()) {
+			var tempMarkers = [{name:"Ice",value:0},
+						   {name:"Human Body", value:37},
+						   {name:"Scalding Water", value:55,height:2},
+						   {name:"Pasteurization", value:67,height:3},
+						   {name:"Boiling Water", value:100}];	
+	
+			var tempCategories = [];	
+	
+			var tempBar = ({svg:Snap("#tempBar"),
+						length:250,
+						x:50,
+						y:10,
+						max:100,
+						current:41.0,
+						markers:tempMarkers,
+						categories:tempCategories,
+						step:10,
+						warning:40,
+						units:String.fromCharCode(186)+"C"});
+	
+			addProgressBar(tempBar);
+	
+			var phMarkers = [{name:"Stomach Acid",value:1},
+							 {name:"Lemon Juice",value:2,height:2},
+							 {name:"Vinegar",value:3,height:3},
+							 {name:"Pure Water",value:6},
+							 {name:"Spa Water",value:8,height:2},
+							 {name:"Soap",value:10},
+							 {name:"Ammonia",value:11, height:3},
+							 {name:"Bleach",value:12}];
+	
+	
+			var pHCategories = [];			
+	
+			var phBar = ({svg:Snap("#pHBar"),
+						length:250,
+						x:50,
+						y:10,
+						max:14,
+						current:6.47,
+						markers:phMarkers,
+						categories:pHCategories,
+						step:1,
+						units:""});		
+			
+			addProgressBar(phBar);
+			
+		} else {
+			// browser does not support SVG
+			$('#tempTableData').html('<p>41.0</p>');
+			$('#pHTableData').html('<p>6.47</p>');
+		}
+
+	};
+
+	$(function()
+	{
+		var sampleSiteMap = setupMap("show_map");	
+		sampleSiteMap.zoom = 14;
+		
+
+		addInfoWindowMarker("Tokaanu",
+							"-38.9679",
+							"175.7644",
+							"Tokaanu Feature 6",
+							"Deep pool called Kirihoro, with slight overhang. Sedge grass surrounds. Green biofilm/sediment at the bottom.",
+							sampleSiteMap)		
+		
+
+		$('img').tooltip();
+		$('span').tooltip();
+
+		 $("svg circle, .inner").tooltip({
+        'container': 'body',
+        'placement': 'top'
+    	});
+
+		if (browserSupportsSvg()) {
+			statusGraph("#status",2);
+		} else {
+			$('#statusHeadingTableData').html('');
+		}
+
+
+		$('.accordion').on('show hide', function (n) 
+		{
+			$(n.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-chevron-up icon-chevron-down');
+		});
+	});
+	
+	</script>
+
+
+   
+	<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css" >
+	<link rel="stylesheet" type="text/css" href="/static/gns.css">
+	<link rel="shortcut icon" href="/static/favicon_logo.ico">
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	
+	  ga('create', 'UA-3641432-37', 'auto');
+	  ga('send', 'pageview');
+	
+	</script>
+
+<!-- 	
+  
+ -->
+
+	
+
+  </head>
+<body > 
+<div id="container">
+	
+	<div id="innerContainer">
+		<div id="header" style="">
+	
+	<div style="float:left">
+		<a href="/"><img style="width:400px;padding-top:44px; " src="/static/img/logo2.png"></a>
+
+		<p style="margin:-6px 0 0 4px"> The microbiology of geothermal hotsprings in New Zealand </p>
+	</div>		
+	<script>
+
+$(function(){
+ $('div.menuItem').tooltip({'placement': 'top'});
+});
+
+</script>
+
+
+ 
+	<div id="login" class="menuItem"  rel="tooltip" data-original-title="Authorised access">		
+			<a style="text-decoration:none;"href="/login">
+				<div style="position:relative;height:34px;">
+					<img style="height:34px;width:34px;position:absolute;margin-left:-17px;left:50%"src="/static/img/icons/login.png">
+				</div>
+				<p style="color:#1D9BAB;">Login</p>
+
+			</a>
+	</div>
+
+
+<div id="about" class="menuItem" rel="tooltip" data-original-title="About the project">		
+	<a style="text-decoration:none;" href="/about">
+
+		<div style="position:relative;height:34px;">
+			<img style="height:34px;width:34px;position:absolute;margin-left:-17px;left:50%"src="/static/img/icons/about.png">
+		</div>
+		<p style="color:#1D9BAB;"> About</p>
+
+	</a>
+</div>
+
+
+	
+
+	
+
+<div id="search" class="menuItem" rel="tooltip" data-original-title="Search for springs by their characteristics">		
+	<a style="text-decoration:none;"href="/simplesearch">
+
+		<div style="position:relative;height:34px;">
+			<img style="height:34px;width:34px;position:absolute;margin-left:-17px;left:50%"src="/static/img/icons/search.png">
+		</div>
+		<p style="color:#1D9BAB;"> Search </p>
+
+	</a>
+</div>
+	
+<div id="browse" class="menuItem" rel="tooltip" data-original-title="Find features by map or image">					
+	<div class="dropdown">	
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<div style="position:relative;height:34px;">
+				<img style="height:34px;width:34px;position:absolute;margin-left:-17px;left:50%" src="/static/img/icons/browse.png">
+			</div>
+		<p style="color:#1D9BAB;">Browse <b class="caret" style=""></b>  </p>
+	
+		</a>
+
+			
+		<ul class="dropdown-menu">
+			<li> 
+				<a href="/mapsearch">Location</a>
+			</li>
+			<li>
+				<a href="/searchbyimage">Image</a>
+			</li>						
+		</ul>
+	</div>		
+</div>
+
+<div id="ourscience" class="menuItem" rel="tooltip" data-original-title="Outreach and Publications">
+	<div class="dropdown">			
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">	
+
+			<div style="position:relative;height:34px;">
+				<img style="height:34px;width:34px;position:absolute;margin-left:-17px;left:50%"src="/static/img/icons/ourscience.png">
+			</div>
+			<p style="color:#1D9BAB;"> Our Science <b class="caret" style=""></b> </p>
+
+		</a>
+
+		<ul class="dropdown-menu">
+			<li> 
+				<a href="/publications">Publications</a>
+			</li>
+			<li>
+				<a href="/methodologies">Methodologies</a>
+			</li>		
+			<li>
+				<a href="/dataoverview">Data Overview</a>
+			</li>						
+		</ul>
+	</div>
+</div>
+
+	
+<div id="home" class="menuItem">		
+	<a style="text-decoration:none;"href="/">
+
+		<div style="position:relative;height:34px;">
+			<img style="height:34px;width:34px;position:absolute;margin-left:-17px;left:50%"src="/static/img/icons/home.png">
+		</div>	
+		<p style="color:#1D9BAB;"> Home </p>
+
+	</a>
+</div>
+
+
+
+
+</div>
+
+		
+	
+		<div id="content" style="display:inline-block;width:100%">
+				<img style="width:1024px;position:absolute; "src="/static/img/nzhotsprings/background_old3.jpg">
+				<!-- <img style="width:144%;position:absolute;max-width:none; "src="/static/img/nzhotsprings/background.jpg"> -->
+			
+		
+			
+
+<div class="title">
+
+	<h2>Tokaanu Feature 6</h2>
+
+</div>
+
+<div class="divider"></div>
+
+<div id="mainContent"
+	style="position: relative; background-color: white;">
+	<ul id="tabBar" class="nav nav-tabs tab-heading otsTabs" data-tabs="tabs">
+		<li class="active"><a href="#overviewTab" data-toggle="tab">Overview</a></li>
+		<li><a href="#chemistryTab" data-toggle="tab">Chemical Composition</a></li>
+		<li><a href="#diversityTab" data-toggle="tab">Microbial Diversity</a></li>
+	</ul>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#tabBar').tab();		
+		});
+
+	</script>
+
+	<div id="sampleSiteTabContent" class="tab-content">
+		<div id="overviewTab" class="tab-pane active">
+			<div class="row-fluid">
+				<div class="span7">
+	
+					<div>
+						<p>
+							<strong> Hot springs can cause serious injury and death.
+								Follow the safety instructions. Never climb over barriers and
+								step off paths. </strong>
+						</p>
+						
+	
+						<p>Deep pool called Kirihoro, with slight overhang. Sedge grass surrounds. Green biofilm/sediment at the bottom.</p>
+	
+	
+					</div>
+	
+	
+					<table class="descTable">
+						<tr>
+							<td>
+								<h5 style="margin-top: 0px;">Location:</h5>
+							</td>
+							<td style="text-align: left;">
+								<p>Tokaanu Thermal Walk,
+									Tokaanu,
+									Turangi</p>
+							</td>
+						</tr>
+	
+						<tr>
+							<td>
+								<h5 style="margin-top: 0px;">Sample Number:</h5>
+							</td>
+							<td style="text-align: left;">
+								<p id="sampleNumber">P1.0439</p>
+							</td>
+						</tr>
+	
+						<tr>
+							<td>
+								<h5 style="margin-top: 0px;">Sample Date:</h5>
+							</td>
+							<td style="text-align: left;">
+								<p class="muted">20-05-2014</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h5 style="margin-top: 0px;">Feature Type:</h5>
+							</td>
+							<td style="text-align: left;">
+								<p>Spring</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h5 style="margin-top: 0px;">Temperature:</h5>
+							</td>
+							<td id="tempTableData" style="text-align: left;"><svg width="400px"
+									height="110px" id="tempBar"></svg></td>
+						</tr>
+						<tr>
+							<td>
+								<h5 style="margin-top: 0px;">pH:</h5>
+							</td>
+							<td id="pHTableData" style="text-align: left;"><svg width="400px"
+									height="110px" id="pHBar"></svg></td>
+						</tr>
+						<tr>
+							<td>
+								<h5 style="margin-top: 0px;">Size (approx):</h5>
+							</td>
+	
+							<td style="text-align: left;">
+								<p>3 x 3 m</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h5 style="margin-top: 0px;">Ebullition:</h5>
+							</td>
+	
+							<td style="text-align: left;">
+								<p>Minor and intermittent</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h5 style="margin-top: 0px;">
+									Oxidation Reduction <br> Potential:
+								</h5>
+							</td>
+							
+							<td style="text-align: left;"><p>
+										99.6 <span class="units" rel="tooltip"
+											data-original-title="Millivolts">mV</span>
+									</p>
+								
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h5 style="margin-top: 0px;">Conductivity:</h5>
+							</td>
+	
+							<td style="text-align: left;"><p>
+										9823.0 <span class="units"
+											rel="tooltip" data-original-title="Microsiemens per Centimeter">&#xB5;S/cm</span>
+									</p>
+								
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h5 style="margin-top: 0px;">Dissolved Oxygen:</h5>
+							</td>
+	
+							<td style="text-align: left;"><p>
+										4.55 <span class="units" rel="tooltip"
+											data-original-title="Milligrams per Litre">mg/L</span>
+									</p>
+								
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h5 style="margin-top: 0px;">Turbidity:</h5>
+							</td>
+	
+							<td style="text-align: left;"><p>
+										8.6 <span class="units" rel="tooltip"
+											data-original-title="Formazin Nephelometric Units">FNU</span>
+									</p>
+								
+							</td>
+						</tr>					
+	
+						<tr>
+							<td id="statusHeadingTableData"colspan="2">
+								<h4 style="text-align: center">Sample Site Status</h4>
+							</td>
+						</tr>
+	
+						<tr>
+	
+							<td style="text-align: left" colspan="2"><svg height="110px" width="550px"
+									id="status"></svg></td>
+						</tr>
+	
+	
+					</table>
+	
+				</div>
+	
+	
+				<div class="span5">
+	
+					<div id="show_map"></div>
+	
+	
+					<div class="divider"></div>
+					<div style="margin-bottom: 10px; margin-left: -1px;">
+						 
+							<a href="https://springs-images.nyc3.cdn.digitaloceanspaces.com/images/P1.0439_LARGE_20140520125951858.jpg">
+						 						
+						 
+							<img id="sampleSiteImg" src="https://springs-images.nyc3.cdn.digitaloceanspaces.com/images/P1.0439_BESTPHOTO_20140520125951858.jpg" />
+						
+						 
+							</a>
+						 
+					</div>							
+						
+				</div>
+	
+			</div>
+		</div>
+	
+	
+		<div id="chemistryTab" class="tab-pane requiresSvg">
+	        <div id="chemistryViewLoading">
+		    	<img src="/static/img/ajax-waiting-large.gif" style="margin: 200px auto 200px auto; display: block;">
+		    </div>
+			<div id="chemistryViewWrapper" style="display: none;">
+				<div class="row-fluid">
+					<div class="span4">
+						<div id="bubbleDesc">
+							<figure>
+								<p>
+									<strong>Instructions: </strong>Clicking on a bubble will zoom
+									in to get a closer look. While zoomed in, to focus on an
+									adjacent bubble simply click it. Selecting the currently
+									zoomed bubble will zoom back out.
+								</p>
+								<br>
+								<p>The chemical bubble chart represents the measured
+									chemical composition of this particular geothermal sample.
+									The relative size of each bubble reflects the concentration
+									of the named species (the larger the bubble, the higher the
+									concentration and vice versa). The concentration of the
+									chemical species in parts per million (ppm) which is
+									equivalent to mg per litre can be visualised by holding the
+									cursor in each bubble. Please note, carbon monoxide, hydrogen
+									and methane concentrations are in &#956;M or microMolar, not ppm.</p>
+							</figure>
+						</div>
+					</div>
+					<div class="span8">
+						<div id="bubbles"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div id="diversityTab" class="tab-pane requiresSvg">
+		    <div id="diversityViewLoading">
+		    	<img src="/static/img/ajax-waiting-large.gif" style="margin: 100px auto 100px auto; display: block;">
+		    </div>
+			<div id="diversityViewWrapper" style="display: none;">
+				<div class="diversityView">
+					<div class="diversityControlLinks">
+						<span class="diversityToggleView">Change view</span><span class="diversityToggleHelp">Hide instructions</span>
+					</div>
+					<div id ="collapsibleTreeWrapper" style="width: 1000px; height: 700px">
+    <div class="diversityHelpText" style="margin: 10px 0 20px 0;" >
+    	<figure>
+			<p>
+				<strong>Instructions: </strong>This interactive bubble chart can be used to visualise 
+				the taxonomic groupings of microorganisms detected in this sample. Clicking on a bubble 
+				will display (in the coloured table below) the taxonomy of the group selected. 
+				The "branches" connecting bubbles link related divisions from the highest ranking (domain) 
+				through to the lowest ranking (species). Where available, a text summary detailing 
+				the selected taxonomic group will be displayed below.
+		    <p>
+		    <p>
+				The bubble colour reflects the taxonomic rank (grey; domain, red; phylum, and so on). 
+				The size of outermost selected bubble is scaled to reflect an approximation of the 
+				relative abundance of the taxonomic assignment in the sample. 
+			</p>
+			<p>Where a bubble or node is presented, we have confidence (based on a statistical measure) 
+			   of the taxonomic assignment. Where that confidence measure falls below a certain threshold, 
+			   we make no further taxonomic assignments (see <a href="/ourscience">Our Science</a> for more 
+			   details about our processes).
+			</p>
+			<p>
+				Click the coloured boxes below to expand or contract the bubble chart to the desired taxonomic rank.
+			</p>
+		</figure>	    
+    </div>
+	<div id="collapsibleTreeInfoPanel" style="float: left; padding: 10px 10px 10px 0; height: 500px; width: 300px;">
+	    <div id="collapsibleTreeDetailWrapper" style="width: 290px; min-height: 90px; max-height: 320px; margin: 10px 0 30px 0; display: none;">	
+	        <h3 id="collapsibleTreeTaxonDetailsName"></h3>
+	    	<div id="collapsibleTreeAjaxWaiting" ><img src="/static/img/ajax-waiting.gif">Loading summary, please wait</div>
+			<div id="collapsibleTreeDetail" style="display: none;"></div>
+		</div>		
+	    <div id="collapsibleTreeTaxonomy" style="margin-top: 10px;">
+	    	<table style="width: 290px;">
+	    	    <tr><th></th><th style="width: 40px"></th><th style="width: 80px"></th></tr>
+	    		<tr><td>Domain</td><td><div class="domainBackColour taxaSwatch"></div></td><td><div class="domainColour domainName taxon"></div></td></tr>
+	    		<tr><td>Phylum</td><td><div class="phylumBackColour taxaSwatch"></div></td><td><div class="phylumColour phylumName taxon"></div></td></tr>
+	    		<tr><td>Class</td><td><div class="classBackColour taxaSwatch"></div></td><td><div class="classColour className taxon"></div></td></tr>
+	    		<tr><td>Order</td><td><div class="orderBackColour taxaSwatch"></div></td><td><div class="orderColour orderName taxon"></div></td></tr>
+	    		<tr><td>Family</td><td><div class="familyBackColour taxaSwatch"></div></td><td><div class="familyColour familyName taxon"></div></td></tr>
+	    		<tr><td>Genus</td><td><div class="genusBackColour taxaSwatch"></div></td><td><div class="genusColour genusName taxon"></div></td></tr>
+	    		<tr><td>Species</td><td><div class="speciesBackColour taxaSwatch"></div></td><td><div class="speciesColour speciesName taxon"></div></td></tr>
+
+	    	
+	    	</table>
+	    </div>
+
+	</div>
+	<div id="collapsibleTreeChart" style="width: 680px; float: left;"></div>
+</div>
+				</div>
+				<div class="diversityView" style="display: none;">
+					<div class="diversityControlLinks">
+						<span class="diversityToggleView">Change view</span><span class="diversityToggleHelp">Hide instructions</span>
+					</div>
+					<div id="sunburstWrapper" style="width: 1000px; height: 700px">
+	<div id="sunburstInfoPanel"
+		style="float: left; padding: 10px 10px 10px 0; height: 850px; width: 280px; margin-right: 20px;">
+		<div class="diversityHelpText" style="width: 270px; margin-bottom: 30px;">
+			<figure>
+				<p>
+					<strong>Instructions: </strong>This pie chart visualises the relative abundance of 
+					all of the microbial groupings detected  in this sample according to their taxonomic ranking.
+				<p>
+				<p>
+					Hold your mouse pointer over individual pie wedges to display the taxonomic hierarchy. 
+					The relative abundance (in percentage) of the associated taxonomic level is displayed in 
+					the centre of the pie along with the taxonomic name. The taxonomic rank is displayed below 
+					in the coloured table.
+				</p>
+				<p>
+					Where wedges are presented, we have confidence (based on a statistical measure) of 
+					the taxonomic assignment. Where that confidence measure falls below a certain threshold, 
+					we make no further taxonomic assignments (see <a href="/ourscience">Our Science</a> for more details 
+					about our processes).
+				</p>
+			</figure>
+		</div>
+		<div id="sunburstSequence" style="margin-top: 10px"></div>
+	</div>
+	<div id="sunburstChart">
+		<div id="sunburstExplanation" style="visibility: hidden;">
+			<span id="sunburstPercentage"></span><br /> of the microbial community in this sample belong to the
+			<span id="sunburstTaxa"></span> <span id="sunburstName" style="font-weight: bold;"></span> 
+			 
+		</div>
+	</div>
+</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End tabbed content -->
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<!--<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="myModalLabel">Modal header</h3>
+				  </div>!-->
+	<div class="modal-body">
+		<div class="container">
+			<div class="logincontent">
+
+				<div class="login-form">
+					<h2>Login</h2>
+					<form action="/login" method="post">
+						<fieldset>
+							<input type="text" placeholder="Username" name="username"
+								style="display: block" id="usernameTextbox"> <input
+								type="password" placeholder="Password" name="password"
+								style="display: block"> <input type="hidden"
+								name="site_id" value="627">
+
+							<button class="btn btn-primary" type="submit">Login</button>
+						</fieldset>
+
+					</form>
+
+					
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!--  <div class="modal-footer">
+				  	
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				  </div> !-->
+</div>
+
+
+
+
+		</div>
+	
+		<div id="footer">
+			
+				
+<div class="row-fluid" >
+<div class="span1">
+     <div>
+    <a href="https://www.facebook.com/1000SpringsProject"><img src="/static/img/icons/facebook.png"></a>
+    <a><img src="/static/img/icons/twitter.png"></a>
+    <a><img src="/static/img/icons/pinterest.png"></a>
+    </div>
+</div>
+    <div class="span2">
+     
+    <p style="font-size:16px;"><span>about</span> project</p>
+     
+    <ul>
+    <li><a href="/licence">licence for use</a></li>
+    <li><a href="/licence">disclaimer</a></li>
+    <li><a href="/about#contact-details">contact</a></li>
+    
+    </ul>
+     
+    </div>
+     <div class="span1">
+</div>
+    <div class="span2">
+     
+    <p style="font-size:16px;"><span>search</span> springs</p>
+     
+    <ul>
+    <li><a href="/simplesearch">simple</a></li>
+    <li><a href="/search">advanced</a></li>    
+    </ul>
+     
+    </div>
+          <div class="span1">
+</div>
+    <div class="span2">
+     
+    <p style="font-size:16px;"><span>browse</span> by </p>
+     
+    <ul>
+    <li><a href="/searchbyimage">image</a></li>
+    <li><a href="/mapsearch">location</a></li>
+    </ul>
+     
+    </div>
+             <!--  <div class="span1">
+</div> -->
+
+ <div class="span3" id="social">
+     
+   <!--  <p style="font-size:16px;"><span>connect</span></p> -->
+     
+    
+<div style="float:left">
+    
+<a href="http://www.waikato.ac.nz/research/units/thermophile.shtml"> <img src="/static/img/logos/waikato_uni_logo_portrait.gif" style="margin:5px;height:103px;"></a>
+    <a href="http://www.gns.cri.nz/Home/Our-Science/Environment-Materials/Extremophiles"> <img src="/static/img/logos/gns.gif" style="height:103px;margin:5px 5px 5px 15px;"></a>
+    </div>
+
+    
+    
+     
+    </div>
+</div>
+<div>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+</div>
+			
+		</div>
+	</div>
+	
+</div>
+
+
+<script src="/static/bootstrap/js/bootstrap.js"></script>
+<script src="/static/js/springs.js"></script>
+
+
+
+</body>
+
+
+</html>
