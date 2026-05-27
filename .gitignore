@@ -2,6 +2,6 @@
 __pycache__/
 *.pyc
 .DS_Store
+tools/__pycache__/
 data/raw/1000springs_urls.csv
 data/raw/sm
-tools/__pycache__/
