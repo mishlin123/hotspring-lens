@@ -40,7 +40,9 @@
         {
           "locationWhenInUsePermission": "HotSpring Lens needs your location to find nearby springs and power the camera overlay."
         }
-      ]
+      ],
+      "expo-asset",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
