@@ -184,7 +184,20 @@ export default function ExploreScreen() {
               <Marker
                 key={s.id}
                 coordinate={{ latitude: s.latitude!, longitude: s.longitude! }}
-                onPress={() => setSelectedSpring(s)}
+                onPress={() => {
+                  setSelectedSpring(s)
+                  // Pan so the marker sits in the upper portion of the screen,
+                  // above the half-sheet that covers the bottom 50%.
+                  mapRef.current?.animateToRegion(
+                    {
+                      latitude: s.latitude! - 0.018,
+                      longitude: s.longitude!,
+                      latitudeDelta: 0.06,
+                      longitudeDelta: 0.06,
+                    },
+                    350
+                  )
+                }}
                 tracksViewChanges={false}
               >
                 <View
@@ -393,6 +406,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    overflow: 'visible',
   },
   list: { paddingBottom: 24 },
   empty: { alignItems: 'center', paddingTop: 64 },
