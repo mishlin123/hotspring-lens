@@ -5,14 +5,12 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Allow Next.js file-tracing to reach the shared data/ directory at the
-  // monorepo root (two levels above apps/web) so it's included in the
-  // serverless function bundle on Vercel.
-  outputFileTracingRoot: path.join(__dirname, '../..'),
-
-  // Explicitly include the springs dataset in every server route's bundle.
-  outputFileTracingIncludes: {
-    '/**': ['../../data/processed/springs_app_dataset_full.json'],
+  // Next 14 keeps these under experimental; promoted to top-level in Next 15.
+  experimental: {
+    outputFileTracingRoot: path.join(__dirname, '../..'),
+    outputFileTracingIncludes: {
+      '/**': ['../../data/processed/springs_app_dataset_full.json'],
+    },
   },
 
   images: {
