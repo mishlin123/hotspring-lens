@@ -2,7 +2,7 @@ import type { Spring, SpringSummary } from './types'
 
 // Bundled via Metro — watchFolders in metro.config.js extends reach to monorepo root
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const raw = require('../../data/processed/springs_app_dataset_full.json') as Spring[]
+const raw = require('../../../data/processed/springs_app_dataset_full.json') as Spring[]
 
 export const ALL_SPRINGS: Spring[] = raw
 
