@@ -201,6 +201,7 @@ export default function ExploreScreen() {
                 tracksViewChanges={false}
               >
                 <View
+                  pointerEvents="none"
                   style={{
                     width: 14,
                     height: 14,
