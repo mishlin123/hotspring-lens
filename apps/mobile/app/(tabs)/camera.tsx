@@ -60,7 +60,9 @@ export default function CameraScreen() {
 
   const userLat = debugMode ? mockLocation.latitude : realLocation?.latitude ?? null
   const userLng = debugMode ? mockLocation.longitude : realLocation?.longitude ?? null
-  const heading = debugMode ? mockHeading : realHeading
+  // Always use the real device compass so pins track physical rotation.
+  // Debug mode only fakes GPS coordinates — heading stays live.
+  const heading = realHeading
 
   const visibleSprings = useMemo(() => {
     if (userLat === null || userLng === null) return []

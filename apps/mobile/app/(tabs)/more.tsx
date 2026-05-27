@@ -11,8 +11,6 @@ export default function MoreScreen() {
     setDebugMode,
     mockLocation,
     setMockLocation,
-    mockHeading,
-    setMockHeading,
     overlayRadius,
     setOverlayRadius,
   } = useDebug()
@@ -77,33 +75,6 @@ export default function MoreScreen() {
                     </View>
                   </TouchableOpacity>
                 ))}
-              </View>
-            </View>
-
-            {/* Mock heading */}
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>MOCK HEADING</Text>
-              <View style={styles.card}>
-                <View style={styles.sliderHeader}>
-                  <Text style={styles.rowLabel}>Compass heading</Text>
-                  <Text style={styles.sliderValue}>{Math.round(mockHeading)}°</Text>
-                </View>
-                <Slider
-                  style={styles.slider}
-                  minimumValue={0}
-                  maximumValue={359}
-                  value={mockHeading}
-                  onValueChange={setMockHeading}
-                  minimumTrackTintColor="#0d9488"
-                  maximumTrackTintColor="#e2e8f0"
-                  thumbTintColor="#0d9488"
-                />
-                <View style={styles.sliderLabels}>
-                  <Text style={styles.sliderLabel}>N (0°)</Text>
-                  <Text style={styles.sliderLabel}>E (90°)</Text>
-                  <Text style={styles.sliderLabel}>S (180°)</Text>
-                  <Text style={styles.sliderLabel}>W (270°)</Text>
-                </View>
               </View>
             </View>
 
