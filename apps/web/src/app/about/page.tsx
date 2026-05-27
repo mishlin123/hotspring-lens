@@ -5,7 +5,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'About the 1000 Springs Project — the research collaboration between GNS Science and the University of Waikato documenting geothermal ecosystems across the Taupō Volcanic Zone.',
+    'About the 1000 Springs Project, a research collaboration between GNS Science and the University of Waikato documenting geothermal ecosystems across the Taupō Volcanic Zone.',
 }
 
 const BASE = 'https://1000springs.org.nz/static/img'
@@ -314,7 +314,7 @@ export default function AboutPage() {
           <div className="lg:col-span-3">
             <SectionLabel>Primary goal</SectionLabel>
             <h2 className="text-2xl font-bold text-slate-800 mb-4">
-              Mapping a thousand geothermal worlds
+              Mapping geothermal ecosystem diversity
             </h2>
             <blockquote className="border-l-4 border-teal-500 pl-5 mb-5">
               <p className="text-slate-700 italic text-lg leading-relaxed">
@@ -326,7 +326,7 @@ export default function AboutPage() {
             <p className="text-slate-600 text-sm leading-relaxed mb-6">
               Beyond documentation, the project aims to assess the conservation, cultural,
               recreational, and resource development value of microbial components in these
-              geothermal ecosystems — knowledge that informs science, policy, and kaitiakitanga.
+              geothermal ecosystems. This knowledge informs science, policy, and kaitiakitanga.
             </p>
             {/* TVZ map */}
             <div className="rounded-xl overflow-hidden border border-slate-200">
@@ -346,7 +346,7 @@ export default function AboutPage() {
           </div>
           <div className="lg:col-span-2 bg-teal-50 border border-teal-100 rounded-2xl p-6">
             <p className="text-xs font-bold uppercase tracking-widest text-teal-600 mb-4">
-              This knowledge serves
+              Relevant groups
             </p>
             <ul className="space-y-2.5">
               {stakeholders.map(s => (
@@ -546,7 +546,7 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold text-slate-800 mb-2">About this website</h2>
           <p className="text-slate-500 mb-8">
             This explorer is a free, non-commercial tool for making the 1000 Springs dataset
-            accessible to a broader audience — tourists, students, teachers, and researchers.
+            accessible to tourists, students, teachers, and researchers.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
@@ -556,7 +556,7 @@ export default function AboutPage() {
                 {[
                   'A web-based field guide to NZ geothermal springs',
                   'Built on the 1000 Springs Project dataset',
-                  'Free and open to everyone — no sign-up required',
+                  'Free and open to everyone, with no sign-up required',
                   'Used under CC BY-NC-SA 4.0 licence',
                 ].map(item => (
                   <li key={item} className="flex gap-2 items-start">
@@ -569,8 +569,8 @@ export default function AboutPage() {
               <h3 className="font-semibold text-amber-900 mb-3">What this is not</h3>
               <ul className="space-y-2 text-sm text-amber-800">
                 {[
-                  'Not commercial — no ads, subscriptions, or purchases',
-                  'Not a navigation tool — do not use it to access springs',
+                  'Not commercial. No ads, subscriptions, or purchases.',
+                  'Not a navigation tool. Do not use it to access springs.',
                   'Not endorsed by 1000 Springs, GNS, or University of Waikato',
                   'Not a source of cultural history or interpretation',
                   'Not affiliated with any tourism operator or landowner',
@@ -588,7 +588,7 @@ export default function AboutPage() {
               <h3 className="font-semibold text-slate-800 mb-2">A note on microbiology</h3>
               <p className="text-sm text-slate-600 leading-relaxed mb-2">
                 Microbial diversity data comes from 16S rRNA amplicon sequencing. Identifications
-                are to varying taxonomic ranks — domain down to genus in some cases. This explorer
+                are assigned to varying taxonomic ranks, from domain down to genus in some cases. This explorer
                 deliberately avoids overclaiming species-level precision because the data does not
                 support it.
               </p>
@@ -616,7 +616,7 @@ export default function AboutPage() {
               href="/explore"
               className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
             >
-              Explore springs →
+              Explore springs
             </Link>
             <Link
               href="/attribution"
@@ -630,7 +630,7 @@ export default function AboutPage() {
               rel="noopener noreferrer"
               className="border border-slate-300 text-slate-600 hover:bg-slate-100 font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
             >
-              Official project site ↗
+              Official project site
             </a>
           </div>
         </div>

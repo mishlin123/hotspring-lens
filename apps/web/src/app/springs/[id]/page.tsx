@@ -113,7 +113,7 @@ export default function SpringDetailPage({ params }: Props) {
           <section className="bg-white rounded-xl border border-slate-200 p-5">
             <h2 className="text-lg font-semibold text-slate-800 mb-1">Microbial Diversity</h2>
             <p className="text-xs text-slate-400 mb-3">
-              16S rRNA amplicon data. Ranks span domain to genus — do not interpret as species
+              16S rRNA amplicon data. Ranks span domain to genus; do not interpret these as species
               identifications.
             </p>
             <TaxaDisplay taxa={spring.top_taxa} totalCount={spring.taxonomy_record_count} />

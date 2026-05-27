@@ -10,7 +10,7 @@ export default function AttributionPage() {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <h1 className="text-3xl font-bold text-slate-800 mb-2">Attribution & Licence</h1>
       <p className="text-slate-500 mb-10">
-        Full attribution for the data and tools used in 1000 Springs.
+        Data sources, licence terms, and tool acknowledgements for this explorer.
       </p>
 
       {/* Primary attribution */}

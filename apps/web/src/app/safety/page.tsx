@@ -11,7 +11,7 @@ export default function SafetyPage() {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <h1 className="text-3xl font-bold text-slate-800 mb-2">Safety Guidelines</h1>
       <p className="text-slate-500 mb-8">
-        Geothermal springs in New Zealand are beautiful and scientifically fascinating — they are
+        Geothermal springs in New Zealand are beautiful and scientifically significant, but they are
         also dangerous. Please read this before visiting any spring.
       </p>
 
@@ -34,7 +34,7 @@ export default function SafetyPage() {
 
       {/* Rules */}
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-slate-800 mb-4">Rules to follow always</h2>
+        <h2 className="text-xl font-semibold text-slate-800 mb-4">Rules to follow at all times</h2>
         <div className="space-y-3">
           {[
             {
@@ -89,7 +89,7 @@ export default function SafetyPage() {
         <ul className="space-y-2 text-sm text-amber-800">
           <li>• Call <strong>111</strong> (New Zealand emergency services)</li>
           <li>• Get clear of the geothermal area immediately</li>
-          <li>• For burns: cool with clean running water for 20 minutes — do not use ice</li>
+          <li>• For burns: cool with clean running water for 20 minutes. Do not use ice</li>
           <li>• Alert other visitors and site staff</li>
         </ul>
       </section>
@@ -111,7 +111,7 @@ export default function SafetyPage() {
           href="/explore"
           className="inline-block bg-teal-600 hover:bg-teal-700 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
         >
-          Continue to explorer →
+          Continue to explorer
         </Link>
       </div>
     </div>
