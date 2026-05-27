@@ -27,7 +27,7 @@ export default function HomePage() {
             Taupō Volcanic Zone · Aotearoa New Zealand
           </p>
           <h1 className="text-4xl sm:text-5xl font-bold mb-5 leading-tight tracking-tight">
-            New Zealand's geothermal springs — documented and explained
+            New Zealand's geothermal springs
           </h1>
           <p className="text-slate-300 text-lg mb-8 max-w-xl leading-relaxed">
             A free, non-commercial field guide to the microbiology, chemistry, and geothermal
