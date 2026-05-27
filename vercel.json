@@ -1,5 +1,4 @@
 {
   "name": "hotspring-lens",
-  "rootDirectory": "apps/web",
   "framework": "nextjs"
 }
