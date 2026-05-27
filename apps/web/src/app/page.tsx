@@ -101,28 +101,28 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                icon: '🗺️',
+                label: '01',
                 title: 'Tourists',
                 body: "Understand what you're seeing. Get plain-language science, safety warnings, and site context.",
               },
               {
-                icon: '🔬',
+                label: '02',
                 title: 'Researchers & Students',
                 body: 'Access sample numbers, pH, temperature, chemistry analytes, and microbial taxonomy.',
               },
               {
-                icon: '📚',
+                label: '03',
                 title: 'Teachers',
                 body: 'Reliable, attribution-compliant content for classroom and outreach use.',
               },
               {
-                icon: '⚗️',
+                label: '04',
                 title: 'Microbiologists',
                 body: 'Explore thermal gradient communities, sequence read diversity, and geochemical context.',
               },
             ].map(card => (
               <div key={card.title} className="bg-slate-50 rounded-xl p-5">
-                <div className="text-3xl mb-3">{card.icon}</div>
+                <p className="text-xs font-bold text-teal-600 tracking-widest mb-3">{card.label}</p>
                 <h3 className="font-semibold text-slate-800 mb-1">{card.title}</h3>
                 <p className="text-sm text-slate-600">{card.body}</p>
               </div>
@@ -157,7 +157,8 @@ export default function HomePage() {
               <ul className="space-y-1">
                 {section.items.map(item => (
                   <li key={item} className="text-sm text-slate-600 flex items-center gap-2">
-                    <span className="text-teal-400">✓</span> {item}
+                    <span className="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0" />
+                    {item}
                   </li>
                 ))}
               </ul>
@@ -169,7 +170,7 @@ export default function HomePage() {
       {/* Safety callout */}
       <section className="bg-amber-50 border-y border-amber-200 py-10 px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-3xl mb-3">⚠️</p>
+          <div className="inline-flex items-center justify-center w-10 h-10 rounded-full border-2 border-amber-600 text-amber-700 font-bold text-lg mb-4">!</div>
           <h2 className="text-xl font-bold text-amber-900 mb-3">Safety first</h2>
           <p className="text-amber-800 mb-4">
             Hot springs can cause serious injury or death. Stay on marked paths, follow local signs,

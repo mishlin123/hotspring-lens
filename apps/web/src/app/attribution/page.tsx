@@ -68,41 +68,27 @@ export default function AttributionPage() {
       <section className="mb-8">
         <h2 className="text-xl font-semibold text-slate-800 mb-3">Licence summary (CC BY-NC-SA 4.0)</h2>
         <div className="bg-white border border-slate-200 rounded-lg p-5 space-y-3 text-sm text-slate-600">
-          <div className="flex gap-3">
-            <span className="text-green-600 font-bold flex-shrink-0">✓</span>
-            <div>
-              <p className="font-medium text-slate-800">Share</p>
-              <p>You may copy and redistribute the material in any medium or format.</p>
+          {[
+            { type: 'allowed', label: 'Share', detail: 'You may copy and redistribute the material in any medium or format.' },
+            { type: 'allowed', label: 'Adapt', detail: 'You may remix, transform, and build upon the material.' },
+            { type: 'condition', label: 'Attribution required', detail: 'You must give appropriate credit, provide a link to the licence, and indicate if changes were made.' },
+            { type: 'restricted', label: 'NonCommercial', detail: 'You may not use this material for commercial purposes.' },
+            { type: 'condition', label: 'ShareAlike', detail: 'If you remix or adapt, you must distribute under the same CC BY-NC-SA licence.' },
+          ].map(item => (
+            <div key={item.label} className="flex gap-3">
+              <span className={`text-xs font-bold px-1.5 py-0.5 rounded flex-shrink-0 mt-0.5 h-fit ${
+                item.type === 'allowed' ? 'bg-green-100 text-green-700' :
+                item.type === 'restricted' ? 'bg-red-100 text-red-700' :
+                'bg-amber-100 text-amber-700'
+              }`}>
+                {item.type === 'allowed' ? 'YES' : item.type === 'restricted' ? 'NO' : 'COND'}
+              </span>
+              <div>
+                <p className="font-medium text-slate-800">{item.label}</p>
+                <p>{item.detail}</p>
+              </div>
             </div>
-          </div>
-          <div className="flex gap-3">
-            <span className="text-green-600 font-bold flex-shrink-0">✓</span>
-            <div>
-              <p className="font-medium text-slate-800">Adapt</p>
-              <p>You may remix, transform, and build upon the material.</p>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <span className="text-amber-600 font-bold flex-shrink-0">→</span>
-            <div>
-              <p className="font-medium text-slate-800">Attribution required</p>
-              <p>You must give appropriate credit, provide a link to the licence, and indicate if changes were made.</p>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <span className="text-red-500 font-bold flex-shrink-0">✗</span>
-            <div>
-              <p className="font-medium text-slate-800">NonCommercial</p>
-              <p>You may not use this material for commercial purposes.</p>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <span className="text-amber-600 font-bold flex-shrink-0">→</span>
-            <div>
-              <p className="font-medium text-slate-800">ShareAlike</p>
-              <p>If you remix or adapt, you must distribute under the same CC BY-NC-SA licence.</p>
-            </div>
-          </div>
+          ))}
         </div>
         <p className="text-xs text-slate-400 mt-2">
           This is a summary, not legal advice. See the full licence at{' '}

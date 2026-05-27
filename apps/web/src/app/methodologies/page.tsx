@@ -650,7 +650,7 @@ export default function MethodologiesPage() {
         <div className="max-w-5xl mx-auto">
           <SectionAnchor id="safety" />
           <div className="flex items-center gap-3 mb-6">
-            <span className="text-3xl">⚠️</span>
+            <div className="w-10 h-10 rounded-full border-2 border-amber-600 text-amber-700 font-bold text-lg flex items-center justify-center flex-shrink-0">!</div>
             <div>
               <SectionLabel>04 — Health &amp; Safety</SectionLabel>
               <h2 className="text-2xl font-bold text-amber-900">Geothermal field safety</h2>
@@ -689,8 +689,8 @@ export default function MethodologiesPage() {
               <h3 className="font-semibold text-amber-900 mb-4">Personal protective equipment &amp; emergency kit</h3>
               <ul className="space-y-2">
                 {ppeItems.map(item => (
-                  <li key={item} className="flex gap-2 text-sm text-amber-800 bg-white border border-amber-200 rounded-lg px-4 py-2.5">
-                    <span className="text-amber-500 flex-shrink-0">✓</span>
+                  <li key={item} className="flex gap-3 text-sm text-amber-800 bg-white border border-amber-200 rounded-lg px-4 py-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0 mt-1.5" />
                     {item}
                   </li>
                 ))}

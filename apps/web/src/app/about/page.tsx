@@ -32,30 +32,30 @@ const researchAims = [
 
 const outputs = [
   {
-    icon: '🗄️',
+    label: 'DB',
     title: 'Online database',
     body: 'A publicly accessible database of geothermal spring records, measurements, and microbial diversity data.',
   },
   {
-    icon: '🧬',
+    label: 'DNA',
     title: 'Genetic archive',
     body: 'A curated archive of environmental DNA samples preserved for future research.',
   },
   {
-    icon: '📊',
+    label: 'MTR',
     title: 'Uniqueness metric',
     body: 'A quantitative tool for assessing the conservation and scientific value of individual geothermal features.',
   },
 ]
 
 const stakeholders = [
-  { icon: '🏡', label: 'Landowners' },
-  { icon: '🪶', label: 'Māori communities' },
-  { icon: '⚡', label: 'Energy companies' },
-  { icon: '🔬', label: 'Biotechnology sector' },
-  { icon: '🗺️', label: 'Tourism operators' },
-  { icon: '🏛️', label: 'Government agencies' },
-  { icon: '📚', label: 'Scientific community' },
+  'Landowners',
+  'Māori communities',
+  'Energy companies',
+  'Biotechnology sector',
+  'Tourism operators',
+  'Government agencies',
+  'Scientific community',
 ]
 
 const team = [
@@ -350,9 +350,9 @@ export default function AboutPage() {
             </p>
             <ul className="space-y-2.5">
               {stakeholders.map(s => (
-                <li key={s.label} className="flex items-center gap-3 text-sm text-teal-900">
-                  <span className="text-xl">{s.icon}</span>
-                  {s.label}
+                <li key={s} className="flex items-center gap-3 text-sm text-teal-900">
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0" />
+                  {s}
                 </li>
               ))}
             </ul>
@@ -384,7 +384,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {outputs.map(o => (
             <div key={o.title} className="flex flex-col gap-3">
-              <div className="text-3xl">{o.icon}</div>
+              <span className="inline-block bg-teal-100 text-teal-700 text-xs font-bold tracking-widest px-2 py-1 rounded w-fit">{o.label}</span>
               <h3 className="font-semibold text-slate-800">{o.title}</h3>
               <p className="text-sm text-slate-600 leading-relaxed">{o.body}</p>
             </div>
@@ -559,8 +559,8 @@ export default function AboutPage() {
                   'Free and open to everyone — no sign-up required',
                   'Used under CC BY-NC-SA 4.0 licence',
                 ].map(item => (
-                  <li key={item} className="flex gap-2">
-                    <span className="text-teal-500 flex-shrink-0">✓</span> {item}
+                  <li key={item} className="flex gap-2 items-start">
+                    <span className="w-1.5 h-1.5 rounded-full bg-teal-500 flex-shrink-0 mt-1.5" /> {item}
                   </li>
                 ))}
               </ul>
@@ -575,8 +575,8 @@ export default function AboutPage() {
                   'Not a source of cultural history or interpretation',
                   'Not affiliated with any tourism operator or landowner',
                 ].map(item => (
-                  <li key={item} className="flex gap-2">
-                    <span className="flex-shrink-0">✗</span> {item}
+                  <li key={item} className="flex gap-2 items-start">
+                    <span className="w-3 h-0.5 bg-amber-500 flex-shrink-0 mt-2" /> {item}
                   </li>
                 ))}
               </ul>

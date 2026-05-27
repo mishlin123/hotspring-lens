@@ -18,7 +18,7 @@ export default function SafetyPage() {
       {/* Main warning */}
       <div className="bg-red-50 border border-red-300 rounded-xl p-6 mb-8">
         <div className="flex gap-3 items-start">
-          <span className="text-red-500 text-2xl flex-shrink-0">⚠</span>
+          <div className="w-8 h-8 rounded-full border-2 border-red-500 text-red-600 font-bold text-sm flex items-center justify-center flex-shrink-0 mt-0.5">!</div>
           <div>
             <h2 className="text-lg font-bold text-red-800 mb-2">
               Hot springs can cause serious injury or death
@@ -38,48 +38,42 @@ export default function SafetyPage() {
         <div className="space-y-3">
           {[
             {
-              icon: '🚧',
               title: 'Stay on marked paths',
               body: 'Never leave marked walking tracks or boardwalks at geothermal areas. Unmarked ground may look solid but can be thin crust over boiling water.',
             },
             {
-              icon: '🚫',
               title: 'Never cross barriers',
               body: 'Barriers exist for your protection. Do not climb over, duck under, or move barriers for any reason, including photography.',
             },
             {
-              icon: '📋',
               title: 'Follow local signs and instructions',
               body: 'Follow all instructions posted at geothermal sites and from site staff or rangers. Rules differ between sites.',
             },
             {
-              icon: '🗺️',
               title: 'Do not use this app for navigation',
               body: '1000 Springs is an educational tool. Do not use it to navigate to springs or plan routes. Location data may be approximate.',
             },
             {
-              icon: '🔒',
               title: 'Respect access status',
               body: 'Many springs are on private land or in restricted areas. This app does not grant access permission. Always check access status and get permission before visiting.',
             },
             {
-              icon: '🙏',
               title: 'Respect cultural significance',
               body: 'Many geothermal areas are tapu (sacred) to local Māori and have deep cultural significance. Treat them with respect and follow any cultural protocols requested by mana whenua.',
             },
             {
-              icon: '🌡️',
               title: 'Never touch or enter spring water without authorisation',
               body: 'Water temperatures can be deceptively cool at the surface and scalding below. Immersion in geothermal water without scientific authorisation and safety equipment can be fatal.',
             },
             {
-              icon: '👧',
               title: 'Keep children and pets close',
-              body: 'Children and animals can move quickly. Always keep them within arm\'s reach at geothermal sites.',
+              body: "Children and animals can move quickly. Always keep them within arm's reach at geothermal sites.",
             },
-          ].map(rule => (
-            <div key={rule.title} className="flex gap-3 bg-white border border-slate-200 rounded-lg p-4">
-              <span className="text-2xl flex-shrink-0">{rule.icon}</span>
+          ].map((rule, i) => (
+            <div key={rule.title} className="flex gap-4 bg-white border border-slate-200 rounded-lg p-4">
+              <span className="text-xs font-bold text-slate-400 w-6 flex-shrink-0 mt-0.5 tabular-nums">
+                {String(i + 1).padStart(2, '0')}
+              </span>
               <div>
                 <p className="font-semibold text-slate-800 mb-0.5">{rule.title}</p>
                 <p className="text-sm text-slate-600">{rule.body}</p>
