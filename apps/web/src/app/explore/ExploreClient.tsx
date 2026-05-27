@@ -194,12 +194,12 @@ export default function ExploreClient({ springs, systems, featureTypes, initialS
       {view === 'map' ? (
         <SpringsMap springs={filtered} />
       ) : filtered.length === 0 ? (
-        <div className="text-center py-16 text-slate-400">
-          <p className="text-5xl mb-3">♨</p>
-          <p className="text-lg font-medium mb-1">No springs match these filters</p>
+        <div className="text-center py-16 border border-slate-200 rounded bg-slate-50">
+          <p className="text-sm font-medium text-slate-600 mb-1">No springs match these filters</p>
+          <p className="text-sm text-slate-400 mb-4">Try broadening your search or adjusting the range values</p>
           <button
             onClick={clearFilters}
-            className="text-sm text-teal-600 hover:underline mt-2"
+            className="text-sm text-teal-700 font-medium hover:underline"
           >
             Clear all filters
           </button>

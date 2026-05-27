@@ -53,9 +53,9 @@ export default function SpringDetailPage({ params }: Props) {
 
       {/* Safety warning */}
       {spring.safety_warning && (
-        <div className="bg-amber-50 border border-amber-300 rounded-lg px-4 py-3 mb-6 flex gap-3">
-          <span className="text-amber-600 text-lg flex-shrink-0">⚠</span>
-          <p className="text-sm text-amber-800">{spring.safety_warning}</p>
+        <div className="border-l-4 border-amber-400 bg-amber-50 px-4 py-3 mb-6 flex gap-3">
+          <div className="w-5 h-5 rounded-full border border-amber-500 text-amber-700 font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">!</div>
+          <p className="text-sm text-amber-800 leading-relaxed">{spring.safety_warning}</p>
         </div>
       )}
 
@@ -75,19 +75,15 @@ export default function SpringDetailPage({ params }: Props) {
 
       {/* Title block */}
       <div className="mb-8">
-        <div className="flex flex-wrap gap-2 mb-2">
-          <span className="bg-teal-100 text-teal-800 text-xs font-semibold px-2.5 py-1 rounded-full">
-            {spring.geothermal_system}
-          </span>
-          <span className="bg-slate-100 text-slate-600 text-xs font-semibold px-2.5 py-1 rounded-full">
-            {spring.feature_type}
-          </span>
-          <span className="bg-slate-100 text-slate-500 text-xs px-2.5 py-1 rounded-full font-mono">
-            {spring.sample_number}
-          </span>
-        </div>
-        <h1 className="text-3xl font-bold text-slate-800 mb-1">{spring.name}</h1>
-        <p className="text-slate-500">{spring.location_text}</p>
+        <p className="text-xs text-slate-500 mb-2 font-medium">
+          {spring.geothermal_system}
+          <span className="mx-2 text-slate-300">·</span>
+          {spring.feature_type}
+          <span className="mx-2 text-slate-300">·</span>
+          <span className="font-mono">{spring.sample_number}</span>
+        </p>
+        <h1 className="text-3xl font-bold text-slate-800 mb-1 tracking-tight">{spring.name}</h1>
+        <p className="text-slate-500 text-sm">{spring.location_text}</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
