@@ -7,3 +7,7 @@ data/raw/1000springs_urls.csv
 data/raw/sm
 tools/collect_1000springs_urls.py
 tools/find_sample_site_urls.py
+data/raw/html/
+data/raw/chemistry_json/
+data/raw/taxonomy_json/
+data/raw/ajax_test/
