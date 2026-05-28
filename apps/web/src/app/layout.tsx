@@ -63,8 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </div>
             <p className="text-xs text-slate-500 border-t border-slate-700 pt-4">
-              Data from the 1000 Springs Project. Used under CC BY-NC-SA 4.0. Not endorsed by the
-              1000 Springs Project, GNS Science, University of Waikato, iwi/hapū, or landowners.
+              Data from the 1000 Springs Project. Used under CC BY-NC-SA 4.0.
             </p>
           </div>
         </footer>
