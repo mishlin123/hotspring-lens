@@ -98,7 +98,10 @@ function ClickableBar({
 }
 
 /** pH vs Temperature scatter plot — pure SVG with React hover tooltip */
-function ScatterPlot({ springs }: { springs: SpringSummary[] }) {
+function ScatterPlot({ springs, systemColorMap }: {
+  springs: SpringSummary[]
+  systemColorMap: Record<string, string>
+}) {
   const router = useRouter()
   const wrapRef = useRef<HTMLDivElement>(null)
   const [tooltip, setTooltip] = useState<{
@@ -109,12 +112,6 @@ function ScatterPlot({ springs }: { springs: SpringSummary[] }) {
   const PAD = { top: 8, right: 8, bottom: 28, left: 28 }
   const plotW = W - PAD.left - PAD.right
   const plotH = H - PAD.top - PAD.bottom
-
-  // Same system palette as the map
-  const systemColorMap = useMemo(() => {
-    const systems = Array.from(new Set(springs.map(s => s.geothermal_system))).sort()
-    return Object.fromEntries(systems.map((sys, i) => [sys, SYSTEM_PALETTE[i % SYSTEM_PALETTE.length]]))
-  }, [springs])
 
   const pts = springs.filter(s => s.temperature_c !== null && s.ph !== null)
   if (pts.length === 0) return null
@@ -379,7 +376,7 @@ export default function DatasetInsights({
           <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
             pH vs temperature
           </p>
-          <ScatterPlot springs={filteredSprings} />
+          <ScatterPlot springs={filteredSprings} systemColorMap={systemColors} />
           <p className="text-xs text-slate-400 mt-1">
             Colour by geothermal system · hover for details · click to open spring
           </p>
