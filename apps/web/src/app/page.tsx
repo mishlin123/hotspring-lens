@@ -31,8 +31,8 @@ export default function HomePage() {
           </h1>
           <p className="text-slate-300 text-lg mb-8 max-w-xl leading-relaxed">
             A free, non-commercial field guide to the microbiology, chemistry, and geothermal
-            science of hot springs across the Taupō Volcanic Zone. Built on the 1000 Springs
-            Project dataset.
+            science of hot springs across the Taupō Volcanic Zone. It uses data from the 1000
+            Springs Project.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
@@ -87,16 +87,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Who uses this */}
+      {/* Who this is for */}
       <section className="border-y border-slate-200 py-14 px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-xl font-semibold text-slate-800 mb-1">Who uses this</h2>
-          <p className="text-slate-500 text-sm mb-8">Free and open to everyone — no sign-up, no ads.</p>
+          <h2 className="text-xl font-semibold text-slate-800 mb-1">Who this is for</h2>
+          <p className="text-slate-500 text-sm mb-8">Free and open to everyone. No sign-up, no ads.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-16 gap-y-6">
             {[
               {
                 title: 'Tourists and visitors',
-                body: "Understand what you're looking at. Plain-language science, safety context, and site information — without hype.",
+                body: "Understand what you are looking at. Plain-language science, safety context, and site information without hype.",
               },
               {
                 title: 'Students and teachers',
@@ -156,7 +156,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Safety notice — integrated, not interstitial */}
+      {/* Safety notice, integrated rather than interstitial */}
       <section className="border-t border-slate-200 bg-slate-50 py-10 px-4">
         <div className="max-w-3xl mx-auto flex gap-6 items-start">
           <div className="w-px self-stretch bg-amber-400 flex-shrink-0" />
@@ -168,7 +168,7 @@ export default function HomePage() {
               Many springs are on private land or in areas of cultural sensitivity.
             </p>
             <Link href="/safety" className="text-sm text-teal-700 font-medium hover:underline">
-              Read the full safety guidelines →
+              Read the full safety guidelines
             </Link>
           </div>
         </div>
