@@ -29,7 +29,7 @@ interface Props {
 export default function ExploreClient({ springs, systems, featureTypes, initialSystem = '', initialCompareIds = [] }: Props) {
   const [search, setSearch]             = useState('')
   const [system, setSystem]             = useState(initialSystem)
-  const [featureType, setFeatureType]   = useState('')
+  const [featureType, setFeatureType]   = useState<string[]>([])
   const [tempMin, setTempMin]           = useState('')
   const [tempMax, setTempMax]           = useState('')
   const [phMin, setPhMin]               = useState('')
@@ -55,8 +55,8 @@ export default function ExploreClient({ springs, systems, featureTypes, initialS
         const inSystem   = (s.geothermal_system ?? '').toLowerCase().includes(q)
         if (!inName && !inLocation && !inSystem) return false
       }
-      if (system      && s.geothermal_system !== system)      return false
-      if (featureType && s.feature_type      !== featureType) return false
+      if (system                  && s.geothermal_system !== system)                   return false
+      if (featureType.length > 0 && !featureType.includes(s.feature_type))           return false
       if (tMin !== null && (s.temperature_c === null || s.temperature_c < tMin)) return false
       if (tMax !== null && (s.temperature_c === null || s.temperature_c > tMax)) return false
       if (pMin !== null && (s.ph === null || s.ph < pMin)) return false
@@ -84,14 +84,14 @@ export default function ExploreClient({ springs, systems, featureTypes, initialS
   const clearFilters = useCallback(() => {
     setSearch('')
     setSystem('')
-    setFeatureType('')
+    setFeatureType([])
     setTempMin('')
     setTempMax('')
     setPhMin('')
     setPhMax('')
   }, [])
 
-  const hasFilters = search || system || featureType || tempMin || tempMax || phMin || phMax
+  const hasFilters = search || system || featureType.length > 0 || tempMin || tempMax || phMin || phMax
 
   const toggleCompare = useCallback((id: string) => {
     setCompareIds(prev =>
@@ -131,7 +131,7 @@ export default function ExploreClient({ springs, systems, featureTypes, initialS
           activeSystem={system}
           activeFeatureType={featureType}
           onSystemClick={sys => setSystem(sys)}
-          onFeatureTypeClick={ft => setFeatureType(ft)}
+          onFeatureTypeClick={ft => setFeatureType(prev => prev.includes(ft) ? prev.filter(x => x !== ft) : [...prev, ft])}
         />
       )}
 
@@ -157,11 +157,11 @@ export default function ExploreClient({ springs, systems, featureTypes, initialS
             {systems.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
           <select
-            value={featureType}
-            onChange={e => setFeatureType(e.target.value)}
+            value={featureType.length === 1 ? featureType[0] : ''}
+            onChange={e => setFeatureType(e.target.value ? [e.target.value] : [])}
             className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 bg-white"
           >
-            <option value="">All types</option>
+            <option value="">{featureType.length > 1 ? `${featureType.length} types selected` : 'All types'}</option>
             {featureTypes.map(t => <option key={t} value={t}>{t}</option>)}
           </select>
         </div>

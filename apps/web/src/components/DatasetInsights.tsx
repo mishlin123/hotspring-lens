@@ -10,7 +10,7 @@ interface Props {
   allSprings: SpringSummary[]       // full dataset — drives system/feature bars
   filteredSprings: SpringSummary[]  // current filter result — drives distributions
   activeSystem: string
-  activeFeatureType: string
+  activeFeatureType: string[]
   onSystemClick: (system: string) => void
   onFeatureTypeClick: (type: string) => void
 }
@@ -411,8 +411,8 @@ export default function DatasetInsights({
                 count={count}
                 maxCount={maxFtCount}
                 color="#00AECC"
-                active={activeFeatureType === type}
-                onClick={() => onFeatureTypeClick(activeFeatureType === type ? '' : type)}
+                active={activeFeatureType.includes(type)}
+                onClick={() => onFeatureTypeClick(type)}
               />
             ))}
           </div>
