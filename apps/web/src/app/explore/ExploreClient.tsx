@@ -16,7 +16,7 @@ const SpringsMap = dynamic(() => import('@/components/SpringsMap'), {
   ),
 })
 
-type SortKey = 'name' | 'tempDesc' | 'tempAsc' | 'phAsc' | 'phDesc' | 'taxDesc'
+type SortKey = 'name' | 'tempDesc' | 'tempAsc' | 'phAsc' | 'phDesc' | 'taxDesc' | 'distinctDesc'
 
 interface Props {
   springs: SpringSummary[]
@@ -76,8 +76,9 @@ export default function ExploreClient({ springs, systems, featureTypes, analytes
       case 'tempAsc':  return arr.sort((a, b) => (a.temperature_c ?? Infinity)  - (b.temperature_c ?? Infinity))
       case 'phAsc':    return arr.sort((a, b) => (a.ph ?? Infinity)             - (b.ph ?? Infinity))
       case 'phDesc':   return arr.sort((a, b) => (b.ph ?? -Infinity)            - (a.ph ?? -Infinity))
-      case 'taxDesc':  return arr.sort((a, b) => b.taxonomy_record_count        - a.taxonomy_record_count)
-      default:         return arr.sort((a, b) => a.name.localeCompare(b.name))
+      case 'taxDesc':      return arr.sort((a, b) => b.taxonomy_record_count - a.taxonomy_record_count)
+      case 'distinctDesc': return arr.sort((a, b) => (b.distinctiveness_score ?? -1) - (a.distinctiveness_score ?? -1))
+      default:             return arr.sort((a, b) => a.name.localeCompare(b.name))
     }
   }, [filtered, sortBy])
 
@@ -204,6 +205,7 @@ export default function ExploreClient({ springs, systems, featureTypes, analytes
               <option value="phAsc">Sort: Most acidic first</option>
               <option value="phDesc">Sort: Most alkaline first</option>
               <option value="taxDesc">Sort: Most taxonomy data</option>
+              <option value="distinctDesc">Sort: Most distinctive</option>
             </select>
           )}
 

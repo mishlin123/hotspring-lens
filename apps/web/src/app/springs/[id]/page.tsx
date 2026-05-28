@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getAllSprings, getSpringById } from '@/lib/data'
+import { getAllSprings, getSpringById, getDistinctivenessBreakdown } from '@/lib/data'
+import type { DistinctivenessBreakdown } from '@/lib/types'
 import TaxaDisplay from '@/components/TaxaDisplay'
 import ChemistryDisplay from '@/components/ChemistryDisplay'
 
@@ -85,11 +86,113 @@ function DetailRow({ label, value, unit }: { label: string; value: string | numb
   )
 }
 
+// ─── Distinctiveness section ──────────────────────────────────────────────────
+
+function scoreLabel(score: number): string {
+  if (score >= 80) return 'Highly distinctive'
+  if (score >= 60) return 'Notably distinctive'
+  if (score >= 40) return 'Moderately distinctive'
+  return 'Common community profile'
+}
+
+function scoreColor(score: number): { text: string; bar: string; bg: string } {
+  if (score >= 80) return { text: 'text-emerald-700', bar: 'bg-emerald-500', bg: 'bg-emerald-50' }
+  if (score >= 60) return { text: 'text-teal-700',    bar: 'bg-teal-500',    bg: 'bg-teal-50' }
+  if (score >= 40) return { text: 'text-amber-700',   bar: 'bg-amber-500',   bg: 'bg-amber-50' }
+  return              { text: 'text-slate-600',    bar: 'bg-slate-400',   bg: 'bg-slate-50' }
+}
+
+interface ComponentRowProps {
+  label: string
+  score: number
+  description: string
+}
+
+function ComponentRow({ label, score, description }: ComponentRowProps) {
+  return (
+    <div className="flex items-center gap-3 py-1.5">
+      <div className="w-32 flex-shrink-0">
+        <p className="text-xs font-medium text-slate-700 leading-tight">{label}</p>
+        <p className="text-[10px] text-slate-500 leading-tight mt-0.5">{description}</p>
+      </div>
+      <div className="flex-1 bg-slate-100 rounded-full h-2 overflow-hidden">
+        <div
+          className="h-full rounded-full bg-teal-500 transition-all"
+          style={{ width: `${score}%` }}
+        />
+      </div>
+      <span className="text-xs font-semibold text-slate-700 w-7 text-right flex-shrink-0">{score}</span>
+    </div>
+  )
+}
+
+function DistinctivenessSection({ d }: { d: DistinctivenessBreakdown }) {
+  if (!d.has_taxonomy) return null
+  const colors = scoreColor(d.score)
+  return (
+    <section className="bg-white rounded-xl border border-slate-200 p-5">
+      <h2 className="text-lg font-semibold text-slate-800 mb-1">Distinctiveness</h2>
+      <p className="text-xs text-slate-500 mb-4">
+        Computed from genus-level taxon rarity across {d.total_taxa > 0 ? '755' : '—'} sampled springs.
+        Not equivalent to phylogenetic uniqueness (UniFrac).
+      </p>
+
+      {/* Score badge */}
+      <div className={`inline-flex items-center gap-3 rounded-lg px-4 py-2.5 mb-4 ${colors.bg}`}>
+        <span className={`text-3xl font-black tabular-nums ${colors.text}`}>{d.score}</span>
+        <div>
+          <p className={`text-sm font-semibold leading-tight ${colors.text}`}>{scoreLabel(d.score)}</p>
+          <p className="text-xs text-slate-500">out of 100</p>
+        </div>
+      </div>
+
+      {/* Component breakdown */}
+      <div className="space-y-0.5 mb-4">
+        <ComponentRow
+          label="National rarity"
+          score={d.rarity_score}
+          description="How rarely its top genera appear across NZ springs"
+        />
+        <ComponentRow
+          label="Community evenness"
+          score={d.evenness_score}
+          description="How spread reads are across taxa vs one dominant"
+        />
+        <ComponentRow
+          label="Taxon richness"
+          score={d.richness_score}
+          description="Number of detected taxa relative to other springs"
+        />
+      </div>
+
+      {/* Rare taxa callout */}
+      {d.rare_taxa.length > 0 && (
+        <div className="bg-slate-50 rounded-lg px-3 py-2.5 mb-3 border border-slate-100">
+          <p className="text-xs font-semibold text-slate-700 mb-1">
+            {d.rare_taxa.length === 1 ? '1 rarely-seen genus' : `${d.rare_taxa.length} rarely-seen genera`}
+            <span className="font-normal text-slate-500"> (≤5 springs nationally)</span>
+          </p>
+          <p className="text-xs text-slate-700">{d.rare_taxa.join(' · ')}</p>
+        </div>
+      )}
+
+      {/* Dominance note */}
+      {d.top_taxon_pct !== null && (
+        <p className="text-xs text-slate-500">
+          Top genus accounts for <span className="font-medium text-slate-700">{d.top_taxon_pct}%</span> of
+          the top-10 sequencing reads at this site.
+        </p>
+      )}
+    </section>
+  )
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function SpringDetailPage({ params }: Props) {
   const spring = getSpringById(params.id)
   if (!spring) notFound()
+  const distinctiveness = getDistinctivenessBreakdown(params.id)
 
   return (
     <div>
@@ -179,6 +282,9 @@ export default function SpringDetailPage({ params }: Props) {
             </p>
             <TaxaDisplay taxa={spring.top_taxa} totalCount={spring.taxonomy_record_count} />
           </section>
+
+          {/* Distinctiveness */}
+          {distinctiveness && <DistinctivenessSection d={distinctiveness} />}
         </div>
 
         {/* Right: measurements + location + attribution */}

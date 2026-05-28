@@ -60,4 +60,16 @@ export interface SpringSummary {
   chemistry_record_count: number
   taxonomy_record_count: number
   analytes: string[]
+  distinctiveness_score: number | null
+}
+
+export interface DistinctivenessBreakdown {
+  score: number               // 0–100 composite
+  rarity_score: number        // 0–100: how nationally rare the top genera are
+  evenness_score: number      // 0–100: how spread across taxa vs one dominant
+  richness_score: number      // 0–100: taxon richness relative to all springs
+  rare_taxa: string[]         // top genera found in ≤5 springs nationally
+  top_taxon_pct: number | null // % of top-10 reads from the single most abundant taxon
+  total_taxa: number           // taxonomy_record_count
+  has_taxonomy: boolean
 }
