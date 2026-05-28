@@ -56,7 +56,7 @@ export default function AttributionPage() {
 
       {/* Required attribution text */}
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-slate-800 mb-3">Required attribution text</h2>
+        <h2 className="text-2xl font-semibold text-slate-800 mb-3">Required attribution text</h2>
         <div className="bg-slate-100 rounded-lg p-4 text-sm text-slate-700 border border-slate-200">
           1000 Springs Project authors, GNS Science, and University of Waikato.
           Data used under CC BY-NC-SA 4.0.
@@ -66,7 +66,7 @@ export default function AttributionPage() {
 
       {/* Licence summary */}
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-slate-800 mb-3">Licence summary (CC BY-NC-SA 4.0)</h2>
+        <h2 className="text-2xl font-semibold text-slate-800 mb-3">Licence summary (CC BY-NC-SA 4.0)</h2>
         <div className="bg-white border border-slate-200 rounded-lg p-5 space-y-3 text-sm text-slate-800">
           {[
             { type: 'allowed', label: 'Share', detail: 'You may copy and redistribute the material in any medium or format.' },
@@ -106,7 +106,7 @@ export default function AttributionPage() {
 
       {/* What this project does */}
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-slate-800 mb-3">How this project uses the data</h2>
+        <h2 className="text-2xl font-semibold text-slate-800 mb-3">How this project uses the data</h2>
         <div className="text-sm text-slate-800 space-y-2">
           <p>
             This explorer uses the 1000 Springs Project dataset solely for non-commercial educational and
@@ -126,7 +126,7 @@ export default function AttributionPage() {
 
       {/* Third-party tools */}
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-slate-800 mb-3">Third-party tools and services</h2>
+        <h2 className="text-2xl font-semibold text-slate-800 mb-3">Third-party tools and services</h2>
         <div className="space-y-3 text-sm">
           {[
             {

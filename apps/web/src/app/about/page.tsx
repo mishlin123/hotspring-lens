@@ -344,7 +344,7 @@ export default function AboutPage() {
                 </p>
                 <div>
                   <p className="font-semibold text-slate-800 mb-1">{aim.title}</p>
-                  <p className="text-sm text-slate-800 leading-relaxed">{aim.body}</p>
+                  <p className="text-base text-slate-800 leading-relaxed">{aim.body}</p>
                 </div>
               </div>
             ))}
@@ -523,7 +523,7 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <MetaLabel>About this explorer</MetaLabel>
 
-          <p className="text-sm text-slate-800 leading-relaxed mb-10 max-w-3xl">
+          <p className="text-base text-slate-800 leading-relaxed mb-10 max-w-3xl">
             This explorer is a free, non-commercial tool for making the 1000 Springs Project dataset
             accessible to a broader audience: tourists, students, teachers, and researchers.
           </p>

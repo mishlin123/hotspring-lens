@@ -152,7 +152,7 @@ export default function SpringDetailPage({ params }: Props) {
           {spring.description && (
             <section className="bg-white rounded-xl border border-slate-200 p-5">
               <h2 className="text-lg font-semibold text-slate-800 mb-3">Site description</h2>
-              <p className="text-sm text-slate-800 leading-relaxed">{spring.description}</p>
+              <p className="text-base text-slate-800 leading-relaxed">{spring.description}</p>
               {spring.sample_date && (
                 <p className="text-xs text-slate-500 mt-3">Sampled: {spring.sample_date}</p>
               )}

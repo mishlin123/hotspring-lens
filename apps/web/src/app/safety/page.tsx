@@ -29,7 +29,7 @@ export default function SafetyPage() {
         <p className="text-xl font-bold text-slate-900 mb-2 leading-tight">
           Hot springs can cause serious injury or death.
         </p>
-        <p className="text-sm text-slate-800 leading-relaxed">
+        <p className="text-base text-slate-800 leading-relaxed">
           Spring water can reach temperatures above 100 °C. Ground crusts around springs can be
           thin and collapse without warning. Many springs have steep sides, extreme pH, or toxic
           gas emissions.
@@ -90,7 +90,7 @@ export default function SafetyPage() {
               </p>
               <div>
                 <p className="font-semibold text-slate-800 text-sm mb-1">{rule.title}</p>
-                <p className="text-sm text-slate-800 leading-relaxed">{rule.body}</p>
+                <p className="text-base text-slate-800 leading-relaxed">{rule.body}</p>
               </div>
             </div>
           ))}
