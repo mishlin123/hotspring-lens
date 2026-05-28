@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo, useCallback, useEffect } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, ZoomControl, useMap } from 'react-leaflet'
 import MarkerClusterGroup from 'react-leaflet-cluster'
 import 'leaflet/dist/leaflet.css'
 import 'react-leaflet-cluster/dist/assets/MarkerCluster.css'
@@ -161,7 +161,7 @@ interface Props {
 
 export default function SpringsMap({ springs, height = '520px' }: Props) {
   const [layerMode, setLayerMode] = useState<LayerMode>('temperature')
-  const [baseTile, setBaseTile]   = useState<BaseTile>('street')
+  const [baseTile, setBaseTile]   = useState<BaseTile>('satellite')
 
   const withCoords = useMemo(
     () => springs.filter(s => s.latitude != null && s.longitude != null),
@@ -220,7 +220,9 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
         scrollWheelZoom={true}
         zoomSnap={0}
         wheelPxPerZoomLevel={30}
+        zoomControl={false}
       >
+        <ZoomControl position="bottomleft" />
         <PinchZoomBooster />
         <TileLayer key={baseTile} url={tile.url} attribution={tile.attribution} maxNativeZoom={tile.maxNativeZoom} />
 
