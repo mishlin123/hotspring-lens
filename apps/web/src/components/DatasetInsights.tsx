@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useState, useRef } from 'react'
 import type { SpringSummary } from '@/lib/types'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -96,8 +96,13 @@ function ClickableBar({
   )
 }
 
-/** pH vs Temperature scatter plot — pure SVG, no dependencies */
+/** pH vs Temperature scatter plot — pure SVG with React hover tooltip */
 function ScatterPlot({ springs }: { springs: SpringSummary[] }) {
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const [tooltip, setTooltip] = useState<{
+    x: number; y: number; spring: SpringSummary
+  } | null>(null)
+
   const W = 260, H = 180
   const PAD = { top: 8, right: 8, bottom: 28, left: 28 }
   const plotW = W - PAD.left - PAD.right
@@ -122,63 +127,107 @@ function ScatterPlot({ springs }: { springs: SpringSummary[] }) {
   const xTicks = [0, 20, 40, 60, 80, 100]
   const yTicks = [0, 2, 4, 6, 8, 10]
 
+  const handleEnter = (e: React.MouseEvent, s: SpringSummary) => {
+    const wrap = wrapRef.current
+    if (!wrap) return
+    const rect = wrap.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    // Flip tooltip to left if near right edge
+    setTooltip({ x, y, spring: s })
+  }
+
+  const handleMove = (e: React.MouseEvent) => {
+    const wrap = wrapRef.current
+    if (!wrap || !tooltip) return
+    const rect = wrap.getBoundingClientRect()
+    setTooltip(prev => prev ? {
+      ...prev,
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    } : null)
+  }
+
   return (
-    <svg
-      width={W}
-      height={H}
-      viewBox={`0 0 ${W} ${H}`}
-      className="w-full h-auto"
-      role="img"
-      aria-label="Scatter plot of pH versus temperature for all springs"
-    >
-      <g transform={`translate(${PAD.left},${PAD.top})`}>
-        {/* Grid */}
-        {yTicks.map(p => (
-          <line key={`gy${p}`} x1={0} y1={yScale(p)} x2={plotW} y2={yScale(p)} stroke="#e2e8f0" strokeWidth={0.5} />
-        ))}
-        {xTicks.map(t => (
-          <line key={`gx${t}`} x1={xScale(t)} y1={0} x2={xScale(t)} y2={plotH} stroke="#e2e8f0" strokeWidth={0.5} />
-        ))}
+    <div ref={wrapRef} className="relative" onMouseLeave={() => setTooltip(null)}>
+      <svg
+        width={W}
+        height={H}
+        viewBox={`0 0 ${W} ${H}`}
+        className="w-full h-auto"
+        role="img"
+        aria-label="Scatter plot of pH versus temperature for all springs"
+        onMouseMove={handleMove}
+      >
+        <g transform={`translate(${PAD.left},${PAD.top})`}>
+          {/* Grid */}
+          {yTicks.map(p => (
+            <line key={`gy${p}`} x1={0} y1={yScale(p)} x2={plotW} y2={yScale(p)} stroke="#e2e8f0" strokeWidth={0.5} />
+          ))}
+          {xTicks.map(t => (
+            <line key={`gx${t}`} x1={xScale(t)} y1={0} x2={xScale(t)} y2={plotH} stroke="#e2e8f0" strokeWidth={0.5} />
+          ))}
 
-        {/* Data points */}
-        {pts.map(s => (
-          <circle
-            key={s.id}
-            cx={xScale(s.temperature_c!)}
-            cy={yScale(s.ph!)}
-            r={2.2}
-            fill={systemColorMap[s.geothermal_system] ?? '#94a3b8'}
-            fillOpacity={0.55}
-            stroke="none"
+          {/* Data points — visible circle + larger invisible hit area */}
+          {pts.map(s => {
+            const cx = xScale(s.temperature_c!)
+            const cy = yScale(s.ph!)
+            const color = systemColorMap[s.geothermal_system] ?? '#94a3b8'
+            return (
+              <g key={s.id}>
+                <circle cx={cx} cy={cy} r={2.5} fill={color} fillOpacity={0.65} stroke="none" />
+                <circle
+                  cx={cx} cy={cy} r={7}
+                  fill="transparent"
+                  style={{ cursor: 'crosshair' }}
+                  onMouseEnter={e => handleEnter(e, s)}
+                  onMouseLeave={() => setTooltip(null)}
+                />
+              </g>
+            )
+          })}
+
+          {/* Axes */}
+          <line x1={0} y1={plotH} x2={plotW} y2={plotH} stroke="#94a3b8" strokeWidth={1} />
+          <line x1={0} y1={0}    x2={0}    y2={plotH} stroke="#94a3b8" strokeWidth={1} />
+
+          {/* X-axis labels */}
+          {xTicks.map(t => (
+            <text key={`xl${t}`} x={xScale(t)} y={plotH + 10} textAnchor="middle" fontSize={8} fill="#94a3b8">{t}</text>
+          ))}
+          <text x={plotW / 2} y={plotH + 22} textAnchor="middle" fontSize={8} fill="#64748b">Temperature (°C)</text>
+
+          {/* Y-axis labels */}
+          {yTicks.map(p => (
+            <text key={`yl${p}`} x={-5} y={yScale(p) + 3} textAnchor="end" fontSize={8} fill="#94a3b8">{p}</text>
+          ))}
+          <text
+            transform={`rotate(-90) translate(${-plotH / 2},${-20})`}
+            textAnchor="middle"
+            fontSize={8}
+            fill="#64748b"
           >
-            <title>{s.name} — {s.temperature_c}°C, pH {s.ph} ({s.geothermal_system})</title>
-          </circle>
-        ))}
+            pH
+          </text>
+        </g>
+      </svg>
 
-        {/* Axes */}
-        <line x1={0} y1={plotH} x2={plotW} y2={plotH} stroke="#94a3b8" strokeWidth={1} />
-        <line x1={0} y1={0}    x2={0}    y2={plotH} stroke="#94a3b8" strokeWidth={1} />
-
-        {/* X-axis labels */}
-        {xTicks.map(t => (
-          <text key={`xl${t}`} x={xScale(t)} y={plotH + 10} textAnchor="middle" fontSize={8} fill="#94a3b8">{t}</text>
-        ))}
-        <text x={plotW / 2} y={plotH + 22} textAnchor="middle" fontSize={8} fill="#64748b">Temperature (°C)</text>
-
-        {/* Y-axis labels */}
-        {yTicks.map(p => (
-          <text key={`yl${p}`} x={-5} y={yScale(p) + 3} textAnchor="end" fontSize={8} fill="#94a3b8">{p}</text>
-        ))}
-        <text
-          transform={`rotate(-90) translate(${-plotH / 2},${-20})`}
-          textAnchor="middle"
-          fontSize={8}
-          fill="#64748b"
+      {/* Hover tooltip */}
+      {tooltip && (
+        <div
+          className="absolute z-10 bg-white border border-slate-200 rounded shadow-md px-2.5 py-1.5 pointer-events-none whitespace-nowrap text-xs"
+          style={{
+            left: tooltip.x + 12,
+            top: tooltip.y - 48,
+            // Prevent overflow on right side by clamping (done via transform when near right)
+          }}
         >
-          pH
-        </text>
-      </g>
-    </svg>
+          <p className="font-semibold text-slate-700 mb-0.5 leading-tight">{tooltip.spring.name}</p>
+          <p className="text-slate-500">{tooltip.spring.temperature_c}°C · pH {tooltip.spring.ph}</p>
+          <p className="text-slate-400 text-[10px]">{tooltip.spring.geothermal_system}</p>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -319,7 +368,7 @@ export default function DatasetInsights({
           </p>
           <ScatterPlot springs={filteredSprings} />
           <p className="text-xs text-slate-400 mt-1">
-            Colour by geothermal system. Hover a point for name and values.
+            Colour by geothermal system · hover a point for details
           </p>
         </div>
       </div>

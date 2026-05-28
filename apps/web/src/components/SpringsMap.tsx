@@ -17,11 +17,12 @@ type BaseTile = 'street' | 'topographic' | 'satellite'
 
 // ─── Tile layer configs ───────────────────────────────────────────────────────
 
-const TILES: Record<BaseTile, { url: string; attribution: string; label: string }> = {
+const TILES: Record<BaseTile, { url: string; attribution: string; label: string; maxNativeZoom: number }> = {
   street: {
     label: 'Street',
     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxNativeZoom: 19,
   },
   topographic: {
     label: 'Terrain',
@@ -30,12 +31,14 @@ const TILES: Record<BaseTile, { url: string; attribution: string; label: string 
       'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
       '<a href="https://viewfinderpanoramas.org">SRTM</a> | Style: &copy; ' +
       '<a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+    maxNativeZoom: 17,
   },
   satellite: {
     label: 'Satellite',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution:
       'Tiles &copy; Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+    maxNativeZoom: 23,
   },
 }
 
@@ -103,11 +106,11 @@ function getMarkerIcon(color: string): L.DivIcon {
     ICON_CACHE.set(
       color,
       L.divIcon({
-        html: `<span style="display:block;width:10px;height:10px;background:${color};border-radius:50%;border:1.5px solid rgba(255,255,255,0.85);box-shadow:0 0 0 1px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.18);"></span>`,
+        html: `<span style="display:block;width:13px;height:13px;background:${color};border-radius:50%;border:2px solid rgba(255,255,255,0.9);box-shadow:0 0 0 1px rgba(0,0,0,0.15),0 1px 3px rgba(0,0,0,0.22);"></span>`,
         className: '',
-        iconSize:    [10, 10],
-        iconAnchor:  [5, 5],
-        popupAnchor: [0, -8],
+        iconSize:    [13, 13],
+        iconAnchor:  [6, 6],
+        popupAnchor: [0, -9],
       }),
     )
   }
@@ -190,9 +193,9 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
         center={[-38.5, 176.2]}
         zoom={8}
         style={{ height: '100%', width: '100%' }}
-        scrollWheelZoom={false}
+        scrollWheelZoom={true}
       >
-        <TileLayer key={baseTile} url={tile.url} attribution={tile.attribution} />
+        <TileLayer key={baseTile} url={tile.url} attribution={tile.attribution} maxNativeZoom={tile.maxNativeZoom} />
 
         <MarkerClusterGroup
           iconCreateFunction={createClusterIcon as Parameters<typeof MarkerClusterGroup>[0]['iconCreateFunction']}
