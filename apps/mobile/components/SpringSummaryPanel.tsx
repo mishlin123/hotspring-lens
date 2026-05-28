@@ -104,6 +104,20 @@ export default function SpringSummaryPanel({ spring, onClose }: Props) {
           </View>
         )}
 
+        {/* Data counts */}
+        <View style={styles.dataCounts}>
+          <Text style={styles.dataCountItem}>
+            🧪 {spring.chemistry_record_count} chemistry
+          </Text>
+          {spring.taxonomy_record_count > 0 ? (
+            <Text style={styles.dataCountItem}>
+              🧬 {spring.taxonomy_record_count} taxonomy
+            </Text>
+          ) : (
+            <Text style={[styles.dataCountItem, styles.dataCountNone]}>No 16S taxonomy</Text>
+          )}
+        </View>
+
         {/* Safety warning */}
         {spring.safety_warning ? (
           <View style={styles.warningBox}>
@@ -243,6 +257,18 @@ const styles = StyleSheet.create({
   chipValue: {
     fontSize: 20,
     fontWeight: '800',
+  },
+  dataCounts: {
+    flexDirection: 'row',
+    gap: 14,
+  },
+  dataCountItem: {
+    fontSize: 12,
+    color: '#64748b',
+  },
+  dataCountNone: {
+    color: '#94a3b8',
+    fontStyle: 'italic',
   },
   warningBox: {
     backgroundColor: '#fffbeb',

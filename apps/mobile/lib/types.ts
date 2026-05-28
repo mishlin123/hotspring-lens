@@ -57,6 +57,8 @@ export interface SpringSummary {
   location_text: string
   image_url: string | null
   safety_warning: string | null
+  chemistry_record_count: number
+  taxonomy_record_count: number
 }
 
 export interface UserLocation {

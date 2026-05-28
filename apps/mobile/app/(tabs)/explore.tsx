@@ -21,6 +21,16 @@ import type { SpringSummary } from '@/lib/types'
 
 const SCREEN_WIDTH = Dimensions.get('window').width
 
+type SortKey = 'nameAZ' | 'tempDesc' | 'tempAsc' | 'phAsc' | 'taxDesc'
+
+const SORT_OPTIONS: { key: SortKey; label: string }[] = [
+  { key: 'nameAZ',   label: 'Name A–Z' },
+  { key: 'tempDesc', label: 'Hottest first' },
+  { key: 'tempAsc',  label: 'Coolest first' },
+  { key: 'phAsc',    label: 'pH: lowest first' },
+  { key: 'taxDesc',  label: 'Most taxonomy data' },
+]
+
 function tempColor(temp: number | null): string {
   if (temp === null) return '#94a3b8'
   if (temp >= 80) return '#ef4444'
@@ -58,6 +68,9 @@ function SpringListCard({ spring, onPress }: { spring: SpringSummary; onPress: (
           )}
           <Text style={[listStyles.pill, { color: '#64748b' }]}>{spring.feature_type}</Text>
         </View>
+        {spring.taxonomy_record_count === 0 && (
+          <Text style={listStyles.noTaxonomy}>No 16S taxonomy data</Text>
+        )}
       </View>
     </TouchableOpacity>
   )
@@ -71,6 +84,7 @@ export default function ExploreScreen() {
   const [search, setSearch] = useState('')
   const [system, setSystem] = useState('')
   const [featureType, setFeatureType] = useState('')
+  const [sortBy, setSortBy] = useState<SortKey>('nameAZ')
   const [showFilters, setShowFilters] = useState(false)
   const [selectedSpring, setSelectedSpring] = useState<SpringSummary | null>(null)
 
@@ -90,7 +104,20 @@ export default function ExploreScreen() {
     })
   }, [search, system, featureType])
 
+  const sorted = useMemo(() => {
+    const arr = [...filtered]
+    switch (sortBy) {
+      case 'tempDesc': return arr.sort((a, b) => (b.temperature_c ?? -Infinity) - (a.temperature_c ?? -Infinity))
+      case 'tempAsc':  return arr.sort((a, b) => (a.temperature_c ?? Infinity) - (b.temperature_c ?? Infinity))
+      case 'phAsc':    return arr.sort((a, b) => (a.ph ?? Infinity) - (b.ph ?? Infinity))
+      case 'taxDesc':  return arr.sort((a, b) => b.taxonomy_record_count - a.taxonomy_record_count)
+      default:         return arr.sort((a, b) => a.name.localeCompare(b.name))
+    }
+  }, [filtered, sortBy])
+
   const hasFilters = search || system || featureType
+  const hasActiveSort = sortBy !== 'nameAZ'
+  const sortLabel = SORT_OPTIONS.find(o => o.key === sortBy)?.label ?? ''
 
   const clearFilters = useCallback(() => {
     setSearch('')
@@ -126,10 +153,10 @@ export default function ExploreScreen() {
           ) : null}
         </View>
         <TouchableOpacity
-          style={[styles.filterBtn, (system || featureType) && styles.filterBtnActive]}
+          style={[styles.filterBtn, (system || featureType || hasActiveSort) && styles.filterBtnActive]}
           onPress={() => setShowFilters(true)}
         >
-          <Text style={(system || featureType) ? styles.filterIconActive : styles.filterIcon}>
+          <Text style={(system || featureType || hasActiveSort) ? styles.filterIconActive : styles.filterIcon}>
             ⚙
           </Text>
         </TouchableOpacity>
@@ -142,6 +169,9 @@ export default function ExploreScreen() {
             ? `${filtered.length} springs`
             : `${filtered.length} of ${ALL_SUMMARIES.length}`}
         </Text>
+        {hasActiveSort && (
+          <Text style={styles.sortIndicator} numberOfLines={1}>{sortLabel}</Text>
+        )}
         <View style={styles.viewToggle}>
           <TouchableOpacity
             style={[styles.toggleBtn, view === 'map' && styles.toggleBtnActive]}
@@ -158,8 +188,8 @@ export default function ExploreScreen() {
             </Text>
           </TouchableOpacity>
         </View>
-        {hasFilters ? (
-          <TouchableOpacity onPress={clearFilters}>
+        {(hasFilters || hasActiveSort) ? (
+          <TouchableOpacity onPress={() => { clearFilters(); setSortBy('nameAZ') }}>
             <Text style={styles.clearFilters}>Clear</Text>
           </TouchableOpacity>
         ) : null}
@@ -185,8 +215,6 @@ export default function ExploreScreen() {
                 coordinate={{ latitude: s.latitude!, longitude: s.longitude! }}
                 onPress={() => {
                   setSelectedSpring(s)
-                  // Pan so the marker sits in the upper portion of the screen,
-                  // above the half-sheet that covers the bottom 50%.
                   mapRef.current?.animateToRegion(
                     {
                       latitude: s.latitude! - 0.018,
@@ -232,7 +260,7 @@ export default function ExploreScreen() {
       ) : (
         /* List view */
         <FlatList
-          data={filtered}
+          data={sorted}
           keyExtractor={s => s.id}
           renderItem={({ item }) => (
             <SpringListCard
@@ -254,7 +282,7 @@ export default function ExploreScreen() {
         />
       )}
 
-      {/* Spring summary panel — transparent modal so sheet slides up over the map */}
+      {/* Spring summary panel */}
       <Modal
         visible={selectedSpring !== null && view === 'map'}
         transparent
@@ -262,7 +290,6 @@ export default function ExploreScreen() {
         onRequestClose={() => setSelectedSpring(null)}
       >
         <View style={styles.sheetBackdrop}>
-          {/* Tap outside the sheet to dismiss */}
           <TouchableOpacity
             style={StyleSheet.absoluteFillObject}
             activeOpacity={1}
@@ -277,16 +304,34 @@ export default function ExploreScreen() {
         </View>
       </Modal>
 
-      {/* Filter modal */}
+      {/* Filter + Sort modal */}
       <Modal visible={showFilters} animationType="slide" presentationStyle="pageSheet">
         <SafeAreaView style={styles.modalContainer}>
           <View style={styles.modalHeader}>
-            <Text style={styles.modalTitle}>Filters</Text>
+            <Text style={styles.modalTitle}>Filter & Sort</Text>
             <TouchableOpacity onPress={() => setShowFilters(false)}>
               <Text style={styles.modalClose}>Done</Text>
             </TouchableOpacity>
           </View>
           <ScrollView style={styles.modalBody}>
+
+            {/* Sort */}
+            <Text style={styles.filterLabel}>Sort by</Text>
+            <View style={styles.chipRow}>
+              {SORT_OPTIONS.map(opt => (
+                <TouchableOpacity
+                  key={opt.key}
+                  style={[styles.chip, sortBy === opt.key && styles.chipActive]}
+                  onPress={() => setSortBy(opt.key)}
+                >
+                  <Text style={[styles.chipText, sortBy === opt.key && styles.chipTextActive]}>
+                    {opt.label}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            {/* Geothermal System */}
             <Text style={styles.filterLabel}>Geothermal System</Text>
             <View style={styles.chipRow}>
               <TouchableOpacity
@@ -306,6 +351,7 @@ export default function ExploreScreen() {
               ))}
             </View>
 
+            {/* Feature Type */}
             <Text style={styles.filterLabel}>Feature Type</Text>
             <View style={styles.chipRow}>
               <TouchableOpacity
@@ -327,12 +373,12 @@ export default function ExploreScreen() {
               ))}
             </View>
 
-            {hasFilters && (
+            {(hasFilters || hasActiveSort) && (
               <TouchableOpacity
                 style={styles.clearAllBtn}
-                onPress={() => { clearFilters(); setShowFilters(false) }}
+                onPress={() => { clearFilters(); setSortBy('nameAZ'); setShowFilters(false) }}
               >
-                <Text style={styles.clearAllText}>Clear all filters</Text>
+                <Text style={styles.clearAllText}>Clear all filters &amp; sort</Text>
               </TouchableOpacity>
             )}
           </ScrollView>
@@ -342,6 +388,7 @@ export default function ExploreScreen() {
   )
 }
 
+// ── Styles ────────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f8fafc' },
   searchRow: {
@@ -387,7 +434,13 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e2e8f0',
     gap: 8,
   },
-  count: { flex: 1, fontSize: 13, color: '#64748b' },
+  count: { fontSize: 13, color: '#64748b' },
+  sortIndicator: {
+    flex: 1,
+    fontSize: 12,
+    color: '#0d9488',
+    fontWeight: '600',
+  },
   viewToggle: {
     flexDirection: 'row',
     borderWidth: 1,
@@ -495,4 +548,5 @@ const listStyles = StyleSheet.create({
   name: { fontSize: 15, fontWeight: '700', color: '#1e293b', marginBottom: 4, lineHeight: 20 },
   pills: { flexDirection: 'row', gap: 8, flexWrap: 'wrap' },
   pill: { fontSize: 12, fontWeight: '600' },
+  noTaxonomy: { fontSize: 11, color: '#94a3b8', fontStyle: 'italic', marginTop: 3 },
 })
