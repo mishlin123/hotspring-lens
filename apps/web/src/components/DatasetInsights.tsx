@@ -53,7 +53,7 @@ function BandRow({
         style={{ backgroundColor: color }}
       />
       <span className="text-xs text-slate-600 w-28 flex-shrink-0 leading-tight">{label}</span>
-      <div className="flex-1 bg-slate-100 rounded-full h-2 overflow-hidden">
+      <div className="flex-1 bg-slate-100 rounded-full h-2.5 overflow-hidden">
         <div
           className="h-full rounded-full transition-all duration-300"
           style={{ width: `${pct}%`, backgroundColor: color, opacity: 0.85 }}
@@ -103,7 +103,7 @@ function ScatterPlot({ springs }: { springs: SpringSummary[] }) {
     x: number; y: number; spring: SpringSummary
   } | null>(null)
 
-  const W = 260, H = 180
+  const W = 320, H = 210
   const PAD = { top: 8, right: 8, bottom: 28, left: 28 }
   const plotW = W - PAD.left - PAD.right
   const plotH = H - PAD.top - PAD.bottom
@@ -167,6 +167,12 @@ function ScatterPlot({ springs }: { springs: SpringSummary[] }) {
           {xTicks.map(t => (
             <line key={`gx${t}`} x1={xScale(t)} y1={0} x2={xScale(t)} y2={plotH} stroke="#e2e8f0" strokeWidth={0.5} />
           ))}
+
+          {/* Neutral pH=7 reference line */}
+          <line
+            x1={0} y1={yScale(7)} x2={plotW} y2={yScale(7)}
+            stroke="#64748b" strokeWidth={0.8} strokeDasharray="4,3" opacity={0.35}
+          />
 
           {/* Data points — visible circle + larger invisible hit area */}
           {pts.map(s => {
@@ -315,14 +321,14 @@ export default function DatasetInsights({
       </div>
 
       {/* Three-column grid: temp dist | pH dist | scatter */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5 items-start">
 
         {/* Temperature distribution */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
+          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
             Temperature at sampling
           </p>
-          <div className="space-y-0.5">
+          <div className="space-y-1">
             {tempDist.map(band => (
               <BandRow
                 key={band.label}
@@ -341,10 +347,10 @@ export default function DatasetInsights({
 
         {/* pH distribution */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
+          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
             pH at sampling
           </p>
-          <div className="space-y-0.5">
+          <div className="space-y-1">
             {phDist.map(band => (
               <BandRow
                 key={band.label}
@@ -363,7 +369,7 @@ export default function DatasetInsights({
 
         {/* Scatter plot */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
+          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
             pH vs temperature
           </p>
           <ScatterPlot springs={filteredSprings} />
@@ -378,7 +384,7 @@ export default function DatasetInsights({
 
         {/* Geothermal systems */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
+          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
             By geothermal system
           </p>
           <div className="space-y-0.5">
@@ -398,7 +404,7 @@ export default function DatasetInsights({
 
         {/* Feature types */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
+          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
             By feature type
           </p>
           <div className="space-y-0.5">
