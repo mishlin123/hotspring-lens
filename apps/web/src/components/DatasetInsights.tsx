@@ -76,9 +76,21 @@ function ClickableBar({
     <button
       onClick={onClick}
       className={`w-full flex items-center gap-2 py-1 px-1.5 rounded text-left transition-colors group ${
-        active ? 'bg-teal-50 ring-1 ring-teal-300' : 'hover:bg-slate-50'
+        active ? 'bg-teal-50 ring-1 ring-teal-300' : 'hover:bg-slate-100 hover:ring-1 hover:ring-slate-200'
       }`}
     >
+      {/* Checkbox indicator */}
+      <span className={`w-3.5 h-3.5 rounded-sm border-2 flex-shrink-0 flex items-center justify-center transition-colors ${
+        active
+          ? 'bg-teal-500 border-teal-500'
+          : 'border-slate-300 group-hover:border-teal-400'
+      }`}>
+        {active && (
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+            <path d="M1.5 4l2 2 3-3" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        )}
+      </span>
       <div
         className="w-2 h-2 rounded-full flex-shrink-0"
         style={{ backgroundColor: color }}
@@ -380,9 +392,10 @@ export default function DatasetInsights({
 
         {/* Geothermal systems */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
+          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-0.5">
             By geothermal system
           </p>
+          <p className="text-xs text-slate-400 mb-2">Click to filter · select multiple</p>
           <div className="space-y-0.5">
             {systemCounts.map(({ sys, count }) => (
               <ClickableBar
@@ -400,9 +413,10 @@ export default function DatasetInsights({
 
         {/* Feature types */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
+          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-0.5">
             By feature type
           </p>
+          <p className="text-xs text-slate-400 mb-2">Click to filter · select multiple</p>
           <div className="space-y-0.5">
             {featureTypeCounts.map(({ type, count }) => (
               <ClickableBar
