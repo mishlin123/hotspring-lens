@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   alt="One Thousand Springs"
                   width={186}
                   height={32}
-                  className="h-8 w-auto brightness-0 invert"
+                  className="h-12 w-auto brightness-0 invert"
                 />
               </div>
               <div>
