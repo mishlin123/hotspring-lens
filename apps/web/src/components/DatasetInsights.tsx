@@ -7,12 +7,15 @@ import type { SpringSummary } from '@/lib/types'
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface Props {
-  allSprings: SpringSummary[]       // full dataset — drives system/feature bars
+  allSprings: SpringSummary[]       // full dataset — drives system/feature/analyte bars
   filteredSprings: SpringSummary[]  // current filter result — drives distributions
   activeSystem: string[]
   activeFeatureType: string[]
+  activeAnalyte: string[]
+  allAnalytes: { analyte: string; count: number }[]
   onSystemClick: (system: string) => void
   onFeatureTypeClick: (type: string) => void
+  onAnalyteClick: (analyte: string) => void
 }
 
 // ─── Distribution band definitions ───────────────────────────────────────────
@@ -256,8 +259,11 @@ export default function DatasetInsights({
   filteredSprings,
   activeSystem,
   activeFeatureType,
+  activeAnalyte,
+  allAnalytes,
   onSystemClick,
   onFeatureTypeClick,
+  onAnalyteClick,
 }: Props) {
   const total = filteredSprings.length
   const allTotal = allSprings.length
@@ -346,51 +352,55 @@ export default function DatasetInsights({
       {/* Four-column grid: distributions + clickable selectors */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-4 border-t border-slate-100 items-start">
 
-        {/* Temperature distribution */}
-        <div>
-          <p className="text-xs font-semibold text-slate-600 tracking-wide mb-2">
-            Temperature at sampling
-          </p>
-          <div className="space-y-1">
-            {tempDist.map(band => (
-              <BandRow
-                key={band.label}
-                label={band.label}
-                count={band.count}
-                total={tempTotal}
-                color={band.color}
-                pct={tempTotal > 0 ? (band.count / tempTotal) * 100 : 0}
-              />
-            ))}
+        {/* Col 1: Temperature + pH stacked */}
+        <div className="space-y-5">
+
+          {/* Temperature distribution */}
+          <div>
+            <p className="text-xs font-semibold text-slate-600 tracking-wide mb-2">
+              Temperature at sampling
+            </p>
+            <div className="space-y-1">
+              {tempDist.map(band => (
+                <BandRow
+                  key={band.label}
+                  label={band.label}
+                  count={band.count}
+                  total={tempTotal}
+                  color={band.color}
+                  pct={tempTotal > 0 ? (band.count / tempTotal) * 100 : 0}
+                />
+              ))}
+            </div>
+            <p className="text-xs text-slate-500 mt-2">
+              Range: 13.9–99.8°C across {tempTotal} records
+            </p>
           </div>
-          <p className="text-xs text-slate-500 mt-2">
-            Range: 13.9–99.8°C across {tempTotal} records
-          </p>
+
+          {/* pH distribution */}
+          <div>
+            <p className="text-xs font-semibold text-slate-600 tracking-wide mb-2">
+              pH at sampling
+            </p>
+            <div className="space-y-1">
+              {phDist.map(band => (
+                <BandRow
+                  key={band.label}
+                  label={band.label}
+                  count={band.count}
+                  total={phTotal}
+                  color={band.color}
+                  pct={phTotal > 0 ? (band.count / phTotal) * 100 : 0}
+                />
+              ))}
+            </div>
+            <p className="text-xs text-slate-500 mt-2">
+              Bimodal: sulfuric (acidic) and bicarbonate (neutral–alkaline) spring types
+            </p>
+          </div>
         </div>
 
-        {/* pH distribution */}
-        <div>
-          <p className="text-xs font-semibold text-slate-600 tracking-wide mb-2">
-            pH at sampling
-          </p>
-          <div className="space-y-1">
-            {phDist.map(band => (
-              <BandRow
-                key={band.label}
-                label={band.label}
-                count={band.count}
-                total={phTotal}
-                color={band.color}
-                pct={phTotal > 0 ? (band.count / phTotal) * 100 : 0}
-              />
-            ))}
-          </div>
-          <p className="text-xs text-slate-500 mt-2">
-            Bimodal: sulfuric (acidic) and bicarbonate (neutral–alkaline) spring types
-          </p>
-        </div>
-
-        {/* Geothermal systems */}
+        {/* Col 2: Geothermal systems */}
         <div>
           <p className="text-xs font-semibold text-slate-600 tracking-wide mb-0.5">
             By geothermal system
@@ -411,7 +421,7 @@ export default function DatasetInsights({
           </div>
         </div>
 
-        {/* Feature types */}
+        {/* Col 3: Feature types */}
         <div>
           <p className="text-xs font-semibold text-slate-600 tracking-wide mb-0.5">
             By feature type
@@ -430,8 +440,29 @@ export default function DatasetInsights({
               />
             ))}
           </div>
+        </div>
+
+        {/* Col 4: Chemical composition */}
+        <div>
+          <p className="text-xs font-semibold text-slate-600 tracking-wide mb-0.5">
+            By chemical composition
+          </p>
+          <p className="text-xs text-slate-500 mb-2">Click to filter · select multiple</p>
+          <div className="space-y-0.5">
+            {allAnalytes.map(({ analyte, count }) => (
+              <ClickableBar
+                key={analyte}
+                label={analyte}
+                count={count}
+                maxCount={allAnalytes[0]?.count ?? 1}
+                color="#0d9488"
+                active={activeAnalyte.includes(analyte)}
+                onClick={() => onAnalyteClick(analyte)}
+              />
+            ))}
+          </div>
           <p className="text-xs text-slate-500 mt-3">
-            Measurements reflect conditions at time of sampling. Springs may change over time.
+            Based on top analytes per spring from field chemistry records.
           </p>
         </div>
       </div>

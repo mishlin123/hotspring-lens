@@ -3,6 +3,7 @@ import {
   getAllSpringSummaries,
   getUniqueGeothermalSystems,
   getUniqueFeatureTypes,
+  getUniqueAnalytes,
 } from '@/lib/data'
 import ExploreClient from './ExploreClient'
 
@@ -19,6 +20,7 @@ export default function ExplorePage({ searchParams }: Props) {
   const summaries    = getAllSpringSummaries()
   const systems      = getUniqueGeothermalSystems()
   const featureTypes = getUniqueFeatureTypes()
+  const analytes     = getUniqueAnalytes()
   const initialSystem     = searchParams.system  ?? ''
   const initialCompareIds = searchParams.compare
     ? searchParams.compare.split(',').map(s => s.trim()).filter(Boolean).slice(0, 3)
@@ -47,6 +49,7 @@ export default function ExplorePage({ searchParams }: Props) {
           springs={summaries}
           systems={systems}
           featureTypes={featureTypes}
+          analytes={analytes}
           initialSystem={initialSystem}
           initialCompareIds={initialCompareIds}
         />

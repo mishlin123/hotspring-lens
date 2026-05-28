@@ -22,20 +22,22 @@ interface Props {
   springs: SpringSummary[]
   systems: string[]
   featureTypes: string[]
+  analytes: { analyte: string; count: number }[]
   initialSystem?: string
   initialCompareIds?: string[]
 }
 
-export default function ExploreClient({ springs, systems, featureTypes, initialSystem = '', initialCompareIds = [] }: Props) {
+export default function ExploreClient({ springs, systems, featureTypes, analytes, initialSystem = '', initialCompareIds = [] }: Props) {
   const [search, setSearch]             = useState('')
   const [system, setSystem]             = useState<string[]>(initialSystem ? [initialSystem] : [])
   const [featureType, setFeatureType]   = useState<string[]>([])
+  const [activeAnalyte, setActiveAnalyte] = useState<string[]>([])
   const [tempMin, setTempMin]           = useState('')
   const [tempMax, setTempMax]           = useState('')
   const [phMin, setPhMin]               = useState('')
   const [phMax, setPhMax]               = useState('')
   const [view, setView]                 = useState<'list' | 'map'>('map')
-const [sortBy, setSortBy]             = useState<SortKey>('name')
+  const [sortBy, setSortBy]             = useState<SortKey>('name')
   const [compareIds, setCompareIds]     = useState<string[]>(initialCompareIds)
 
   // ─── Filter ───────────────────────────────────────────────────────────────
@@ -54,15 +56,16 @@ const [sortBy, setSortBy]             = useState<SortKey>('name')
         const inSystem   = (s.geothermal_system ?? '').toLowerCase().includes(q)
         if (!inName && !inLocation && !inSystem) return false
       }
-      if (system.length > 0      && !system.includes(s.geothermal_system))             return false
-      if (featureType.length > 0 && !featureType.includes(s.feature_type))           return false
+      if (system.length > 0        && !system.includes(s.geothermal_system))                   return false
+      if (featureType.length > 0   && !featureType.includes(s.feature_type))                   return false
+      if (activeAnalyte.length > 0 && !activeAnalyte.some(a => s.analytes.includes(a)))        return false
       if (tMin !== null && (s.temperature_c === null || s.temperature_c < tMin)) return false
       if (tMax !== null && (s.temperature_c === null || s.temperature_c > tMax)) return false
       if (pMin !== null && (s.ph === null || s.ph < pMin)) return false
       if (pMax !== null && (s.ph === null || s.ph > pMax)) return false
       return true
     })
-  }, [springs, search, system, featureType, tempMin, tempMax, phMin, phMax])
+  }, [springs, search, system, featureType, activeAnalyte, tempMin, tempMax, phMin, phMax])
 
   // ─── Sort ─────────────────────────────────────────────────────────────────
 
@@ -84,13 +87,14 @@ const [sortBy, setSortBy]             = useState<SortKey>('name')
     setSearch('')
     setSystem([])
     setFeatureType([])
+    setActiveAnalyte([])
     setTempMin('')
     setTempMax('')
     setPhMin('')
     setPhMax('')
   }, [])
 
-  const hasFilters = search || system.length > 0 || featureType.length > 0 || tempMin || tempMax || phMin || phMax
+  const hasFilters = search || system.length > 0 || featureType.length > 0 || activeAnalyte.length > 0 || tempMin || tempMax || phMin || phMax
 
   const toggleCompare = useCallback((id: string) => {
     setCompareIds(prev =>
@@ -114,8 +118,11 @@ const [sortBy, setSortBy]             = useState<SortKey>('name')
         filteredSprings={filtered}
         activeSystem={system}
         activeFeatureType={featureType}
+        activeAnalyte={activeAnalyte}
+        allAnalytes={analytes}
         onSystemClick={sys => setSystem(prev => prev.includes(sys) ? prev.filter(x => x !== sys) : [...prev, sys])}
         onFeatureTypeClick={ft => setFeatureType(prev => prev.includes(ft) ? prev.filter(x => x !== ft) : [...prev, ft])}
+        onAnalyteClick={a => setActiveAnalyte(prev => prev.includes(a) ? prev.filter(x => x !== a) : [...prev, a])}
       />
 
       {/* Filter bar */}

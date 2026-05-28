@@ -59,4 +59,5 @@ export interface SpringSummary {
   safety_warning: string | null
   chemistry_record_count: number
   taxonomy_record_count: number
+  analytes: string[]
 }

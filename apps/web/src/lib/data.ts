@@ -39,6 +39,7 @@ export function getAllSpringSummaries(): SpringSummary[] {
     safety_warning: s.safety_warning,
     chemistry_record_count: s.chemistry_record_count,
     taxonomy_record_count: s.taxonomy_record_count,
+    analytes: s.top_chemistry.map(c => c.analyte),
   }))
 }
 
@@ -58,4 +59,16 @@ export function getUniqueFeatureTypes(): string[] {
       .filter(Boolean)
   )
   return Array.from(types).sort()
+}
+
+export function getUniqueAnalytes(): { analyte: string; count: number }[] {
+  const counts: Record<string, number> = {}
+  getAllSprings().forEach(s => {
+    s.top_chemistry.forEach(c => {
+      counts[c.analyte] = (counts[c.analyte] ?? 0) + 1
+    })
+  })
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([analyte, count]) => ({ analyte, count }))
 }
