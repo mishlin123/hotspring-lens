@@ -555,9 +555,7 @@ export default function AboutPage() {
                 {[
                   'Not commercial: no ads, subscriptions, or purchases',
                   'Not a navigation tool: do not use it to access springs',
-                  'Not endorsed by the 1000 Springs Project, GNS, or University of Waikato',
                   'Not a source of cultural history or interpretation',
-                  'Not affiliated with any tourism operator or landowner',
                 ].map(item => (
                   <li key={item} className="flex gap-2.5 items-baseline">
                     <span className="text-slate-300 flex-shrink-0 text-xs leading-tight">›</span>

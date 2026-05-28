@@ -117,10 +117,7 @@ export default function AttributionPage() {
             Springs authors, GNS Science, and the University of Waikato is displayed throughout the
             app.
           </p>
-          <p>
-            This project does not imply endorsement by the 1000 Springs Project, GNS Science, the University of
-            Waikato, iwi/hapū, landowners, or tourism operators.
-          </p>
+
           <p>
             Adapted content derived from the 1000 Springs Project dataset is published under CC BY-NC-SA 4.0.
           </p>

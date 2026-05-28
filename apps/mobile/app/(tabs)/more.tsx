@@ -140,12 +140,6 @@ export default function MoreScreen() {
               4.0)
             </Text>
 
-            <View style={styles.divider} />
-
-            <Text style={styles.attrLabel}>Not endorsed by</Text>
-            <Text style={styles.attrBody}>
-              1000 Springs, GNS Science, University of Waikato, iwi/hapū, or landowners.
-            </Text>
           </View>
         </View>
 
