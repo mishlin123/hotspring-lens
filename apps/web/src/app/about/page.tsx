@@ -310,53 +310,35 @@ export default function AboutPage() {
 
       {/* ── Primary goal ────────────────────────────────────────── */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
-          <div className="lg:col-span-3">
-            <SectionLabel>Primary goal</SectionLabel>
-            <h2 className="text-2xl font-bold text-slate-800 mb-4">
-              Mapping a thousand geothermal worlds
-            </h2>
-            <blockquote className="border-l-4 border-teal-500 pl-5 mb-5">
-              <p className="text-slate-700 italic text-lg leading-relaxed">
-                "The primary goal of the research project is to collate the physical, chemical, and
-                microbial biodiversity information from 1,000 geothermal ecosystems from the Taupō
-                Volcanic Zone."
-              </p>
-            </blockquote>
-            <p className="text-slate-600 text-sm leading-relaxed mb-6">
-              Beyond documentation, the project aims to assess the conservation, cultural,
-              recreational, and resource development value of microbial components in these
-              geothermal ecosystems — knowledge that informs science, policy, and kaitiakitanga.
-            </p>
-            {/* TVZ map */}
-            <div className="rounded-xl overflow-hidden border border-slate-200">
-              <div className="relative h-52 w-full">
-                <Image
-                  src={`${BASE}/about/TVZ_hotspots_map_small.jpg`}
-                  alt="Map of geothermal systems in the Taupō Volcanic Zone"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 600px"
-                />
-              </div>
-              <p className="text-xs text-slate-500 text-center py-2 bg-slate-50 border-t border-slate-200">
-                Geothermal hotspot locations across the Taupō Volcanic Zone
-              </p>
-            </div>
-          </div>
-          <div className="lg:col-span-2 bg-teal-50 border border-teal-100 rounded-2xl p-6">
-            <p className="text-xs font-bold uppercase tracking-widest text-teal-600 mb-4">
-              This knowledge serves
-            </p>
-            <ul className="space-y-2.5">
-              {stakeholders.map(s => (
-                <li key={s} className="flex items-center gap-3 text-sm text-teal-900">
-                  <span className="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0" />
-                  {s}
-                </li>
-              ))}
-            </ul>
-          </div>
+        <SectionLabel>Primary goal</SectionLabel>
+        <h2 className="text-2xl font-bold text-slate-800 mb-4">
+          Mapping a thousand geothermal worlds
+        </h2>
+        <blockquote className="border-l-4 border-teal-500 pl-5 mb-5 max-w-3xl">
+          <p className="text-slate-700 italic text-lg leading-relaxed">
+            "The primary goal of the research project is to collate the physical, chemical, and
+            microbial biodiversity information from 1,000 geothermal ecosystems from the Taupō
+            Volcanic Zone."
+          </p>
+        </blockquote>
+        <p className="text-slate-600 text-sm leading-relaxed mb-8 max-w-3xl">
+          Beyond documentation, the project aims to assess the conservation, cultural,
+          recreational, and resource development value of microbial components in these
+          geothermal ecosystems — knowledge that informs science, policy, and kaitiakitanga.
+        </p>
+        {/* TVZ map — full image, no cropping */}
+        <div className="rounded-xl overflow-hidden border border-slate-200">
+          <Image
+            src={`${BASE}/about/TVZ_hotspots_map_small.jpg`}
+            alt="Map of geothermal hotspot locations across the Taupō Volcanic Zone"
+            width={960}
+            height={700}
+            className="w-full h-auto"
+            sizes="(max-width: 1024px) 100vw, 960px"
+          />
+          <p className="text-xs text-slate-500 text-center py-2 bg-slate-50 border-t border-slate-200">
+            Geothermal hotspot locations across the Taupō Volcanic Zone
+          </p>
         </div>
       </div>
 
