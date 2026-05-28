@@ -17,7 +17,7 @@ const sampleDistribution = [
   { volume: '~330 mL', container: 'Rubber-necked bottle', purpose: 'H₂S, bicarbonate & chloride analysis' },
   { volume: '500 mL', container: 'Sterile polypropylene bottle', purpose: 'Physical attributes (conductivity, dissolved oxygen)' },
   { volume: '~60 mL', container: 'Syringe', purpose: 'Dissolved gas content' },
-  { volume: '~10 g', container: 'Sediment container', purpose: 'Sediment sample (where possible) — future research' },
+  { volume: '~10 g', container: 'Sediment container', purpose: 'Sediment sample (where possible), earmarked for future research' },
 ]
 
 const fieldMetadata = [
@@ -50,7 +50,7 @@ const processingTable = [
   { bottle: '330 mL rubber-sealed', processing: 'Raw', storage: '4 °C', parameter: 'Cl⁻', method: 'Automated titration', location: 'NZGAL' },
   { bottle: '50 mL tube', processing: 'Filtered', storage: '4 °C', parameter: 'SO₄²⁻', method: 'Ion chromatography', location: 'NZGAL' },
   { bottle: '50 mL tube', processing: 'Filtered', storage: '−20 °C', parameter: 'NH₄⁺, PO₄³⁻, NO₂⁻, NO₃⁻', method: 'Flow injection analysis', location: 'University of Waikato' },
-  { bottle: '50 mL tube', processing: 'Filtered', storage: '4 °C', parameter: 'Back-up sample', method: '—', location: '—' },
+  { bottle: '50 mL tube', processing: 'Filtered', storage: '4 °C', parameter: 'Back-up sample', method: 'n/a', location: 'n/a' },
   { bottle: '15 mL tube', processing: 'Filtered & acidified', storage: '4 °C', parameter: 'Elements (ICP-MS)', method: 'Inductively coupled plasma mass spectrometry', location: 'University of Waikato' },
   { bottle: '15 mL tube', processing: 'Filtered & alkalified', storage: '4 °C', parameter: 'As, Sb', method: 'ICP atomic emission spectroscopy', location: 'NZGAL' },
   { bottle: '50 mL syringe', processing: 'Filtered', storage: 'Room temp.', parameter: 'H₂, CH₄, CO', method: 'Gas chromatography', location: 'Extremophile Research Group, GNS' },
@@ -179,7 +179,7 @@ export default function MethodologiesPage() {
           <div className="relative w-full" style={{ paddingBottom: '40%' }}>
             <Image
               src={`${BASE}/1000-springs-dataflow.png`}
-              alt="1000 Springs data flow — from field sampling through analysis and computing to the online database"
+              alt="1000 Springs data flow, from field sampling through analysis and computing to the online database"
               fill
               className="object-contain bg-white"
               sizes="(max-width: 1024px) 100vw, 960px"
@@ -196,7 +196,7 @@ export default function MethodologiesPage() {
       ══════════════════════════════════════════════════════════ */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <SectionAnchor id="sampling" />
-        <SectionLabel>01 — Feature Sampling</SectionLabel>
+        <SectionLabel>01: Feature Sampling</SectionLabel>
         <h2 className="text-2xl font-bold text-slate-800 mb-6">Sample site selection &amp; water collection</h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
@@ -205,7 +205,7 @@ export default function MethodologiesPage() {
             <p className="text-sm text-slate-600 leading-relaxed mb-3">
               The research targets a broad range of physicochemical conditions in
               geothermally-influenced springs within the Taupō Volcanic Zone. Water columns are
-              sampled from springs — sediments, biofilms, mudpots, and heated soils are excluded.
+              sampled from springs. Sediments, biofilms, mudpots, and heated soils are excluded.
             </p>
             <p className="text-sm text-slate-600 leading-relaxed">
               The goal is to collect 1,000 samples, primarily one per individual feature. Repeated
@@ -221,7 +221,7 @@ export default function MethodologiesPage() {
               representative samples.
             </p>
             <p className="text-sm text-slate-600 leading-relaxed">
-              A field tablet and custom app record physical, chemical, and metadata in the field —
+              A field tablet and custom app record physical, chemical, and metadata in the field,
               eliminating double-handling of field notes and reducing transcription errors. Metadata
               uploads instantly to the database.
             </p>
@@ -284,7 +284,7 @@ export default function MethodologiesPage() {
       <div className="bg-slate-50 border-y border-slate-100 py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <SectionAnchor id="processing" />
-          <SectionLabel>02 — Field &amp; Laboratory Processing</SectionLabel>
+          <SectionLabel>02: Field &amp; Laboratory Processing</SectionLabel>
           <h2 className="text-2xl font-bold text-slate-800 mb-6">Measurements, filtration &amp; chemistry</h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
@@ -413,16 +413,16 @@ export default function MethodologiesPage() {
       ══════════════════════════════════════════════════════════ */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <SectionAnchor id="sequencing" />
-        <SectionLabel>03 — Sequencing</SectionLabel>
+        <SectionLabel>03: Sequencing</SectionLabel>
         <h2 className="text-2xl font-bold text-slate-800 mb-3">Microbial diversity assessment</h2>
         <p className="text-slate-500 mb-10 max-w-2xl">
-          Soil and freshwater can contain up to one billion and ten million cells respectively —
+          Soil and freshwater can contain up to one billion and ten million cells respectively,
           making exhaustive identification impractical. The project instead extracts total microbial
           DNA, sequences a universal gene, and uses bioinformatics pipelines to assign taxonomy at
           scale using Ion Torrent Next-Generation Sequencing.
         </p>
 
-        {/* Phase 1 — DNA Extraction */}
+        {/* Phase 1: DNA Extraction */}
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-5">
             <span className="bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full">Phase 1</span>
@@ -470,7 +470,7 @@ export default function MethodologiesPage() {
           </div>
         </div>
 
-        {/* Phase 2 — Amplification */}
+        {/* Phase 2: Amplification */}
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-5">
             <span className="bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full">Phase 2</span>
@@ -479,7 +479,7 @@ export default function MethodologiesPage() {
           <div className="bg-teal-50 border border-teal-100 rounded-xl p-5 mb-5">
             <p className="text-sm text-teal-800 leading-relaxed">
               <strong>Summary:</strong> Microbial diversity is determined by sequencing the{' '}
-              <strong>16S ribosomal RNA gene</strong> (~1,540 nucleotides) — a short gene possessed
+              <strong>16S ribosomal RNA gene</strong> (~1,540 nucleotides), a short gene possessed
               by all bacteria and archaea. Total DNA is extracted and 16S rRNA genes are amplified
               by PCR modified for Ion Torrent Next-Generation Sequencing. On average,{' '}
               <strong>~70,000 sequences</strong> (~270 bp each) are read per sample.
@@ -597,7 +597,7 @@ export default function MethodologiesPage() {
           ))}
         </div>
 
-        {/* Phase 3 — Post-sequencing */}
+        {/* Phase 3: Post-sequencing */}
         <div>
           <div className="flex items-center gap-3 mb-5">
             <span className="bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full">Phase 3</span>
@@ -652,7 +652,7 @@ export default function MethodologiesPage() {
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 rounded-full border-2 border-amber-600 text-amber-700 font-bold text-lg flex items-center justify-center flex-shrink-0">!</div>
             <div>
-              <SectionLabel>04 — Health &amp; Safety</SectionLabel>
+              <SectionLabel>04: Health &amp; Safety</SectionLabel>
               <h2 className="text-2xl font-bold text-amber-900">Geothermal field safety</h2>
             </div>
           </div>
@@ -703,7 +703,7 @@ export default function MethodologiesPage() {
                   <p className="font-medium mb-1">Footwear</p>
                   <p>
                     Leather boots topped with <strong>neoprene puttees (gaiters)</strong> are
-                    preferred over gumboots — they provide better ankle support and protection in
+                    preferred over gumboots; they provide better ankle support and protection in
                     unstable terrain.
                   </p>
                 </div>
