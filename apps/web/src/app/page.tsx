@@ -91,12 +91,12 @@ export default function HomePage() {
       <section className="border-y border-slate-200 py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-xl font-semibold text-slate-800 mb-1">Who this is for</h2>
-          <p className="text-slate-500 text-sm mb-8">Free and open to everyone. No sign-up, no ads.</p>
+          <p className="text-slate-500 text-sm mb-8">Free and open to everyone.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-16 gap-y-6">
             {[
               {
                 title: 'Tourists and visitors',
-                body: "Understand what you are looking at. Plain-language science, safety context, and site information without hype.",
+                body: "Understand what you are looking at. Plain-language science, safety context, and site information.",
               },
               {
                 title: 'Students and teachers',
