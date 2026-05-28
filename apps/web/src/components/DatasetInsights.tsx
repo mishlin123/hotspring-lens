@@ -83,7 +83,7 @@ function ClickableBar({
         className="w-2 h-2 rounded-full flex-shrink-0"
         style={{ backgroundColor: color }}
       />
-      <span className={`text-xs flex-shrink-0 w-36 truncate leading-tight ${active ? 'font-semibold text-teal-800' : 'text-slate-700'}`}>
+      <span className={`text-xs flex-shrink-0 w-28 truncate leading-tight ${active ? 'font-semibold text-teal-800' : 'text-slate-700'}`}>
         {label}
       </span>
       <div className="flex-1 bg-slate-100 rounded-full h-1.5 overflow-hidden">
@@ -108,8 +108,8 @@ function ScatterPlot({ springs, systemColorMap }: {
     x: number; y: number; spring: SpringSummary
   } | null>(null)
 
-  const W = 440, H = 280
-  const PAD = { top: 8, right: 8, bottom: 28, left: 28 }
+  const W = 900, H = 340
+  const PAD = { top: 12, right: 20, bottom: 32, left: 36 }
   const plotW = W - PAD.left - PAD.right
   const plotH = H - PAD.top - PAD.bottom
 
@@ -199,18 +199,18 @@ function ScatterPlot({ springs, systemColorMap }: {
 
           {/* X-axis labels */}
           {xTicks.map(t => (
-            <text key={`xl${t}`} x={xScale(t)} y={plotH + 10} textAnchor="middle" fontSize={8} fill="#94a3b8">{t}</text>
+            <text key={`xl${t}`} x={xScale(t)} y={plotH + 12} textAnchor="middle" fontSize={9} fill="#94a3b8">{t}</text>
           ))}
-          <text x={plotW / 2} y={plotH + 22} textAnchor="middle" fontSize={8} fill="#64748b">Temperature (°C)</text>
+          <text x={plotW / 2} y={plotH + 26} textAnchor="middle" fontSize={9} fill="#64748b">Temperature (°C)</text>
 
           {/* Y-axis labels */}
           {yTicks.map(p => (
-            <text key={`yl${p}`} x={-5} y={yScale(p) + 3} textAnchor="end" fontSize={8} fill="#94a3b8">{p}</text>
+            <text key={`yl${p}`} x={-6} y={yScale(p) + 3} textAnchor="end" fontSize={9} fill="#94a3b8">{p}</text>
           ))}
           <text
-            transform={`rotate(-90) translate(${-plotH / 2},${-20})`}
+            transform={`rotate(-90) translate(${-plotH / 2},${-26})`}
             textAnchor="middle"
-            fontSize={8}
+            fontSize={9}
             fill="#64748b"
           >
             pH
@@ -320,71 +320,63 @@ export default function DatasetInsights({
         </div>
       </div>
 
-      {/* Two-column grid: distributions (left) | scatter (right, larger) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5 items-start">
-
-        {/* Left: temperature + pH distributions stacked */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-
-          {/* Temperature distribution */}
-          <div>
-            <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
-              Temperature at sampling
-            </p>
-            <div className="space-y-1">
-              {tempDist.map(band => (
-                <BandRow
-                  key={band.label}
-                  label={band.label}
-                  count={band.count}
-                  total={tempTotal}
-                  color={band.color}
-                  pct={tempTotal > 0 ? (band.count / tempTotal) * 100 : 0}
-                />
-              ))}
-            </div>
-            <p className="text-xs text-slate-400 mt-2">
-              Range: 13.9–99.8°C across {tempTotal} records
-            </p>
-          </div>
-
-          {/* pH distribution */}
-          <div>
-            <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
-              pH at sampling
-            </p>
-            <div className="space-y-1">
-              {phDist.map(band => (
-                <BandRow
-                  key={band.label}
-                  label={band.label}
-                  count={band.count}
-                  total={phTotal}
-                  color={band.color}
-                  pct={phTotal > 0 ? (band.count / phTotal) * 100 : 0}
-                />
-              ))}
-            </div>
-            <p className="text-xs text-slate-400 mt-2">
-              Bimodal: sulfuric (acidic) and bicarbonate (neutral–alkaline) spring types
-            </p>
-          </div>
-        </div>
-
-        {/* Right: scatter plot — takes full right half of the card */}
-        <div>
-          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
-            pH vs temperature
-          </p>
-          <ScatterPlot springs={filteredSprings} systemColorMap={systemColors} />
-          <p className="text-xs text-slate-400 mt-1">
-            Colour by geothermal system · hover for details · click to open spring
-          </p>
-        </div>
+      {/* Full-width scatter plot */}
+      <div className="mb-5">
+        <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
+          pH vs temperature
+        </p>
+        <ScatterPlot springs={filteredSprings} systemColorMap={systemColors} />
+        <p className="text-xs text-slate-400 mt-1">
+          Colour by geothermal system · hover for details · click to open spring
+        </p>
       </div>
 
-      {/* System and feature-type bars */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-4 border-t border-slate-100">
+      {/* Four-column grid: distributions + clickable selectors */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-4 border-t border-slate-100 items-start">
+
+        {/* Temperature distribution */}
+        <div>
+          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
+            Temperature at sampling
+          </p>
+          <div className="space-y-1">
+            {tempDist.map(band => (
+              <BandRow
+                key={band.label}
+                label={band.label}
+                count={band.count}
+                total={tempTotal}
+                color={band.color}
+                pct={tempTotal > 0 ? (band.count / tempTotal) * 100 : 0}
+              />
+            ))}
+          </div>
+          <p className="text-xs text-slate-400 mt-2">
+            Range: 13.9–99.8°C across {tempTotal} records
+          </p>
+        </div>
+
+        {/* pH distribution */}
+        <div>
+          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
+            pH at sampling
+          </p>
+          <div className="space-y-1">
+            {phDist.map(band => (
+              <BandRow
+                key={band.label}
+                label={band.label}
+                count={band.count}
+                total={phTotal}
+                color={band.color}
+                pct={phTotal > 0 ? (band.count / phTotal) * 100 : 0}
+              />
+            ))}
+          </div>
+          <p className="text-xs text-slate-400 mt-2">
+            Bimodal: sulfuric (acidic) and bicarbonate (neutral–alkaline) spring types
+          </p>
+        </div>
 
         {/* Geothermal systems */}
         <div>
