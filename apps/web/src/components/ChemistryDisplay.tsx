@@ -33,7 +33,7 @@ function AnalyteRow({ row, maxValue }: { row: ChemistryRecord; maxValue: number 
         <span className="text-xs font-medium text-slate-700">
           {analyteLabel(row.analyte)}
         </span>
-        <span className="text-xs font-mono text-slate-800 ml-2 flex-shrink-0">
+        <span className="text-xs text-slate-800 ml-2 flex-shrink-0">
           {formatValue(row.value)}{' '}
           <span className="text-slate-500 font-sans font-normal">{unit}</span>
         </span>

@@ -138,7 +138,7 @@ export default function SpringDetailPage({ params }: Props) {
           <span className="mx-2 text-slate-300">·</span>
           {spring.feature_type}
           <span className="mx-2 text-slate-300">·</span>
-          <span className="font-mono">{spring.sample_number}</span>
+          <span className="">{spring.sample_number}</span>
         </p>
         <h1 className="text-3xl font-bold text-slate-800 mb-1 tracking-tight">{spring.name}</h1>
         <p className="text-slate-600 text-sm">{spring.location_text}</p>
@@ -221,7 +221,7 @@ export default function SpringDetailPage({ params }: Props) {
             <section className="bg-white rounded-xl border border-slate-200 p-5">
               <h2 className="text-lg font-semibold text-slate-800 mb-3">Location</h2>
               <p className="text-sm text-slate-800 mb-2">{spring.location_text}</p>
-              <p className="font-mono text-xs text-slate-500 mb-2">
+              <p className="text-xs text-slate-500 mb-2">
                 {spring.latitude.toFixed(4)}, {spring.longitude.toFixed(4)}
               </p>
               <p className="text-xs text-slate-500">

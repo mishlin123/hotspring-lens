@@ -129,7 +129,7 @@ function ChemBar({
   return (
     <div>
       <div className="flex items-baseline justify-between mb-1">
-        <span className="text-xs font-mono text-slate-800">{display}</span>
+        <span className="text-xs text-slate-800">{display}</span>
         <span className="text-xs text-slate-500 ml-1">{unit}</span>
       </div>
       <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">

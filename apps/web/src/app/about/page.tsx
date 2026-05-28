@@ -339,7 +339,7 @@ export default function AboutPage() {
           <div className="divide-y divide-slate-100 max-w-3xl">
             {researchAims.map(aim => (
               <div key={aim.number} className="grid grid-cols-[3rem_1fr] gap-5 py-6">
-                <p className="font-mono text-2xl font-light text-slate-300 leading-none pt-0.5 tabular-nums">
+                <p className="text-2xl font-light text-slate-300 leading-none pt-0.5 tabular-nums">
                   {aim.number}
                 </p>
                 <div>
@@ -372,7 +372,7 @@ export default function AboutPage() {
                 {outputs.map(o => (
                   <tr key={o.title}>
                     <td className="py-4 pr-8 align-top">
-                      <span className="font-mono text-xs text-teal-600 bg-teal-50 px-1.5 py-0.5 border border-teal-100">
+                      <span className="text-xs text-teal-600 bg-teal-50 px-1.5 py-0.5 border border-teal-100">
                         {o.label}
                       </span>
                       <p className="font-medium text-slate-700 mt-1.5 text-sm">{o.title}</p>

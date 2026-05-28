@@ -84,7 +84,7 @@ export default function TaxaDisplay({ taxa, totalCount }: Props) {
           <p className="text-xs text-slate-600 font-medium mb-0.5">
             Lineage path — top entry
           </p>
-          <p className="text-xs text-slate-500 font-mono leading-relaxed break-words">
+          <p className="text-xs text-slate-500 leading-relaxed break-words">
             {formatLineage(taxa[0].lineage)}
           </p>
           <p className="text-xs text-slate-500 mt-1.5">

@@ -85,7 +85,7 @@ export default function SafetyPage() {
             },
           ].map((rule, i) => (
             <div key={rule.title} className="grid grid-cols-[2.5rem_1fr] gap-4 py-5">
-              <p className="font-mono text-slate-300 text-sm tabular-nums pt-0.5">
+              <p className="text-slate-300 text-sm tabular-nums pt-0.5">
                 {String(i + 1).padStart(2, '0')}.
               </p>
               <div>

@@ -164,7 +164,7 @@ export default function MethodologiesPage() {
             { value: '250 bp', label: 'trimmed read length' },
           ].map(stat => (
             <div key={stat.label} className="flex items-baseline gap-2">
-              <span className="font-mono font-semibold text-teal-700 text-sm">{stat.value}</span>
+              <span className="font-semibold text-teal-700 text-sm">{stat.value}</span>
               <span className="text-xs text-slate-600">{stat.label}</span>
             </div>
           ))}
@@ -232,7 +232,7 @@ export default function MethodologiesPage() {
 
         {/* Table 1: Sample water distribution */}
         <h3 className="font-semibold text-slate-800 mb-2">Sample water distribution</h3>
-        <p className="text-xs text-slate-500 font-mono mb-3">Table 1. Volume and container allocation per sample.</p>
+        <p className="text-xs text-slate-500 mb-3">Table 1. Volume and container allocation per sample.</p>
         <div className="overflow-x-auto border border-slate-200 mb-10">
           <table className="w-full text-sm">
             <thead>
@@ -245,7 +245,7 @@ export default function MethodologiesPage() {
             <tbody className="divide-y divide-slate-100">
               {sampleDistribution.map((row, i) => (
                 <tr key={i} className="bg-white hover:bg-slate-50 transition-colors">
-                  <td className="px-4 py-3 font-mono text-teal-700 font-medium whitespace-nowrap">{row.volume}</td>
+                  <td className="px-4 py-3 text-teal-700 font-medium whitespace-nowrap">{row.volume}</td>
                   <td className="px-4 py-3 text-slate-800">{row.container}</td>
                   <td className="px-4 py-3 text-slate-800">{row.purpose}</td>
                 </tr>
@@ -342,7 +342,7 @@ export default function MethodologiesPage() {
                     ['UWaikato', 'University of Waikato, School of Science'],
                   ].map(([abbr, full]) => (
                     <div key={abbr} className="flex gap-2 text-xs text-slate-800">
-                      <span className="font-mono bg-teal-50 text-teal-700 px-1.5 py-0.5 border border-teal-100 font-semibold flex-shrink-0">
+                      <span className="bg-teal-50 text-teal-700 px-1.5 py-0.5 border border-teal-100 font-semibold flex-shrink-0">
                         {abbr}
                       </span>
                       {full}
@@ -374,7 +374,7 @@ export default function MethodologiesPage() {
 
           {/* Table 2: Processing summary */}
           <h3 className="font-semibold text-slate-800 mb-2">Sample processing summary</h3>
-          <p className="text-xs text-slate-500 font-mono mb-3">Table 2. Container, processing method, storage, and analysis location per parameter.</p>
+          <p className="text-xs text-slate-500 mb-3">Table 2. Container, processing method, storage, and analysis location per parameter.</p>
           <div className="overflow-x-auto border border-slate-200 mb-8">
             <table className="w-full text-xs">
               <thead>
@@ -392,7 +392,7 @@ export default function MethodologiesPage() {
                   <tr key={i} className="bg-white hover:bg-slate-50 transition-colors">
                     <td className="px-3 py-2.5 text-slate-800 whitespace-nowrap">{row.bottle}</td>
                     <td className="px-3 py-2.5 text-slate-800">{row.processing}</td>
-                    <td className="px-3 py-2.5 font-mono text-slate-700">{row.storage}</td>
+                    <td className="px-3 py-2.5 text-slate-700">{row.storage}</td>
                     <td className="px-3 py-2.5 font-medium text-teal-700">{row.parameter}</td>
                     <td className="px-3 py-2.5 text-slate-800">{row.method}</td>
                     <td className="px-3 py-2.5 text-slate-600">{row.location}</td>
@@ -415,7 +415,7 @@ export default function MethodologiesPage() {
               {icpElements.map(el => (
                 <span
                   key={el}
-                  className="bg-teal-50 text-teal-800 text-xs px-2 py-0.5 border border-teal-100 font-mono"
+                  className="bg-teal-50 text-teal-800 text-xs px-2 py-0.5 border border-teal-100"
                 >
                   {el}
                 </span>
@@ -475,7 +475,7 @@ export default function MethodologiesPage() {
               },
             ].map(s => (
               <div key={s.step} className="flex gap-5 py-5">
-                <span className="font-mono text-slate-300 text-sm flex-shrink-0 tabular-nums pt-px">{s.step}.</span>
+                <span className="text-slate-300 text-sm flex-shrink-0 tabular-nums pt-px">{s.step}.</span>
                 <div>
                   <p className="font-semibold text-slate-800 mb-1 text-sm">{s.title}</p>
                   <p className="text-sm text-slate-800 leading-relaxed">{s.body}</p>
@@ -514,14 +514,14 @@ export default function MethodologiesPage() {
                     </p>
                     <div className="space-y-2 mb-3">
                       <div className="flex items-start gap-3">
-                        <span className="text-xs font-bold text-teal-700 bg-teal-50 border border-teal-100 px-2 py-1 flex-shrink-0 font-mono">F515</span>
-                        <code className="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 break-all">
+                        <span className="text-xs font-bold text-teal-700 bg-teal-50 border border-teal-100 px-2 py-1 flex-shrink-0">F515</span>
+                        <code className="text-xs bg-slate-100 text-slate-700 px-2 py-1 break-all">
                           5′-GTGCCAGCMGCCGCGGTAA-3′
                         </code>
                       </div>
                       <div className="flex items-start gap-3">
-                        <span className="text-xs font-bold text-teal-700 bg-teal-50 border border-teal-100 px-2 py-1 flex-shrink-0 font-mono">R806</span>
-                        <code className="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 break-all">
+                        <span className="text-xs font-bold text-teal-700 bg-teal-50 border border-teal-100 px-2 py-1 flex-shrink-0">R806</span>
+                        <code className="text-xs bg-slate-100 text-slate-700 px-2 py-1 break-all">
                           5′-GGACTACVSGGGTATCTAAT-3′
                         </code>
                       </div>
@@ -548,7 +548,7 @@ export default function MethodologiesPage() {
                       ['2.0 µL', 'Soil community DNA (0.5 ng/µL template)'],
                     ].map(([vol, desc]) => (
                       <div key={desc} className="flex gap-2 items-start">
-                        <span className="font-mono text-teal-700 text-xs bg-teal-50 border border-teal-100 px-1.5 py-0.5 flex-shrink-0">{vol}</span>
+                        <span className="text-teal-700 text-xs bg-teal-50 border border-teal-100 px-1.5 py-0.5 flex-shrink-0">{vol}</span>
                         <span>{desc}</span>
                       </div>
                     ))}
@@ -584,7 +584,7 @@ export default function MethodologiesPage() {
               },
             ].map(s => (
               <div key={s.step} className="flex gap-5 py-5">
-                <span className="font-mono text-slate-300 text-sm flex-shrink-0 tabular-nums pt-px">{s.step}.</span>
+                <span className="text-slate-300 text-sm flex-shrink-0 tabular-nums pt-px">{s.step}.</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-slate-800 mb-2 text-sm">{s.title}</p>
                   {s.body}

@@ -57,7 +57,7 @@ export default function AttributionPage() {
       {/* Required attribution text */}
       <section className="mb-8">
         <h2 className="text-xl font-semibold text-slate-800 mb-3">Required attribution text</h2>
-        <div className="bg-slate-100 rounded-lg p-4 text-sm font-mono text-slate-700 border border-slate-200">
+        <div className="bg-slate-100 rounded-lg p-4 text-sm text-slate-700 border border-slate-200">
           1000 Springs Project authors, GNS Science, and University of Waikato.
           Data used under CC BY-NC-SA 4.0.
           Source: https://1000springs.org.nz
