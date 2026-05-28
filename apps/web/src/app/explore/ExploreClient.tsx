@@ -35,8 +35,7 @@ export default function ExploreClient({ springs, systems, featureTypes, initialS
   const [phMin, setPhMin]               = useState('')
   const [phMax, setPhMax]               = useState('')
   const [view, setView]                 = useState<'list' | 'map'>('map')
-  const [showInsights, setShowInsights] = useState(true)
-  const [sortBy, setSortBy]             = useState<SortKey>('name')
+const [sortBy, setSortBy]             = useState<SortKey>('name')
   const [compareIds, setCompareIds]     = useState<string[]>(initialCompareIds)
 
   // ─── Filter ───────────────────────────────────────────────────────────────
@@ -109,31 +108,15 @@ export default function ExploreClient({ springs, systems, featureTypes, initialS
   return (
     <div className={compareIds.length > 0 ? 'pb-20' : ''}>
 
-      {/* Dataset overview toggle */}
-      <button
-        onClick={() => setShowInsights(v => !v)}
-        className="w-full flex items-center justify-between bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg px-4 py-2.5 mb-3 transition-colors text-left"
-        aria-expanded={showInsights}
-      >
-        <span className="flex items-center gap-2.5">
-          <span className="text-base leading-none">📊</span>
-          <span className="text-sm font-semibold text-slate-700">Dataset overview</span>
-          <span className="hidden sm:inline text-xs text-slate-400">temperature &amp; pH distributions, system counts, scatter plot</span>
-        </span>
-        <span className="text-xs text-slate-400 flex-shrink-0">{showInsights ? '▲ hide' : '▼ show'}</span>
-      </button>
-
-      {/* Dataset insights panel */}
-      {showInsights && (
-        <DatasetInsights
-          allSprings={springs}
-          filteredSprings={filtered}
-          activeSystem={system}
-          activeFeatureType={featureType}
-          onSystemClick={sys => setSystem(prev => prev.includes(sys) ? prev.filter(x => x !== sys) : [...prev, sys])}
-          onFeatureTypeClick={ft => setFeatureType(prev => prev.includes(ft) ? prev.filter(x => x !== ft) : [...prev, ft])}
-        />
-      )}
+      {/* Dataset insights */}
+      <DatasetInsights
+        allSprings={springs}
+        filteredSprings={filtered}
+        activeSystem={system}
+        activeFeatureType={featureType}
+        onSystemClick={sys => setSystem(prev => prev.includes(sys) ? prev.filter(x => x !== sys) : [...prev, sys])}
+        onFeatureTypeClick={ft => setFeatureType(prev => prev.includes(ft) ? prev.filter(x => x !== ft) : [...prev, ft])}
+      />
 
       {/* Filter bar */}
       <div className="bg-white border border-slate-200 rounded-xl p-4 mb-5 space-y-3">
