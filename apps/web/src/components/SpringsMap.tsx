@@ -195,6 +195,7 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
         style={{ height: '100%', width: '100%' }}
         scrollWheelZoom={true}
         zoomSnap={0}
+        wheelPxPerZoomLevel={30}
       >
         <TileLayer key={baseTile} url={tile.url} attribution={tile.attribution} maxNativeZoom={tile.maxNativeZoom} />
 
