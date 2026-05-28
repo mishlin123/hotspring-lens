@@ -10,7 +10,7 @@ import CompareBar from '@/components/CompareBar'
 const SpringsMap = dynamic(() => import('@/components/SpringsMap'), {
   ssr: false,
   loading: () => (
-    <div className="h-[520px] bg-slate-100 rounded-lg border border-slate-200 flex items-center justify-center text-slate-400">
+    <div className="h-[520px] bg-slate-100 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500">
       Loading map…
     </div>
   ),
@@ -150,7 +150,7 @@ const [sortBy, setSortBy]             = useState<SortKey>('name')
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 items-center">
-          <div className="flex items-center gap-2 text-sm text-slate-600">
+          <div className="flex items-center gap-2 text-sm text-slate-800">
             <span className="font-medium">Temp (°C):</span>
             <input type="number" value={tempMin} onChange={e => setTempMin(e.target.value)} placeholder="Min"
               className="w-16 border border-slate-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500" />
@@ -158,7 +158,7 @@ const [sortBy, setSortBy]             = useState<SortKey>('name')
             <input type="number" value={tempMax} onChange={e => setTempMax(e.target.value)} placeholder="Max"
               className="w-16 border border-slate-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500" />
           </div>
-          <div className="flex items-center gap-2 text-sm text-slate-600">
+          <div className="flex items-center gap-2 text-sm text-slate-800">
             <span className="font-medium">pH:</span>
             <input type="number" value={phMin} onChange={e => setPhMin(e.target.value)} placeholder="Min" step="0.1"
               className="w-16 border border-slate-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500" />
@@ -167,7 +167,7 @@ const [sortBy, setSortBy]             = useState<SortKey>('name')
               className="w-16 border border-slate-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500" />
           </div>
           {hasFilters && (
-            <button onClick={clearFilters} className="text-sm text-slate-400 hover:text-slate-600 underline transition-colors ml-auto">
+            <button onClick={clearFilters} className="text-sm text-slate-500 hover:text-slate-800 underline transition-colors ml-auto">
               Clear filters
             </button>
           )}
@@ -176,7 +176,7 @@ const [sortBy, setSortBy]             = useState<SortKey>('name')
 
       {/* Toolbar: count + sort + view */}
       <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
-        <p className="text-sm text-slate-600 flex-shrink-0">
+        <p className="text-sm text-slate-800 flex-shrink-0">
           {filtered.length === springs.length
             ? `${filtered.length} springs`
             : `${filtered.length} of ${springs.length} springs`}
@@ -188,7 +188,7 @@ const [sortBy, setSortBy]             = useState<SortKey>('name')
             <select
               value={sortBy}
               onChange={e => setSortBy(e.target.value as SortKey)}
-              className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm bg-white text-slate-600 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500"
               aria-label="Sort springs"
             >
               <option value="name">Sort: Name</option>
@@ -205,7 +205,7 @@ const [sortBy, setSortBy]             = useState<SortKey>('name')
             <button
               onClick={() => setView('list')}
               className={`px-4 py-1.5 font-medium transition-colors ${
-                view === 'list' ? 'bg-teal-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'
+                view === 'list' ? 'bg-teal-600 text-white' : 'bg-white text-slate-800 hover:bg-slate-50'
               }`}
             >
               List
@@ -213,7 +213,7 @@ const [sortBy, setSortBy]             = useState<SortKey>('name')
             <button
               onClick={() => setView('map')}
               className={`px-4 py-1.5 font-medium transition-colors ${
-                view === 'map' ? 'bg-teal-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'
+                view === 'map' ? 'bg-teal-600 text-white' : 'bg-white text-slate-800 hover:bg-slate-50'
               }`}
             >
               Map
@@ -224,7 +224,7 @@ const [sortBy, setSortBy]             = useState<SortKey>('name')
 
       {/* Compare hint — shown once first spring is selected */}
       {compareIds.length === 1 && view === 'list' && (
-        <p className="text-xs text-slate-400 mb-3">
+        <p className="text-xs text-slate-500 mb-3">
           Select one or two more springs to compare. Hover a card and click "+" to add.
         </p>
       )}
@@ -234,8 +234,8 @@ const [sortBy, setSortBy]             = useState<SortKey>('name')
         <SpringsMap springs={filtered} />
       ) : sorted.length === 0 ? (
         <div className="text-center py-16 border border-slate-200 rounded bg-slate-50">
-          <p className="text-sm font-medium text-slate-600 mb-1">No springs match these filters</p>
-          <p className="text-sm text-slate-400 mb-4">Try broadening your search or adjusting the range values</p>
+          <p className="text-sm font-medium text-slate-800 mb-1">No springs match these filters</p>
+          <p className="text-sm text-slate-500 mb-4">Try broadening your search or adjusting the range values</p>
           <button onClick={clearFilters} className="text-sm text-teal-700 font-medium hover:underline">
             Clear all filters
           </button>

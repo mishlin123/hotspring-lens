@@ -243,7 +243,7 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
               <Popup>
                 <div className="text-sm min-w-[160px]">
                   <p className="font-semibold text-slate-800 leading-tight mb-0.5">{s.name}</p>
-                  <p className="text-slate-500 text-xs mb-2">
+                  <p className="text-slate-600 text-xs mb-2">
                     {s.geothermal_system} · {s.feature_type}
                   </p>
                   <div className="flex gap-1.5 text-xs mb-3 flex-wrap">
@@ -280,7 +280,7 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
             className={`px-2.5 py-1 text-xs font-medium rounded border shadow-sm transition-colors ${
               baseTile === key
                 ? 'bg-white text-teal-800 border-teal-300 shadow-md'
-                : 'bg-white/85 text-slate-600 border-slate-200 hover:bg-white'
+                : 'bg-white/85 text-slate-800 border-slate-200 hover:bg-white'
             }`}
           >
             {TILES[key].label}
@@ -305,14 +305,14 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
 
       {/* Legend — bottom right, scrollable if many items */}
       <div className="absolute bottom-8 right-3 bg-white/92 backdrop-blur-sm rounded-lg shadow border border-slate-200/80 p-2.5 z-[400] max-h-52 overflow-y-auto">
-        <p className="text-xs font-semibold text-slate-600 mb-1.5">{legend.title}</p>
+        <p className="text-xs font-semibold text-slate-800 mb-1.5">{legend.title}</p>
         {legend.items.map(l => (
           <div key={l.label} className="flex items-center gap-1.5 mb-0.5 last:mb-0">
             <span
               className="w-2.5 h-2.5 rounded-full flex-shrink-0 border border-white/60"
               style={{ backgroundColor: l.color }}
             />
-            <span className="text-xs text-slate-600 leading-tight whitespace-nowrap">{l.label}</span>
+            <span className="text-xs text-slate-800 leading-tight whitespace-nowrap">{l.label}</span>
           </div>
         ))}
       </div>
@@ -320,7 +320,7 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
       {/* Missing coords notice — bottom left */}
       {noCoords > 0 && (
         <div className="absolute bottom-3 left-3 z-[400]">
-          <p className="text-xs text-slate-500 bg-white/85 backdrop-blur-sm rounded px-2 py-1 shadow-sm border border-slate-200/60">
+          <p className="text-xs text-slate-600 bg-white/85 backdrop-blur-sm rounded px-2 py-1 shadow-sm border border-slate-200/60">
             {noCoords} spring{noCoords !== 1 ? 's' : ''} not shown — no coordinates on record
           </p>
         </div>

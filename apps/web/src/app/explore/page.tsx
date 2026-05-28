@@ -28,7 +28,7 @@ export default function ExplorePage({ searchParams }: Props) {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-slate-800">Explore Springs</h1>
-        <p className="text-slate-500 mt-1">
+        <p className="text-slate-600 mt-1">
           {summaries.length} spring records across {systems.length} geothermal systems.
           Hover any card to add it to a comparison.
         </p>

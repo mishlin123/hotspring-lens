@@ -48,7 +48,7 @@ export default function HomePage() {
               About this project
             </Link>
           </div>
-          <p className="text-slate-400 text-xs">
+          <p className="text-slate-500 text-xs">
             Many springs are on private land or in restricted areas. Check access status before visiting.{' '}
             <Link href="/safety" className="text-teal-400 hover:underline">Safety information →</Link>
           </p>
@@ -66,7 +66,7 @@ export default function HomePage() {
           ].map(stat => (
             <div key={stat.label}>
               <p className="text-2xl font-bold text-slate-800">{stat.value}</p>
-              <p className="text-sm text-slate-500 mt-0.5">{stat.label}</p>
+              <p className="text-sm text-slate-600 mt-0.5">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -75,7 +75,7 @@ export default function HomePage() {
       {/* Geothermal systems */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <h2 className="text-xl font-semibold text-slate-800 mb-1">Browse by geothermal system</h2>
-        <p className="text-slate-500 text-sm mb-6">
+        <p className="text-slate-600 text-sm mb-6">
           Springs sampled across the Taupō Volcanic Zone and surrounding areas.
         </p>
         <div className="flex flex-wrap gap-2">
@@ -95,7 +95,7 @@ export default function HomePage() {
       <section className="border-y border-slate-200 py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-xl font-semibold text-slate-800 mb-1">Who uses this</h2>
-          <p className="text-slate-500 text-sm mb-8">Free and open to everyone.</p>
+          <p className="text-slate-600 text-sm mb-8">Free and open to everyone.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-16 gap-y-6">
             {[
               {
@@ -117,7 +117,7 @@ export default function HomePage() {
             ].map(item => (
               <div key={item.title} className="border-l-2 border-teal-500 pl-4">
                 <h3 className="font-semibold text-slate-800 mb-1">{item.title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{item.body}</p>
+                <p className="text-sm text-slate-800 leading-relaxed">{item.body}</p>
               </div>
             ))}
           </div>
@@ -127,7 +127,7 @@ export default function HomePage() {
       {/* What each record contains */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <h2 className="text-xl font-semibold text-slate-800 mb-1">What each spring record contains</h2>
-        <p className="text-slate-500 text-sm mb-8">
+        <p className="text-slate-600 text-sm mb-8">
           Every record is drawn directly from the 1000 Springs Project dataset.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -149,7 +149,7 @@ export default function HomePage() {
               <h3 className="text-sm font-semibold text-teal-700 uppercase tracking-wide mb-3">{col.title}</h3>
               <ul className="space-y-1.5">
                 {col.items.map(item => (
-                  <li key={item} className="text-sm text-slate-600 flex items-start gap-2">
+                  <li key={item} className="text-sm text-slate-800 flex items-start gap-2">
                     <span className="w-1 h-1 rounded-full bg-slate-400 flex-shrink-0 mt-2" />
                     {item}
                   </li>
@@ -166,7 +166,7 @@ export default function HomePage() {
           <div className="w-px self-stretch bg-amber-400 flex-shrink-0" />
           <div>
             <h2 className="text-sm font-semibold text-slate-800 uppercase tracking-wide mb-2">Safety notice</h2>
-            <p className="text-sm text-slate-600 leading-relaxed mb-3">
+            <p className="text-sm text-slate-800 leading-relaxed mb-3">
               Hot springs can cause serious injury or death. Stay on marked paths, follow local
               signs, never cross barriers, and do not rely on this site for safe navigation.
               Many springs are on private land or in areas of cultural sensitivity.

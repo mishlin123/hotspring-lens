@@ -53,14 +53,14 @@ function BandRow({
         className="w-2 h-2 rounded-full flex-shrink-0"
         style={{ backgroundColor: color }}
       />
-      <span className="text-xs text-slate-600 w-28 flex-shrink-0 leading-tight">{label}</span>
+      <span className="text-xs text-slate-800 w-28 flex-shrink-0 leading-tight">{label}</span>
       <div className="flex-1 bg-slate-100 rounded-full h-2.5 overflow-hidden">
         <div
           className="h-full rounded-full transition-all duration-300"
           style={{ width: `${pct}%`, backgroundColor: color, opacity: 0.85 }}
         />
       </div>
-      <span className="text-xs text-slate-500 w-7 text-right flex-shrink-0">{count}</span>
+      <span className="text-xs text-slate-600 w-7 text-right flex-shrink-0">{count}</span>
     </div>
   )
 }
@@ -104,7 +104,7 @@ function ClickableBar({
           style={{ width: `${pct}%`, backgroundColor: color, opacity: active ? 1 : 0.7 }}
         />
       </div>
-      <span className="text-xs text-slate-400 w-6 text-right flex-shrink-0">{count}</span>
+      <span className="text-xs text-slate-500 w-6 text-right flex-shrink-0">{count}</span>
     </button>
   )
 }
@@ -241,8 +241,8 @@ function ScatterPlot({ springs, systemColorMap }: {
           }}
         >
           <p className="font-semibold text-slate-700 mb-0.5 leading-tight">{tooltip.spring.name}</p>
-          <p className="text-slate-500">{tooltip.spring.temperature_c}°C · pH {tooltip.spring.ph}</p>
-          <p className="text-slate-400 text-[10px]">{tooltip.spring.geothermal_system}</p>
+          <p className="text-slate-600">{tooltip.spring.temperature_c}°C · pH {tooltip.spring.ph}</p>
+          <p className="text-slate-500 text-[10px]">{tooltip.spring.geothermal_system}</p>
         </div>
       )}
     </div>
@@ -320,12 +320,12 @@ export default function DatasetInsights({
         <div>
           <h2 className="text-sm font-semibold text-slate-700">Dataset overview</h2>
           {isFiltered ? (
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Distributions show the {total} filtered spring{total !== 1 ? 's' : ''}.
               System and feature-type bars show the full dataset — click to filter.
             </p>
           ) : (
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               {allTotal} spring records. Click a system or feature type to filter the list.
             </p>
           )}
@@ -334,11 +334,11 @@ export default function DatasetInsights({
 
       {/* Full-width scatter plot — hidden on mobile (dots too small to use) */}
       <div className="hidden sm:block mb-5">
-        <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
+        <p className="text-xs font-semibold text-slate-600 tracking-wide mb-2">
           pH vs temperature
         </p>
         <ScatterPlot springs={filteredSprings} systemColorMap={systemColors} />
-        <p className="text-xs text-slate-400 mt-1">
+        <p className="text-xs text-slate-500 mt-1">
           Colour by geothermal system · hover for details · click to open spring
         </p>
       </div>
@@ -348,7 +348,7 @@ export default function DatasetInsights({
 
         {/* Temperature distribution */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
+          <p className="text-xs font-semibold text-slate-600 tracking-wide mb-2">
             Temperature at sampling
           </p>
           <div className="space-y-1">
@@ -363,14 +363,14 @@ export default function DatasetInsights({
               />
             ))}
           </div>
-          <p className="text-xs text-slate-400 mt-2">
+          <p className="text-xs text-slate-500 mt-2">
             Range: 13.9–99.8°C across {tempTotal} records
           </p>
         </div>
 
         {/* pH distribution */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
+          <p className="text-xs font-semibold text-slate-600 tracking-wide mb-2">
             pH at sampling
           </p>
           <div className="space-y-1">
@@ -385,17 +385,17 @@ export default function DatasetInsights({
               />
             ))}
           </div>
-          <p className="text-xs text-slate-400 mt-2">
+          <p className="text-xs text-slate-500 mt-2">
             Bimodal: sulfuric (acidic) and bicarbonate (neutral–alkaline) spring types
           </p>
         </div>
 
         {/* Geothermal systems */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-0.5">
+          <p className="text-xs font-semibold text-slate-600 tracking-wide mb-0.5">
             By geothermal system
           </p>
-          <p className="text-xs text-slate-400 mb-2">Click to filter · select multiple</p>
+          <p className="text-xs text-slate-500 mb-2">Click to filter · select multiple</p>
           <div className="space-y-0.5">
             {systemCounts.map(({ sys, count }) => (
               <ClickableBar
@@ -413,10 +413,10 @@ export default function DatasetInsights({
 
         {/* Feature types */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-0.5">
+          <p className="text-xs font-semibold text-slate-600 tracking-wide mb-0.5">
             By feature type
           </p>
-          <p className="text-xs text-slate-400 mb-2">Click to filter · select multiple</p>
+          <p className="text-xs text-slate-500 mb-2">Click to filter · select multiple</p>
           <div className="space-y-0.5">
             {featureTypeCounts.map(({ type, count }) => (
               <ClickableBar
@@ -430,7 +430,7 @@ export default function DatasetInsights({
               />
             ))}
           </div>
-          <p className="text-xs text-slate-400 mt-3">
+          <p className="text-xs text-slate-500 mt-3">
             Measurements reflect conditions at time of sampling. Springs may change over time.
           </p>
         </div>

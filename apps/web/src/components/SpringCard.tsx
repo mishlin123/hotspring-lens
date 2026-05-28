@@ -6,7 +6,7 @@ import type { SpringSummary } from '@/lib/types'
 
 function TempBadge({ temp }: { temp: number | null }) {
   if (temp === null) return null
-  let colour = 'bg-slate-100 text-slate-600'
+  let colour = 'bg-slate-100 text-slate-800'
   if (temp >= 80)      colour = 'bg-red-50 text-red-700 border border-red-200'
   else if (temp >= 60) colour = 'bg-orange-50 text-orange-700 border border-orange-200'
   else if (temp >= 40) colour = 'bg-amber-50 text-amber-700 border border-amber-200'
@@ -48,7 +48,7 @@ export default function SpringCard({ spring, onToggleCompare, isInCompare = fals
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-xs text-slate-400 font-medium tracking-wide uppercase">No photo</span>
+              <span className="text-xs text-slate-500 font-medium tracking-wide uppercase">No photo</span>
             </div>
           )}
           {/* System pill */}
@@ -64,24 +64,24 @@ export default function SpringCard({ spring, onToggleCompare, isInCompare = fals
           <h3 className="font-semibold text-slate-800 text-sm leading-tight group-hover:text-teal-700 transition-colors line-clamp-2">
             {spring.name}
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5 truncate">{spring.location_text}</p>
+          <p className="text-xs text-slate-600 mt-0.5 truncate">{spring.location_text}</p>
 
           {/* Badges */}
           <div className="flex items-center gap-1.5 mt-2 flex-wrap">
             <TempBadge temp={spring.temperature_c} />
             {spring.ph !== null && (
-              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-600">
+              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-800">
                 pH {spring.ph}
               </span>
             )}
-            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs text-slate-400 ml-auto">
+            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs text-slate-500 ml-auto">
               {spring.feature_type}
             </span>
           </div>
 
           {/* Data completeness — only flag missing taxonomy */}
           {!hasTaxonomy && (
-            <p className="text-xs text-slate-400 mt-2 italic">No 16S taxonomy data</p>
+            <p className="text-xs text-slate-500 mt-2 italic">No 16S taxonomy data</p>
           )}
         </div>
       </Link>
@@ -94,7 +94,7 @@ export default function SpringCard({ spring, onToggleCompare, isInCompare = fals
           className={`absolute top-2 right-2 w-6 h-6 rounded border text-xs font-bold leading-none transition-all z-10 ${
             isInCompare
               ? 'bg-teal-600 border-teal-600 text-white opacity-100 shadow'
-              : 'bg-white/90 border-slate-300 text-slate-500 opacity-0 group-hover:opacity-100 hover:border-teal-400 hover:text-teal-600'
+              : 'bg-white/90 border-slate-300 text-slate-600 opacity-0 group-hover:opacity-100 hover:border-teal-400 hover:text-teal-600'
           }`}
           aria-pressed={isInCompare}
         >

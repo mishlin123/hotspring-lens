@@ -107,7 +107,7 @@ const references = [
 
 function MetaLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
-    <p className={`text-xs font-mono uppercase tracking-widest mb-2 ${light ? 'text-teal-400' : 'text-slate-400'}`}>
+    <p className={`text-xs font-mono uppercase tracking-widest mb-2 ${light ? 'text-teal-400' : 'text-slate-500'}`}>
       {children}
     </p>
   )
@@ -165,7 +165,7 @@ export default function MethodologiesPage() {
           ].map(stat => (
             <div key={stat.label} className="flex items-baseline gap-2">
               <span className="font-mono font-semibold text-teal-700 text-sm">{stat.value}</span>
-              <span className="text-xs text-slate-500">{stat.label}</span>
+              <span className="text-xs text-slate-600">{stat.label}</span>
             </div>
           ))}
         </div>
@@ -186,8 +186,8 @@ export default function MethodologiesPage() {
               />
             </div>
           </div>
-          <figcaption className="text-xs text-slate-500 mt-2">
-            <span className="font-semibold text-slate-600">Fig. 1.</span>{' '}
+          <figcaption className="text-xs text-slate-600 mt-2">
+            <span className="font-semibold text-slate-800">Fig. 1.</span>{' '}
             Data flow from field sampling through laboratory analysis and computing to the online database.
           </figcaption>
         </figure>
@@ -204,12 +204,12 @@ export default function MethodologiesPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
           <div>
             <h3 className="font-semibold text-slate-800 mb-3">Site selection</h3>
-            <p className="text-sm text-slate-600 leading-relaxed mb-3">
+            <p className="text-sm text-slate-800 leading-relaxed mb-3">
               The research targets a broad range of physicochemical conditions in
               geothermally-influenced springs within the Taupō Volcanic Zone. Water columns are
               sampled from springs. Sediments, biofilms, mudpots, and heated soils are excluded.
             </p>
-            <p className="text-sm text-slate-600 leading-relaxed">
+            <p className="text-sm text-slate-800 leading-relaxed">
               The goal is to collect 1,000 samples, primarily one per individual feature. Repeated
               sampling occurs where conditions vary significantly, for temporal studies, or for
               quality control purposes.
@@ -217,12 +217,12 @@ export default function MethodologiesPage() {
           </div>
           <div>
             <h3 className="font-semibold text-slate-800 mb-3">Collection technique</h3>
-            <p className="text-sm text-slate-600 leading-relaxed mb-3">
+            <p className="text-sm text-slate-800 leading-relaxed mb-3">
               A telescopic sampling pole fitted with sterile containers or custom-built samplers
               collects water across the full depth of the spring, ensuring homogenous and
               representative samples.
             </p>
-            <p className="text-sm text-slate-600 leading-relaxed">
+            <p className="text-sm text-slate-800 leading-relaxed">
               A field tablet and custom app record physical, chemical, and metadata in the field,
               eliminating double-handling of field notes and reducing transcription errors. Metadata
               uploads instantly to the database.
@@ -232,11 +232,11 @@ export default function MethodologiesPage() {
 
         {/* Table 1: Sample water distribution */}
         <h3 className="font-semibold text-slate-800 mb-2">Sample water distribution</h3>
-        <p className="text-xs text-slate-400 font-mono mb-3">Table 1. Volume and container allocation per sample.</p>
+        <p className="text-xs text-slate-500 font-mono mb-3">Table 1. Volume and container allocation per sample.</p>
         <div className="overflow-x-auto border border-slate-200 mb-10">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-slate-300 bg-slate-50 text-xs text-slate-500 uppercase tracking-wide">
+              <tr className="border-b border-slate-300 bg-slate-50 text-xs text-slate-600 uppercase tracking-wide">
                 <th className="text-left px-4 py-3 font-semibold">Volume</th>
                 <th className="text-left px-4 py-3 font-semibold">Container</th>
                 <th className="text-left px-4 py-3 font-semibold">Purpose</th>
@@ -246,8 +246,8 @@ export default function MethodologiesPage() {
               {sampleDistribution.map((row, i) => (
                 <tr key={i} className="bg-white hover:bg-slate-50 transition-colors">
                   <td className="px-4 py-3 font-mono text-teal-700 font-medium whitespace-nowrap">{row.volume}</td>
-                  <td className="px-4 py-3 text-slate-600">{row.container}</td>
-                  <td className="px-4 py-3 text-slate-600">{row.purpose}</td>
+                  <td className="px-4 py-3 text-slate-800">{row.container}</td>
+                  <td className="px-4 py-3 text-slate-800">{row.purpose}</td>
                 </tr>
               ))}
             </tbody>
@@ -266,8 +266,8 @@ export default function MethodologiesPage() {
                   <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="50vw" />
                 </div>
               </div>
-              <figcaption className="text-xs text-slate-500 mt-1.5">
-                <span className="font-semibold text-slate-600">{img.fig}</span> {img.caption}
+              <figcaption className="text-xs text-slate-600 mt-1.5">
+                <span className="font-semibold text-slate-800">{img.fig}</span> {img.caption}
               </figcaption>
             </figure>
           ))}
@@ -277,7 +277,7 @@ export default function MethodologiesPage() {
         <h3 className="font-semibold text-slate-800 mb-3">Field metadata recorded</h3>
         <div className="divide-y divide-slate-100 border-t border-slate-100">
           {fieldMetadata.map(item => (
-            <div key={item} className="flex gap-3 py-2 text-sm text-slate-600">
+            <div key={item} className="flex gap-3 py-2 text-sm text-slate-800">
               <span className="text-slate-300 flex-shrink-0 mt-px">›</span>
               {item}
             </div>
@@ -298,7 +298,7 @@ export default function MethodologiesPage() {
             {/* Field measurements */}
             <div className="bg-white border border-slate-200 p-6">
               <h3 className="font-semibold text-slate-800 mb-3">Field measurements</h3>
-              <p className="text-xs text-slate-500 mb-4">
+              <p className="text-xs text-slate-600 mb-4">
                 Processing occurs in a 4WD field van configured as a mobile laboratory to minimise
                 temperature changes, dissolved oxygen changes, and microbial activity effects.
               </p>
@@ -306,7 +306,7 @@ export default function MethodologiesPage() {
                 {fieldMeasurements.map(m => (
                   <div key={m.param} className="flex justify-between items-start gap-3 py-2">
                     <span className="text-sm font-medium text-slate-700">{m.param}</span>
-                    <span className="text-xs text-slate-500 text-right flex-shrink-0">{m.instrument}</span>
+                    <span className="text-xs text-slate-600 text-right flex-shrink-0">{m.instrument}</span>
                   </div>
                 ))}
               </div>
@@ -315,24 +315,24 @@ export default function MethodologiesPage() {
             {/* Microorganism collection */}
             <div className="bg-white border border-slate-200 p-6">
               <h3 className="font-semibold text-slate-800 mb-4">Microorganism collection</h3>
-              <p className="text-sm text-slate-600 leading-relaxed mb-3">
+              <p className="text-sm text-slate-800 leading-relaxed mb-3">
                 A battery-operated peristaltic pump pushes up to 2 litres through a{' '}
                 <strong>0.2 µm Sterivex column filter</strong> (Millipore). After extensive field
                 testing, Sterivex filters demonstrated higher filtration volume capacity than
                 tested alternatives.
               </p>
-              <p className="text-sm text-slate-600 leading-relaxed mb-3">
+              <p className="text-sm text-slate-800 leading-relaxed mb-3">
                 Filtrate water is collected in 15 mL and 50 mL tubes for additional chemistry
                 analyses.
               </p>
-              <p className="text-sm text-slate-600 leading-relaxed">
+              <p className="text-sm text-slate-800 leading-relaxed">
                 All filtrate samples, filters, and soil samples are cooled to{' '}
                 <strong>4 °C</strong> and transported immediately to the Wairakei laboratory for
                 storage until analysis.
               </p>
 
               <div className="mt-5 pt-4 border-t border-slate-100">
-                <p className="text-xs font-mono uppercase tracking-widest text-slate-400 mb-3">
+                <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-3">
                   Chemistry analysis locations
                 </p>
                 <div className="space-y-1.5">
@@ -341,7 +341,7 @@ export default function MethodologiesPage() {
                     ['ERG', 'Extremophile Research Group, GNS Science'],
                     ['UWaikato', 'University of Waikato, School of Science'],
                   ].map(([abbr, full]) => (
-                    <div key={abbr} className="flex gap-2 text-xs text-slate-600">
+                    <div key={abbr} className="flex gap-2 text-xs text-slate-800">
                       <span className="font-mono bg-teal-50 text-teal-700 px-1.5 py-0.5 border border-teal-100 font-semibold flex-shrink-0">
                         {abbr}
                       </span>
@@ -365,8 +365,8 @@ export default function MethodologiesPage() {
                     <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="50vw" />
                   </div>
                 </div>
-                <figcaption className="text-xs text-slate-500 mt-1.5">
-                  <span className="font-semibold text-slate-600">{img.fig}</span> {img.caption}
+                <figcaption className="text-xs text-slate-600 mt-1.5">
+                  <span className="font-semibold text-slate-800">{img.fig}</span> {img.caption}
                 </figcaption>
               </figure>
             ))}
@@ -374,11 +374,11 @@ export default function MethodologiesPage() {
 
           {/* Table 2: Processing summary */}
           <h3 className="font-semibold text-slate-800 mb-2">Sample processing summary</h3>
-          <p className="text-xs text-slate-400 font-mono mb-3">Table 2. Container, processing method, storage, and analysis location per parameter.</p>
+          <p className="text-xs text-slate-500 font-mono mb-3">Table 2. Container, processing method, storage, and analysis location per parameter.</p>
           <div className="overflow-x-auto border border-slate-200 mb-8">
             <table className="w-full text-xs">
               <thead>
-                <tr className="border-b border-slate-300 bg-slate-50 text-slate-500 uppercase tracking-wide">
+                <tr className="border-b border-slate-300 bg-slate-50 text-slate-600 uppercase tracking-wide">
                   <th className="text-left px-3 py-3 font-semibold">Container</th>
                   <th className="text-left px-3 py-3 font-semibold">Processing</th>
                   <th className="text-left px-3 py-3 font-semibold">Storage</th>
@@ -390,12 +390,12 @@ export default function MethodologiesPage() {
               <tbody className="divide-y divide-slate-100">
                 {processingTable.map((row, i) => (
                   <tr key={i} className="bg-white hover:bg-slate-50 transition-colors">
-                    <td className="px-3 py-2.5 text-slate-600 whitespace-nowrap">{row.bottle}</td>
-                    <td className="px-3 py-2.5 text-slate-600">{row.processing}</td>
+                    <td className="px-3 py-2.5 text-slate-800 whitespace-nowrap">{row.bottle}</td>
+                    <td className="px-3 py-2.5 text-slate-800">{row.processing}</td>
                     <td className="px-3 py-2.5 font-mono text-slate-700">{row.storage}</td>
                     <td className="px-3 py-2.5 font-medium text-teal-700">{row.parameter}</td>
-                    <td className="px-3 py-2.5 text-slate-600">{row.method}</td>
-                    <td className="px-3 py-2.5 text-slate-500">{row.location}</td>
+                    <td className="px-3 py-2.5 text-slate-800">{row.method}</td>
+                    <td className="px-3 py-2.5 text-slate-600">{row.location}</td>
                   </tr>
                 ))}
               </tbody>
@@ -407,7 +407,7 @@ export default function MethodologiesPage() {
             <h3 className="font-semibold text-slate-800 mb-1">
               Elements measured via ICP-MS
             </h3>
-            <p className="text-xs text-slate-500 mb-4">
+            <p className="text-xs text-slate-600 mb-4">
               30 elements quantified by inductively coupled plasma mass spectrometry at the
               University of Waikato.
             </p>
@@ -432,7 +432,7 @@ export default function MethodologiesPage() {
         <SectionAnchor id="sequencing" />
         <MetaLabel>03: Sequencing</MetaLabel>
         <h2 className="text-xl font-bold text-slate-800 mb-3">Microbial diversity assessment</h2>
-        <p className="text-slate-500 text-sm mb-10 max-w-2xl leading-relaxed">
+        <p className="text-slate-600 text-sm mb-10 max-w-2xl leading-relaxed">
           Soil and freshwater can contain up to one billion and ten million cells respectively,
           making exhaustive identification impractical. The project instead extracts total microbial
           DNA, sequences a universal gene, and uses bioinformatics pipelines to assign taxonomy at
@@ -478,7 +478,7 @@ export default function MethodologiesPage() {
                 <span className="font-mono text-slate-300 text-sm flex-shrink-0 tabular-nums pt-px">{s.step}.</span>
                 <div>
                   <p className="font-semibold text-slate-800 mb-1 text-sm">{s.title}</p>
-                  <p className="text-sm text-slate-600 leading-relaxed">{s.body}</p>
+                  <p className="text-sm text-slate-800 leading-relaxed">{s.body}</p>
                 </div>
               </div>
             ))}
@@ -507,7 +507,7 @@ export default function MethodologiesPage() {
                 title: 'PCR amplification',
                 body: (
                   <>
-                    <p className="text-sm text-slate-600 leading-relaxed mb-3">
+                    <p className="text-sm text-slate-800 leading-relaxed mb-3">
                       PCR amplifies the microbial community 16S rRNA genes using universal
                       bacterial/archaeal primers from the{' '}
                       <strong>Earth Microbiome Project</strong>:
@@ -526,7 +526,7 @@ export default function MethodologiesPage() {
                         </code>
                       </div>
                     </div>
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-sm text-slate-800 leading-relaxed">
                       The forward primer contains an A-adaptor, a 10–12 nucleotide sample-specific
                       barcode, a 'GAT' barcode adaptor, and the F515 sequencing primer. The reverse
                       primer includes a P1 sequence and R806 sequencing primer.
@@ -538,7 +538,7 @@ export default function MethodologiesPage() {
                 step: '2',
                 title: 'PCR reaction composition',
                 body: (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-600">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-800">
                     {[
                       ['0.5 µL each', 'Forward & reverse primers (10 µM)'],
                       ['1.0 µL', 'Bovine serum albumin (10 mg/mL)'],
@@ -552,14 +552,14 @@ export default function MethodologiesPage() {
                         <span>{desc}</span>
                       </div>
                     ))}
-                    <p className="col-span-full text-xs text-slate-500 mt-2">
+                    <p className="col-span-full text-xs text-slate-600 mt-2">
                       25 µL total reaction volume. Master mix is pre-treated with ethidium
                       monoazide bromide (EMA) to remove trace DNA contaminants before primer, Taq,
                       and template addition.
                     </p>
                     <div className="col-span-full mt-2 pt-2 border-t border-slate-100">
-                      <p className="font-mono text-xs uppercase tracking-widest text-slate-400 mb-1">Thermocycling</p>
-                      <p className="text-xs text-slate-600">
+                      <p className="font-mono text-xs uppercase tracking-widest text-slate-500 mb-1">Thermocycling</p>
+                      <p className="text-xs text-slate-800">
                         Initial denaturation 94 °C / 3 min → 30 cycles: 94 °C / 45 s · 50 °C / 1 min · 72 °C / 1.5 min → Final extension 72 °C / 10 min
                       </p>
                     </div>
@@ -570,7 +570,7 @@ export default function MethodologiesPage() {
                 step: '3',
                 title: 'NGS preparation & sequencing',
                 body: (
-                  <p className="text-sm text-slate-600 leading-relaxed">
+                  <p className="text-sm text-slate-800 leading-relaxed">
                     Amplicons from triplicated PCR products are purified using{' '}
                     <strong>SPRIselect</strong> (Beckman Coulter) to remove small nucleotide
                     fragments. Quality and concentration are verified and adjusted to{' '}
@@ -607,8 +607,8 @@ export default function MethodologiesPage() {
                   <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="33vw" />
                 </div>
               </div>
-              <figcaption className="text-xs text-slate-500 mt-1.5">
-                <span className="font-semibold text-slate-600">{img.fig}</span> {img.caption}
+              <figcaption className="text-xs text-slate-600 mt-1.5">
+                <span className="font-semibold text-slate-800">{img.fig}</span> {img.caption}
               </figcaption>
             </figure>
           ))}
@@ -633,7 +633,7 @@ export default function MethodologiesPage() {
           </div>
           <div className="bg-white border border-slate-200 p-6">
             <h4 className="font-semibold text-slate-800 mb-3 text-sm">Pipeline details</h4>
-            <div className="space-y-3 text-sm text-slate-600">
+            <div className="space-y-3 text-sm text-slate-800">
               <p>
                 Raw reads in <strong>FASTQ format</strong> are processed using a custom pipeline
                 based on <strong>Mothur</strong> and <strong>USEARCH</strong>.
@@ -756,7 +756,7 @@ export default function MethodologiesPage() {
           {references.map(ref => (
             <div key={ref.id} className="flex gap-4 py-4">
               <span className="text-slate-300 flex-shrink-0 mt-0.5">›</span>
-              <p className="text-sm text-slate-600 leading-relaxed">{ref.citation}</p>
+              <p className="text-sm text-slate-800 leading-relaxed">{ref.citation}</p>
             </div>
           ))}
         </div>
@@ -766,14 +766,14 @@ export default function MethodologiesPage() {
           <Link href="/explore" className="text-teal-700 hover:underline">
             Explore springs →
           </Link>
-          <Link href="/about" className="text-slate-500 hover:text-slate-700 hover:underline">
+          <Link href="/about" className="text-slate-600 hover:text-slate-700 hover:underline">
             About the project
           </Link>
           <a
             href="https://1000springs.org.nz/methodologies"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-500 hover:text-slate-700 hover:underline"
+            className="text-slate-600 hover:text-slate-700 hover:underline"
           >
             Official methodologies page ↗
           </a>

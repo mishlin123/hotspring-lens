@@ -12,7 +12,7 @@ const RANK_STYLES: Record<string, string> = {
 }
 
 function rankStyle(rank: string): string {
-  return RANK_STYLES[rank.toLowerCase()] ?? 'bg-slate-50 text-slate-600 border-slate-200'
+  return RANK_STYLES[rank.toLowerCase()] ?? 'bg-slate-50 text-slate-800 border-slate-200'
 }
 
 function formatLineage(lineage: string): string {
@@ -31,7 +31,7 @@ interface Props {
 
 export default function TaxaDisplay({ taxa, totalCount }: Props) {
   if (!taxa || taxa.length === 0) {
-    return <p className="text-sm text-slate-500">No 16S rRNA taxonomy data for this record.</p>
+    return <p className="text-sm text-slate-600">No 16S rRNA taxonomy data for this record.</p>
   }
 
   const maxReads = Math.max(...taxa.map(t => t.size))
@@ -39,7 +39,7 @@ export default function TaxaDisplay({ taxa, totalCount }: Props) {
   return (
     <div>
       {/* Caveat */}
-      <p className="text-xs text-slate-500 mb-3 leading-relaxed">
+      <p className="text-xs text-slate-600 mb-3 leading-relaxed">
         Top {taxa.length} taxa by 16S rRNA sequence read count, from{' '}
         {totalCount.toLocaleString()} total records. Bars show relative read counts —{' '}
         <strong className="font-medium">not cell abundance</strong>. Identifications
@@ -63,7 +63,7 @@ export default function TaxaDisplay({ taxa, totalCount }: Props) {
                 <span className="font-medium text-sm text-slate-800 italic leading-tight">
                   {name}
                 </span>
-                <span className="text-xs text-slate-400 ml-auto flex-shrink-0">
+                <span className="text-xs text-slate-500 ml-auto flex-shrink-0">
                   {taxon.size.toLocaleString()} reads
                 </span>
               </div>
@@ -81,13 +81,13 @@ export default function TaxaDisplay({ taxa, totalCount }: Props) {
       {/* Lineage path for top entry */}
       {taxa[0]?.lineage && (
         <div className="mt-3 pt-3 border-t border-slate-100">
-          <p className="text-xs text-slate-500 font-medium mb-0.5">
+          <p className="text-xs text-slate-600 font-medium mb-0.5">
             Lineage path — top entry
           </p>
-          <p className="text-xs text-slate-400 font-mono leading-relaxed break-words">
+          <p className="text-xs text-slate-500 font-mono leading-relaxed break-words">
             {formatLineage(taxa[0].lineage)}
           </p>
-          <p className="text-xs text-slate-400 mt-1.5">
+          <p className="text-xs text-slate-500 mt-1.5">
             Lineage derived from 16S rRNA amplicon sequencing. Taxonomic placement
             reflects the reference database in use at time of analysis.
           </p>

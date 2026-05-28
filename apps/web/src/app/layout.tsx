@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { DM_Sans } from 'next/font/google'
+import { Figtree } from 'next/font/google'
 import Image from 'next/image'
 import './globals.css'
 import NavBar from '@/components/NavBar'
 import SafetyBanner from '@/components/SafetyBanner'
 
-const dmSans = DM_Sans({ subsets: ['latin'] })
+const figtree = Figtree({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${dmSans.className} antialiased bg-white text-slate-800 min-h-screen flex flex-col`}>
+      <body className={`${figtree.className} antialiased bg-white text-slate-800 min-h-screen flex flex-col`}>
         <NavBar />
         <SafetyBanner />
         <main className="flex-1">{children}</main>
@@ -68,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </p>
               </div>
             </div>
-            <p className="text-xs text-slate-500 border-t border-slate-700 pt-4">
+            <p className="text-xs text-slate-600 border-t border-slate-700 pt-4">
               Data from the 1000 Springs Project. Used under CC BY-NC-SA 4.0.
             </p>
           </div>

@@ -35,7 +35,7 @@ function AnalyteRow({ row, maxValue }: { row: ChemistryRecord; maxValue: number 
         </span>
         <span className="text-xs font-mono text-slate-800 ml-2 flex-shrink-0">
           {formatValue(row.value)}{' '}
-          <span className="text-slate-400 font-sans font-normal">{unit}</span>
+          <span className="text-slate-500 font-sans font-normal">{unit}</span>
         </span>
       </div>
       <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
@@ -55,7 +55,7 @@ interface Props {
 
 export default function ChemistryDisplay({ chemistry, totalCount }: Props) {
   if (!chemistry || chemistry.length === 0) {
-    return <p className="text-sm text-slate-500">No chemistry data available for this record.</p>
+    return <p className="text-sm text-slate-600">No chemistry data available for this record.</p>
   }
 
   // Separate by unit group so bars don't compare across different scales
@@ -67,7 +67,7 @@ export default function ChemistryDisplay({ chemistry, totalCount }: Props) {
 
   return (
     <div>
-      <p className="text-xs text-slate-500 mb-3">
+      <p className="text-xs text-slate-600 mb-3">
         {chemistry.length} analytes shown from {totalCount.toLocaleString()} chemistry records.
         Bar length is relative to the highest value in each unit group.
         Most values in mg/L; CO, H₂, CH₄ in µM.
@@ -85,7 +85,7 @@ export default function ChemistryDisplay({ chemistry, totalCount }: Props) {
       {/* µM analytes — separate scale, labelled explicitly */}
       {microM.length > 0 && (
         <div>
-          <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1 mt-3">
+          <p className="text-xs text-slate-500 font-medium uppercase tracking-wide mb-1 mt-3">
             Dissolved gases (µM scale)
           </p>
           {microM.map((row, i) => (

@@ -9,7 +9,7 @@ export default function AttributionPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <h1 className="text-3xl font-bold text-slate-800 mb-2">Attribution & Licence</h1>
-      <p className="text-slate-500 mb-10">
+      <p className="text-slate-600 mb-10">
         Full attribution for the data and tools used in the 1000 Springs Project.
       </p>
 
@@ -67,7 +67,7 @@ export default function AttributionPage() {
       {/* Licence summary */}
       <section className="mb-8">
         <h2 className="text-xl font-semibold text-slate-800 mb-3">Licence summary (CC BY-NC-SA 4.0)</h2>
-        <div className="bg-white border border-slate-200 rounded-lg p-5 space-y-3 text-sm text-slate-600">
+        <div className="bg-white border border-slate-200 rounded-lg p-5 space-y-3 text-sm text-slate-800">
           {[
             { type: 'allowed', label: 'Share', detail: 'You may copy and redistribute the material in any medium or format.' },
             { type: 'allowed', label: 'Adapt', detail: 'You may remix, transform, and build upon the material.' },
@@ -90,7 +90,7 @@ export default function AttributionPage() {
             </div>
           ))}
         </div>
-        <p className="text-xs text-slate-400 mt-2">
+        <p className="text-xs text-slate-500 mt-2">
           This is a summary, not legal advice. See the full licence at{' '}
           <a
             href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
@@ -107,7 +107,7 @@ export default function AttributionPage() {
       {/* What this project does */}
       <section className="mb-8">
         <h2 className="text-xl font-semibold text-slate-800 mb-3">How this project uses the data</h2>
-        <div className="text-sm text-slate-600 space-y-2">
+        <div className="text-sm text-slate-800 space-y-2">
           <p>
             This explorer uses the 1000 Springs Project dataset solely for non-commercial educational and
             research purposes, in compliance with the CC BY-NC-SA 4.0 licence.
@@ -156,7 +156,7 @@ export default function AttributionPage() {
             >
               <div>
                 <p className="font-medium text-slate-800">{tool.name}</p>
-                <p className="text-slate-500 text-xs">{tool.licence}</p>
+                <p className="text-slate-600 text-xs">{tool.licence}</p>
               </div>
               <a
                 href={tool.url}

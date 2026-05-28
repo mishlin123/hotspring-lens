@@ -32,7 +32,7 @@ export default function CompareBar({ selected, onRemove, onClear }: Props) {
               <span className="truncate max-w-[140px]">{s.name}</span>
               <button
                 onClick={() => onRemove(s.id)}
-                className="text-slate-400 hover:text-slate-600 leading-none flex-shrink-0"
+                className="text-slate-500 hover:text-slate-800 leading-none flex-shrink-0"
                 aria-label={`Remove ${s.name} from comparison`}
               >
                 ×
@@ -44,7 +44,7 @@ export default function CompareBar({ selected, onRemove, onClear }: Props) {
           {Array.from({ length: Math.max(0, 2 - selected.length) }).map((_, i) => (
             <span
               key={`slot-${i}`}
-              className="inline-flex items-center border border-dashed border-slate-300 text-slate-400 text-xs px-2.5 py-1 rounded"
+              className="inline-flex items-center border border-dashed border-slate-300 text-slate-500 text-xs px-2.5 py-1 rounded"
             >
               Add a spring
             </span>
@@ -55,7 +55,7 @@ export default function CompareBar({ selected, onRemove, onClear }: Props) {
         <div className="flex items-center gap-2 flex-shrink-0">
           <button
             onClick={onClear}
-            className="text-xs text-slate-400 hover:text-slate-600 underline transition-colors"
+            className="text-xs text-slate-500 hover:text-slate-800 underline transition-colors"
           >
             Clear
           </button>
@@ -67,7 +67,7 @@ export default function CompareBar({ selected, onRemove, onClear }: Props) {
               Compare {selected.length} springs
             </Link>
           ) : (
-            <span className="bg-slate-200 text-slate-400 text-sm font-semibold px-5 py-2 rounded cursor-not-allowed">
+            <span className="bg-slate-200 text-slate-500 text-sm font-semibold px-5 py-2 rounded cursor-not-allowed">
               Select {2 - selected.length} more
             </span>
           )}

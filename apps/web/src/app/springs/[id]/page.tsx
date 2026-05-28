@@ -59,10 +59,10 @@ function MeasurementCard({ label, value, unit, context }: MeasurementCardProps) 
   if (value === null) return null
   return (
     <div className="bg-slate-50 rounded-lg p-3 border border-slate-100">
-      <p className="text-xs text-slate-500 mb-1">{label}</p>
+      <p className="text-xs text-slate-600 mb-1">{label}</p>
       <p className="text-lg font-semibold text-slate-800 leading-none">
         {value}
-        <span className="text-sm font-normal text-slate-500 ml-1">{unit}</span>
+        <span className="text-sm font-normal text-slate-600 ml-1">{unit}</span>
       </p>
       {context && (
         <p className={`text-xs mt-1 font-medium ${context.color}`}>{context.label}</p>
@@ -77,9 +77,9 @@ function DetailRow({ label, value, unit }: { label: string; value: string | numb
   if (value === null || value === undefined || value === '') return null
   return (
     <div className="flex items-baseline justify-between py-2 border-b border-slate-100 last:border-0">
-      <span className="text-sm text-slate-500">{label}</span>
+      <span className="text-sm text-slate-600">{label}</span>
       <span className="text-sm font-medium text-slate-800 text-right">
-        {value}{unit ? <span className="text-slate-500 ml-1 font-normal">{unit}</span> : null}
+        {value}{unit ? <span className="text-slate-600 ml-1 font-normal">{unit}</span> : null}
       </span>
     </div>
   )
@@ -103,7 +103,7 @@ export default function SpringDetailPage({ params }: Props) {
         </Link>
         <Link
           href={`/explore?compare=${spring.id}`}
-          className="text-sm text-slate-500 hover:text-slate-700 border border-slate-200 rounded px-3 py-1 transition-colors hover:border-slate-300"
+          className="text-sm text-slate-600 hover:text-slate-700 border border-slate-200 rounded px-3 py-1 transition-colors hover:border-slate-300"
         >
           Compare this spring
         </Link>
@@ -133,7 +133,7 @@ export default function SpringDetailPage({ params }: Props) {
 
       {/* Title block */}
       <div className="mb-8">
-        <p className="text-xs text-slate-500 mb-2 font-medium">
+        <p className="text-xs text-slate-600 mb-2 font-medium">
           {spring.geothermal_system}
           <span className="mx-2 text-slate-300">·</span>
           {spring.feature_type}
@@ -141,7 +141,7 @@ export default function SpringDetailPage({ params }: Props) {
           <span className="font-mono">{spring.sample_number}</span>
         </p>
         <h1 className="text-3xl font-bold text-slate-800 mb-1 tracking-tight">{spring.name}</h1>
-        <p className="text-slate-500 text-sm">{spring.location_text}</p>
+        <p className="text-slate-600 text-sm">{spring.location_text}</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -152,9 +152,9 @@ export default function SpringDetailPage({ params }: Props) {
           {spring.description && (
             <section className="bg-white rounded-xl border border-slate-200 p-5">
               <h2 className="text-lg font-semibold text-slate-800 mb-3">Site description</h2>
-              <p className="text-sm text-slate-600 leading-relaxed">{spring.description}</p>
+              <p className="text-sm text-slate-800 leading-relaxed">{spring.description}</p>
               {spring.sample_date && (
-                <p className="text-xs text-slate-400 mt-3">Sampled: {spring.sample_date}</p>
+                <p className="text-xs text-slate-500 mt-3">Sampled: {spring.sample_date}</p>
               )}
             </section>
           )}
@@ -171,7 +171,7 @@ export default function SpringDetailPage({ params }: Props) {
           {/* Microbial diversity */}
           <section className="bg-white rounded-xl border border-slate-200 p-5">
             <h2 className="text-lg font-semibold text-slate-800 mb-1">Microbial diversity</h2>
-            <p className="text-xs text-slate-400 mb-3">
+            <p className="text-xs text-slate-500 mb-3">
               16S rRNA amplicon sequencing. Ranks span domain to genus.
             </p>
             <TaxaDisplay taxa={spring.top_taxa} totalCount={spring.taxonomy_record_count} />
@@ -211,7 +211,7 @@ export default function SpringDetailPage({ params }: Props) {
               <DetailRow label="Ebullition (bubbling)" value={spring.ebullition} />
             </div>
 
-            <p className="text-xs text-slate-400 mt-3">
+            <p className="text-xs text-slate-500 mt-3">
               Point-in-time field measurements. Conditions vary with season and hydrothermal activity.
             </p>
           </section>
@@ -220,11 +220,11 @@ export default function SpringDetailPage({ params }: Props) {
           {spring.latitude !== null && spring.longitude !== null && (
             <section className="bg-white rounded-xl border border-slate-200 p-5">
               <h2 className="text-lg font-semibold text-slate-800 mb-3">Location</h2>
-              <p className="text-sm text-slate-600 mb-2">{spring.location_text}</p>
-              <p className="font-mono text-xs text-slate-400 mb-2">
+              <p className="text-sm text-slate-800 mb-2">{spring.location_text}</p>
+              <p className="font-mono text-xs text-slate-500 mb-2">
                 {spring.latitude.toFixed(4)}, {spring.longitude.toFixed(4)}
               </p>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 Coordinates are approximate GPS readings from field sampling.
                 Do not use for navigation.
               </p>
@@ -236,7 +236,7 @@ export default function SpringDetailPage({ params }: Props) {
             <h2 className="text-lg font-semibold text-slate-800 mb-3">Source & attribution</h2>
             <div className="space-y-3 text-sm">
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-0.5">Source</p>
+                <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-0.5">Source</p>
                 <a
                   href={spring.source_url}
                   target="_blank"
@@ -247,11 +247,11 @@ export default function SpringDetailPage({ params }: Props) {
                 </a>
               </div>
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-0.5">Attribution</p>
-                <p className="text-xs text-slate-600 leading-relaxed">{spring.attribution}</p>
+                <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-0.5">Attribution</p>
+                <p className="text-xs text-slate-800 leading-relaxed">{spring.attribution}</p>
               </div>
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-0.5">Licence</p>
+                <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-0.5">Licence</p>
                 <a
                   href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
                   target="_blank"
@@ -261,7 +261,7 @@ export default function SpringDetailPage({ params }: Props) {
                   {spring.licence}
                 </a>
               </div>
-              <p className="text-xs text-slate-400 pt-1 border-t border-slate-200">
+              <p className="text-xs text-slate-500 pt-1 border-t border-slate-200">
                 Data represents point-in-time field measurements from the 1000 Springs Project.
               </p>
             </div>

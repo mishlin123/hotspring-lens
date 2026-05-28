@@ -17,7 +17,7 @@ interface Props {
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function phLabel(ph: number | null): { text: string; colour: string } {
-  if (ph === null) return { text: '—', colour: 'text-slate-400' }
+  if (ph === null) return { text: '—', colour: 'text-slate-500' }
   if (ph < 2)  return { text: 'Extremely acidic',  colour: 'text-violet-700' }
   if (ph < 4)  return { text: 'Strongly acidic',   colour: 'text-red-600' }
   if (ph < 6)  return { text: 'Moderately acidic', colour: 'text-orange-600' }
@@ -27,7 +27,7 @@ function phLabel(ph: number | null): { text: string; colour: string } {
 }
 
 function tempLabel(t: number | null): { text: string; colour: string } {
-  if (t === null) return { text: '—', colour: 'text-slate-400' }
+  if (t === null) return { text: '—', colour: 'text-slate-500' }
   if (t >= 80) return { text: 'Very hot',  colour: 'text-red-600' }
   if (t >= 60) return { text: 'Hot',       colour: 'text-orange-600' }
   if (t >= 40) return { text: 'Warm',      colour: 'text-amber-600' }
@@ -70,13 +70,13 @@ function SpringHeader({ spring, cols }: { spring: Spring; cols: number }) {
           />
         </div>
       )}
-      <p className="text-xs text-slate-500 mb-1">
+      <p className="text-xs text-slate-600 mb-1">
         {spring.geothermal_system}
         <span className="mx-1.5 text-slate-300">·</span>
         {spring.feature_type}
       </p>
       <h2 className="font-bold text-slate-800 text-base leading-snug">{spring.name}</h2>
-      <p className="text-xs text-slate-400 mt-0.5 truncate">{spring.location_text}</p>
+      <p className="text-xs text-slate-500 mt-0.5 truncate">{spring.location_text}</p>
       <Link
         href={`/springs/${spring.id}`}
         className="text-xs text-teal-600 hover:underline mt-1.5 inline-block"
@@ -103,9 +103,9 @@ function MeasCell({
     <div className="py-3 px-4 border-b border-slate-100 last:border-0">
       <span className="text-sm font-semibold text-slate-800">
         {value}
-        {unit && <span className="text-slate-400 font-normal ml-1 text-xs">{unit}</span>}
+        {unit && <span className="text-slate-500 font-normal ml-1 text-xs">{unit}</span>}
       </span>
-      {label && <p className={`text-xs mt-0.5 ${labelColour ?? 'text-slate-500'}`}>{label}</p>}
+      {label && <p className={`text-xs mt-0.5 ${labelColour ?? 'text-slate-600'}`}>{label}</p>}
     </div>
   )
 }
@@ -121,7 +121,7 @@ function ChemBar({
   unit?: string
 }) {
   if (value === null) {
-    return <span className="text-xs text-slate-400">No data</span>
+    return <span className="text-xs text-slate-500">No data</span>
   }
   const pct = maxValue > 0 ? Math.min((value / maxValue) * 100, 100) : 0
   const display =
@@ -130,7 +130,7 @@ function ChemBar({
     <div>
       <div className="flex items-baseline justify-between mb-1">
         <span className="text-xs font-mono text-slate-800">{display}</span>
-        <span className="text-xs text-slate-400 ml-1">{unit}</span>
+        <span className="text-xs text-slate-500 ml-1">{unit}</span>
       </div>
       <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
         <div
@@ -145,7 +145,7 @@ function ChemBar({
 /** Taxa bar for one spring in compare view */
 function TaxaList({ taxa }: { taxa: TaxonRecord[] }) {
   if (!taxa || taxa.length === 0) {
-    return <p className="text-xs text-slate-400 italic">No 16S taxonomy data.</p>
+    return <p className="text-xs text-slate-500 italic">No 16S taxonomy data.</p>
   }
   const maxReads = Math.max(...taxa.map(t => t.size))
   return (
@@ -158,7 +158,7 @@ function TaxaList({ taxa }: { taxa: TaxonRecord[] }) {
               <span className="text-xs italic text-slate-800 font-medium leading-tight truncate max-w-[80%]">
                 {t.taxon_name.replace(/_/g, ' ')}
               </span>
-              <span className="text-xs text-slate-400 flex-shrink-0">{t.size.toLocaleString()}</span>
+              <span className="text-xs text-slate-500 flex-shrink-0">{t.size.toLocaleString()}</span>
             </div>
             <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
               <div
@@ -169,7 +169,7 @@ function TaxaList({ taxa }: { taxa: TaxonRecord[] }) {
           </div>
         )
       })}
-      <p className="text-xs text-slate-400 pt-1">Sequence read counts. Not cell abundance.</p>
+      <p className="text-xs text-slate-500 pt-1">Sequence read counts. Not cell abundance.</p>
     </div>
   )
 }
@@ -183,7 +183,7 @@ export default function ComparePage({ searchParams }: Props) {
   if (ids.length < 2) {
     return (
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <p className="text-slate-600 mb-4">Select at least two springs from the explorer to compare.</p>
+        <p className="text-slate-800 mb-4">Select at least two springs from the explorer to compare.</p>
         <Link href="/explore" className="text-teal-600 font-medium hover:underline">
           ← Back to explorer
         </Link>
@@ -216,7 +216,7 @@ export default function ComparePage({ searchParams }: Props) {
         >
           ← Back to explorer
         </Link>
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-slate-500">
           Comparing {cols} springs · Point-in-time field measurements
         </p>
       </div>
@@ -232,7 +232,7 @@ export default function ComparePage({ searchParams }: Props) {
 
       {/* ─── Physical measurements ──────────────────────────────────────── */}
       <section className="mb-6">
-        <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2 px-4">
+        <h2 className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2 px-4">
           Physical measurements
         </h2>
         <div className="border border-slate-200 rounded-xl overflow-hidden">
@@ -244,7 +244,7 @@ export default function ComparePage({ searchParams }: Props) {
           >
             <div className="px-4 py-2" />
             {springs.map(s => (
-              <p key={s.id} className="text-xs font-semibold text-slate-600 px-4 py-2 truncate">{s.name}</p>
+              <p key={s.id} className="text-xs font-semibold text-slate-800 px-4 py-2 truncate">{s.name}</p>
             ))}
           </div>
 
@@ -287,7 +287,7 @@ export default function ComparePage({ searchParams }: Props) {
               style={{ display: 'grid', gridTemplateColumns: `140px repeat(${cols}, 1fr)` }}
             >
               <div className="px-4 py-3 flex items-start border-r border-slate-100">
-                <p className="text-xs font-medium text-slate-500 leading-tight">{row.rowLabel}</p>
+                <p className="text-xs font-medium text-slate-600 leading-tight">{row.rowLabel}</p>
               </div>
               {row.cells.map((cell, ci) => (
                 <MeasCell
@@ -302,7 +302,7 @@ export default function ComparePage({ searchParams }: Props) {
           ))}
         </div>
 
-        <p className="text-xs text-slate-400 mt-2 px-1">
+        <p className="text-xs text-slate-500 mt-2 px-1">
           All measurements taken in the field at time of sampling. Conditions vary seasonally and with
           hydrothermal activity.
         </p>
@@ -310,7 +310,7 @@ export default function ComparePage({ searchParams }: Props) {
 
       {/* ─── Water chemistry ────────────────────────────────────────────── */}
       <section className="mb-6">
-        <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2 px-4">
+        <h2 className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2 px-4">
           Water chemistry — core analytes (mg/L, shared scale)
         </h2>
         <div className="border border-slate-200 rounded-xl overflow-hidden">
@@ -321,7 +321,7 @@ export default function ComparePage({ searchParams }: Props) {
           >
             <div className="px-4 py-2" />
             {springs.map(s => (
-              <p key={s.id} className="text-xs font-semibold text-slate-600 px-4 py-2 truncate">{s.name}</p>
+              <p key={s.id} className="text-xs font-semibold text-slate-800 px-4 py-2 truncate">{s.name}</p>
             ))}
           </div>
 
@@ -333,7 +333,7 @@ export default function ComparePage({ searchParams }: Props) {
             >
               {/* Row label */}
               <div className="px-4 py-2.5 flex items-center border-r border-slate-100">
-                <p className="text-xs font-medium text-slate-500">{analyteLabel(analyte)}</p>
+                <p className="text-xs font-medium text-slate-600">{analyteLabel(analyte)}</p>
               </div>
               {/* Value cells */}
               {values.map((val, ci) => (
@@ -345,7 +345,7 @@ export default function ComparePage({ searchParams }: Props) {
           ))}
         </div>
 
-        <p className="text-xs text-slate-400 mt-2 px-1">
+        <p className="text-xs text-slate-500 mt-2 px-1">
           Bars are scaled to the highest value for each analyte across the compared springs.
           Values from {springs.map(s => s.chemistry_record_count).join('/')} chemistry records respectively.
         </p>
@@ -353,23 +353,23 @@ export default function ComparePage({ searchParams }: Props) {
 
       {/* ─── Microbial diversity ────────────────────────────────────────── */}
       <section className="mb-6">
-        <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2 px-4">
+        <h2 className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2 px-4">
           Microbial diversity — top taxa by sequence reads
         </h2>
         <div className={`grid ${gridCols} gap-4`}>
           {springs.map(s => (
             <div key={s.id} className="bg-white border border-slate-200 rounded-xl p-4">
-              <p className="text-xs font-semibold text-slate-600 mb-3 truncate">{s.name}</p>
+              <p className="text-xs font-semibold text-slate-800 mb-3 truncate">{s.name}</p>
               <TaxaList taxa={s.top_taxa} />
               {s.taxonomy_record_count > 0 && (
-                <p className="text-xs text-slate-400 mt-2 pt-2 border-t border-slate-100">
+                <p className="text-xs text-slate-500 mt-2 pt-2 border-t border-slate-100">
                   {s.taxonomy_record_count.toLocaleString()} total 16S records
                 </p>
               )}
             </div>
           ))}
         </div>
-        <p className="text-xs text-slate-400 mt-2 px-1">
+        <p className="text-xs text-slate-500 mt-2 px-1">
           16S rRNA amplicon data. Read counts reflect sequencing output, not cell abundance.
           Taxa are identified to varying ranks — do not interpret as species-level.
         </p>
@@ -377,7 +377,7 @@ export default function ComparePage({ searchParams }: Props) {
 
       {/* ─── Attribution ────────────────────────────────────────────────── */}
       <section className="border-t border-slate-200 pt-6 mt-6">
-        <p className="text-xs text-slate-400 leading-relaxed">
+        <p className="text-xs text-slate-500 leading-relaxed">
           Data from the{' '}
           <a href="https://1000springs.org.nz" target="_blank" rel="noopener noreferrer" className="text-teal-600 hover:underline">
             1000 Springs Project

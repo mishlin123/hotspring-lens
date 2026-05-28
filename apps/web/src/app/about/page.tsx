@@ -246,7 +246,7 @@ const tourismPartners: {
 
 function MetaLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-mono uppercase tracking-widest text-slate-400 mb-6">
+    <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-6">
       {children}
     </p>
   )
@@ -307,7 +307,7 @@ export default function AboutPage() {
             Volcanic Zone."
           </p>
         </blockquote>
-        <p className="text-slate-600 text-sm leading-relaxed mb-10 max-w-3xl">
+        <p className="text-slate-800 text-sm leading-relaxed mb-10 max-w-3xl">
           Beyond documentation, the project aims to assess the conservation, cultural,
           recreational, and resource development value of microbial components in these
           geothermal ecosystems, knowledge that informs science, policy, and kaitiakitanga.
@@ -324,8 +324,8 @@ export default function AboutPage() {
               sizes="(max-width: 768px) 100vw, 768px"
             />
           </div>
-          <figcaption className="text-xs text-slate-500 mt-2 leading-relaxed">
-            <span className="font-semibold text-slate-600">Fig. 1.</span>{' '}
+          <figcaption className="text-xs text-slate-600 mt-2 leading-relaxed">
+            <span className="font-semibold text-slate-800">Fig. 1.</span>{' '}
             Geothermal hotspot locations across the Taupō Volcanic Zone.
             Source: 1000 Springs Project, GNS Science.
           </figcaption>
@@ -344,7 +344,7 @@ export default function AboutPage() {
                 </p>
                 <div>
                   <p className="font-semibold text-slate-800 mb-1">{aim.title}</p>
-                  <p className="text-sm text-slate-600 leading-relaxed">{aim.body}</p>
+                  <p className="text-sm text-slate-800 leading-relaxed">{aim.body}</p>
                 </div>
               </div>
             ))}
@@ -360,10 +360,10 @@ export default function AboutPage() {
             <table className="w-full text-sm max-w-3xl">
               <thead>
                 <tr className="border-b border-slate-300">
-                  <th className="text-left text-xs font-semibold text-slate-500 pb-2 pr-8 uppercase tracking-wide w-44">
+                  <th className="text-left text-xs font-semibold text-slate-600 pb-2 pr-8 uppercase tracking-wide w-44">
                     Output
                   </th>
-                  <th className="text-left text-xs font-semibold text-slate-500 pb-2 uppercase tracking-wide">
+                  <th className="text-left text-xs font-semibold text-slate-600 pb-2 uppercase tracking-wide">
                     Description
                   </th>
                 </tr>
@@ -377,7 +377,7 @@ export default function AboutPage() {
                       </span>
                       <p className="font-medium text-slate-700 mt-1.5 text-sm">{o.title}</p>
                     </td>
-                    <td className="py-4 text-slate-600 align-top leading-relaxed">{o.body}</td>
+                    <td className="py-4 text-slate-800 align-top leading-relaxed">{o.body}</td>
                   </tr>
                 ))}
               </tbody>
@@ -428,7 +428,7 @@ export default function AboutPage() {
       {/* ── Research team ───────────────────────────────────────── */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <MetaLabel>Research team</MetaLabel>
-        <p className="text-xs text-slate-500 -mt-4 mb-8">
+        <p className="text-xs text-slate-600 -mt-4 mb-8">
           GNS Science and University of Waikato. Roles as at time of project.
         </p>
         <div className="divide-y divide-slate-100">
@@ -445,18 +445,18 @@ export default function AboutPage() {
                 </div>
               </div>
               <div className="pl-11 sm:pl-0 mt-0.5">
-                <p className="text-xs text-slate-600 leading-snug">{person.title}</p>
-                <p className="text-xs text-slate-400 mt-0.5">{person.roles}</p>
+                <p className="text-xs text-slate-800 leading-snug">{person.title}</p>
+                <p className="text-xs text-slate-500 mt-0.5">{person.roles}</p>
               </div>
             </div>
           ))}
         </div>
 
         <div className="mt-8 pt-6 border-t border-slate-100">
-          <p className="text-xs font-mono uppercase tracking-widest text-slate-400 mb-2">
+          <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-2">
             Also assisted by
           </p>
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-slate-800">
             {assistedMembers.map((m, i) => (
               <span key={m.name}>
                 {m.name}{i < assistedMembers.length - 1 ? ' · ' : ''}
@@ -470,21 +470,21 @@ export default function AboutPage() {
       <div className="bg-slate-50 border-y border-slate-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <MetaLabel>Site access &amp; support</MetaLabel>
-          <p className="text-xs text-slate-500 -mt-4 mb-8">
+          <p className="text-xs text-slate-600 -mt-4 mb-8">
             The following sites provided access and support for the 1000 Springs Project sampling programme.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-12 gap-y-10">
             {tourismPartners.map(region => (
               <div key={region.region}>
-                <p className="text-xs font-mono uppercase tracking-widest text-slate-400 border-b border-slate-200 pb-2 mb-4">
+                <p className="text-xs font-mono uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-2 mb-4">
                   {region.region}
                 </p>
                 <ul className="space-y-5">
                   {region.partners.map(p => (
                     <li key={p.name}>
                       <p className="font-medium text-slate-700 text-sm">{p.name}</p>
-                      <p className="text-xs text-slate-500 mt-0.5">{p.address}</p>
-                      <p className="text-xs text-slate-500">{p.phone}</p>
+                      <p className="text-xs text-slate-600 mt-0.5">{p.address}</p>
+                      <p className="text-xs text-slate-600">{p.phone}</p>
                     </li>
                   ))}
                 </ul>
@@ -504,7 +504,7 @@ export default function AboutPage() {
               <div>
                 <p className="text-sm font-medium text-slate-800">
                   {c.name}{' '}
-                  <span className="font-normal text-slate-500">&middot; {c.org}</span>
+                  <span className="font-normal text-slate-600">&middot; {c.org}</span>
                 </p>
                 <a
                   href={`mailto:${c.email}`}
@@ -523,17 +523,17 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <MetaLabel>About this explorer</MetaLabel>
 
-          <p className="text-sm text-slate-600 leading-relaxed mb-10 max-w-3xl">
+          <p className="text-sm text-slate-800 leading-relaxed mb-10 max-w-3xl">
             This explorer is a free, non-commercial tool for making the 1000 Springs Project dataset
             accessible to a broader audience: tourists, students, teachers, and researchers.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 mb-10 max-w-3xl">
             <div>
-              <p className="text-xs font-mono uppercase tracking-widest text-slate-400 border-b border-slate-200 pb-2 mb-4">
+              <p className="text-xs font-mono uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-2 mb-4">
                 What this is
               </p>
-              <ul className="space-y-2 text-sm text-slate-600">
+              <ul className="space-y-2 text-sm text-slate-800">
                 {[
                   'A web-based field guide to NZ geothermal springs',
                   'Built on the 1000 Springs Project dataset',
@@ -548,10 +548,10 @@ export default function AboutPage() {
               </ul>
             </div>
             <div>
-              <p className="text-xs font-mono uppercase tracking-widest text-slate-400 border-b border-slate-200 pb-2 mb-4">
+              <p className="text-xs font-mono uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-2 mb-4">
                 What this is not
               </p>
-              <ul className="space-y-2 text-sm text-slate-600">
+              <ul className="space-y-2 text-sm text-slate-800">
                 {[
                   'Not commercial: no ads, subscriptions, or purchases',
                   'Not a navigation tool: do not use it to access springs',
@@ -566,7 +566,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6 mb-10 text-sm text-slate-600 max-w-3xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6 mb-10 text-sm text-slate-800 max-w-3xl">
             <div>
               <p className="font-semibold text-slate-700 mb-1.5">A note on microbiology</p>
               <p className="leading-relaxed mb-2">
@@ -598,14 +598,14 @@ export default function AboutPage() {
             <Link href="/explore" className="text-teal-700 hover:underline">
               Explore the dataset →
             </Link>
-            <Link href="/attribution" className="text-slate-500 hover:text-slate-700 hover:underline">
+            <Link href="/attribution" className="text-slate-600 hover:text-slate-700 hover:underline">
               Attribution &amp; licence
             </Link>
             <a
               href="https://1000springs.org.nz/about"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-500 hover:text-slate-700 hover:underline"
+              className="text-slate-600 hover:text-slate-700 hover:underline"
             >
               Official project site ↗
             </a>
