@@ -31,7 +31,7 @@ export default function HomePage() {
           </h1>
           <p className="text-slate-300 text-lg mb-8 max-w-xl leading-relaxed">
             Free, non-commercial records from the 1000 Springs Project (GNS Science &amp; University
-            of Waikato) — physical measurements, water chemistry, and microbial diversity for
+            of Waikato). Physical measurements, water chemistry, and microbial diversity for
             springs across the Taupō Volcanic Zone.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 mb-5">
