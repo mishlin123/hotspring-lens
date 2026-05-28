@@ -27,6 +27,10 @@ const config: Config = {
       colors: {
         teal: springBlue,
       },
+      fontFamily: {
+        sans: ['var(--font-karla)', 'sans-serif'],
+        display: ['var(--font-montserrat)', 'sans-serif'],
+      },
     },
   },
   plugins: [],

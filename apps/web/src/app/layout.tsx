@@ -1,11 +1,21 @@
 import type { Metadata } from 'next'
-import { Figtree } from 'next/font/google'
+import { Montserrat, Karla } from 'next/font/google'
 import Image from 'next/image'
 import './globals.css'
 import NavBar from '@/components/NavBar'
 import SafetyBanner from '@/components/SafetyBanner'
 
-const figtree = Figtree({ subsets: ['latin'] })
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+  display: 'swap',
+})
+
+const karla = Karla({
+  subsets: ['latin'],
+  variable: '--font-karla',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -18,8 +28,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${figtree.className} antialiased bg-white text-slate-800 min-h-screen flex flex-col`}>
+    <html lang="en" className={`${montserrat.variable} ${karla.variable}`}>
+      <body className="font-sans antialiased bg-white text-slate-800 min-h-screen flex flex-col">
         <NavBar />
         <SafetyBanner />
         <main className="flex-1">{children}</main>
