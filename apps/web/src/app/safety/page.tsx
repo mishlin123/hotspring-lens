@@ -8,34 +8,52 @@ export const metadata: Metadata = {
 
 export default function SafetyPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <h1 className="text-3xl font-bold text-slate-800 mb-2">Safety Guidelines</h1>
-      <p className="text-slate-500 mb-8">
-        Geothermal springs in New Zealand are beautiful and scientifically fascinating.
-        They are also dangerous. Please read this before visiting any spring.
-      </p>
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-20">
 
-      {/* Main warning */}
-      <div className="bg-red-50 border border-red-300 rounded-xl p-6 mb-8">
-        <div className="flex gap-3 items-start">
-          <div className="w-8 h-8 rounded-full border-2 border-red-500 text-red-600 font-bold text-sm flex items-center justify-center flex-shrink-0 mt-0.5">!</div>
-          <div>
-            <h2 className="text-lg font-bold text-red-800 mb-2">
-              Hot springs can cause serious injury or death
-            </h2>
-            <p className="text-red-700">
-              Hot spring water can reach temperatures above 100°C. Ground crusts around springs can
-              be thin and collapse without warning. Many springs have steep sides, extreme pH, or
-              toxic gas emissions.
-            </p>
-          </div>
-        </div>
+      {/* ── Header ──────────────────────────────────────────────── */}
+      <div className="mb-10">
+        <p className="text-xs font-mono uppercase tracking-widest text-slate-400 mb-3">
+          Field safety protocol
+        </p>
+        <h1 className="text-2xl font-bold text-slate-800 mb-2">
+          Geothermal Spring Safety
+        </h1>
+        <p className="text-sm text-slate-500">
+          New Zealand geothermal environments. Read before visiting any spring.
+        </p>
       </div>
 
-      {/* Rules */}
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold text-slate-800 mb-4">Field safety guidelines</h2>
-        <div className="space-y-3">
+      {/* ── Primary warning ─────────────────────────────────────── */}
+      <div className="border-l-4 border-red-600 pl-5 mb-8">
+        <p className="text-xs font-mono uppercase tracking-widest text-red-600 mb-2">Warning</p>
+        <p className="text-xl font-bold text-slate-900 mb-2 leading-tight">
+          Hot springs can cause serious injury or death.
+        </p>
+        <p className="text-sm text-slate-600 leading-relaxed">
+          Spring water can reach temperatures above 100 °C. Ground crusts around springs can be
+          thin and collapse without warning. Many springs have steep sides, extreme pH, or toxic
+          gas emissions.
+        </p>
+      </div>
+
+      {/* ── Navigation notice ───────────────────────────────────── */}
+      <div className="bg-amber-50 border border-amber-300 px-4 py-3 mb-12 flex gap-3 items-start">
+        <span className="text-xs font-mono uppercase tracking-widest text-amber-600 flex-shrink-0 mt-0.5 leading-tight">
+          Notice
+        </span>
+        <p className="text-sm text-amber-800 leading-relaxed">
+          <strong>Do not use this site for navigation.</strong> 1000 Springs is an educational
+          tool. It does not grant access permission, location data may be approximate, and it
+          does not reflect current site conditions.
+        </p>
+      </div>
+
+      {/* ── Safety protocol ─────────────────────────────────────── */}
+      <section className="mb-14">
+        <p className="text-xs font-mono uppercase tracking-widest text-slate-400 mb-6">
+          Safety protocol
+        </p>
+        <div className="divide-y divide-slate-100">
           {[
             {
               title: 'Stay on marked paths',
@@ -48,10 +66,6 @@ export default function SafetyPage() {
             {
               title: 'Follow local signs and instructions',
               body: 'Follow all instructions posted at geothermal sites and from site staff or rangers. Rules differ between sites.',
-            },
-            {
-              title: 'Do not use this site for navigation',
-              body: '1000 Springs is an educational tool. Do not use it to navigate to springs or plan routes. Location data may be approximate.',
             },
             {
               title: 'Respect access status',
@@ -70,50 +84,63 @@ export default function SafetyPage() {
               body: "Children and animals can move quickly. Always keep them within arm's reach at geothermal sites.",
             },
           ].map((rule, i) => (
-            <div key={rule.title} className="flex gap-4 bg-white border border-slate-200 rounded-lg p-4">
-              <span className="text-xs font-bold text-slate-400 w-6 flex-shrink-0 mt-0.5 tabular-nums">
-                {String(i + 1).padStart(2, '0')}
-              </span>
+            <div key={rule.title} className="grid grid-cols-[2.5rem_1fr] gap-4 py-5">
+              <p className="font-mono text-slate-300 text-sm tabular-nums pt-0.5">
+                {String(i + 1).padStart(2, '0')}.
+              </p>
               <div>
-                <p className="font-semibold text-slate-800 mb-0.5">{rule.title}</p>
-                <p className="text-sm text-slate-600">{rule.body}</p>
+                <p className="font-semibold text-slate-800 text-sm mb-1">{rule.title}</p>
+                <p className="text-sm text-slate-600 leading-relaxed">{rule.body}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Emergency */}
-      <section className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-8">
-        <h2 className="text-lg font-semibold text-amber-900 mb-3">In an emergency</h2>
-        <ul className="space-y-2 text-sm text-amber-800">
-          <li>• Call <strong>111</strong> (New Zealand emergency services)</li>
-          <li>• Get clear of the geothermal area immediately</li>
-          <li>• For burns: cool with clean running water for 20 minutes — do not use ice</li>
-          <li>• Alert other visitors and site staff</li>
-        </ul>
-      </section>
-
-      {/* App limitations */}
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold text-slate-800 mb-4">Limitations of this site</h2>
-        <div className="bg-white border border-slate-200 rounded-lg p-5 text-sm text-slate-600 space-y-2">
-          <p>• This app is non-commercial and educational. It is not a safety tool.</p>
-          <p>• Location data is sourced from the 1000 Springs Project and may be approximate.</p>
-          <p>• Access status and site conditions change. This app may not reflect current conditions.</p>
-          <p>• This app does not grant permission to access any spring or land.</p>
-          <p>• Do not rely on this site to determine whether a site is safe or accessible.</p>
+      {/* ── Emergency ───────────────────────────────────────────── */}
+      <section className="mb-14 border-t-2 border-red-600 pt-6">
+        <p className="text-xs font-mono uppercase tracking-widest text-red-600 mb-5">
+          In an emergency
+        </p>
+        <div className="flex items-baseline gap-5 mb-7">
+          <p className="text-6xl font-black text-slate-900 leading-none tabular-nums">111</p>
+          <p className="text-sm text-slate-500">New Zealand emergency services</p>
+        </div>
+        <div className="divide-y divide-slate-100 text-sm text-slate-600">
+          <p className="py-2.5">Get clear of the geothermal area immediately.</p>
+          <p className="py-2.5">
+            For burns: cool with clean running water for 20 minutes. Do not use ice.
+          </p>
+          <p className="py-2.5">Alert other visitors and site staff.</p>
         </div>
       </section>
 
-      <div className="text-center">
-        <Link
-          href="/explore"
-          className="inline-block bg-teal-600 hover:bg-teal-700 text-white font-semibold px-8 py-3 rounded transition-colors"
-        >
-          Return to the explorer
+      {/* ── Disclaimer ──────────────────────────────────────────── */}
+      <section className="mb-12 border-t border-slate-200 pt-8">
+        <p className="text-xs font-mono uppercase tracking-widest text-slate-400 mb-5">
+          Disclaimer — limitations of this site
+        </p>
+        <div className="text-sm text-slate-600 space-y-2.5 leading-relaxed">
+          <p>This site is non-commercial and educational. It is not a safety tool.</p>
+          <p>Location data is sourced from the 1000 Springs Project and may be approximate.</p>
+          <p>
+            Access status and site conditions change. This site may not reflect current
+            conditions.
+          </p>
+          <p>This site does not grant permission to access any spring or land.</p>
+          <p>
+            Do not rely on this site to determine whether a site is safe or accessible.
+          </p>
+        </div>
+      </section>
+
+      {/* ── Navigation ──────────────────────────────────────────── */}
+      <div className="border-t border-slate-100 pt-6">
+        <Link href="/explore" className="text-sm text-teal-700 hover:underline">
+          ← Return to the explorer
         </Link>
       </div>
+
     </div>
   )
 }
