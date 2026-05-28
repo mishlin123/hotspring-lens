@@ -105,9 +105,9 @@ const references = [
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
 
-function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
+function MetaLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
-    <p className={`text-xs font-bold uppercase tracking-widest mb-2 ${light ? 'text-teal-300' : 'text-teal-600'}`}>
+    <p className={`text-xs font-mono uppercase tracking-widest mb-2 ${light ? 'text-teal-400' : 'text-slate-400'}`}>
       {children}
     </p>
   )
@@ -124,80 +124,82 @@ export default function MethodologiesPage() {
     <div className="pb-20">
 
       {/* ── Page header ─────────────────────────────────────────── */}
-      <div className="bg-teal-900 text-white py-14 px-4">
+      <div className="bg-teal-900 text-white py-10 px-4">
         <div className="max-w-5xl mx-auto">
-          <SectionLabel light>Methodologies</SectionLabel>
-          <h1 className="text-4xl font-bold mb-3 leading-tight">
+          <MetaLabel light>Methodologies · 1000 Springs Project</MetaLabel>
+          <h1 className="text-3xl font-bold mb-2 leading-tight tracking-tight">
             Sampling &amp; Analysis Protocols
           </h1>
-          <p className="text-teal-200 max-w-2xl text-lg mb-8">
+          <p className="text-teal-200 max-w-2xl text-base mb-6">
             Field sampling techniques, laboratory processing procedures, sequencing protocols, and
             health &amp; safety guidelines used across the 1000 Springs Project.
           </p>
           {/* Anchor nav */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-mono text-teal-300">
             {[
               { href: '#sampling', label: 'Feature Sampling' },
               { href: '#processing', label: 'Field & Lab Processing' },
               { href: '#sequencing', label: 'Sequencing' },
               { href: '#safety', label: 'Health & Safety' },
               { href: '#references', label: 'References' },
-            ].map(link => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="bg-teal-800 hover:bg-teal-700 text-teal-200 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-full transition-colors"
-              >
-                {link.label}
-              </a>
+            ].map((link, i, arr) => (
+              <span key={link.href} className="flex items-center gap-4">
+                <a href={link.href} className="hover:text-white transition-colors">
+                  {link.label}
+                </a>
+                {i < arr.length - 1 && <span className="text-teal-700 select-none">·</span>}
+              </span>
             ))}
           </div>
         </div>
       </div>
 
-      {/* ── Overview strip ──────────────────────────────────────── */}
-      <div className="bg-teal-50 border-b border-teal-100 py-8 px-4">
-        <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+      {/* ── Protocol metadata strip ─────────────────────────────── */}
+      <div className="border-b border-slate-200 bg-white py-4 px-4">
+        <div className="max-w-5xl mx-auto flex flex-wrap gap-x-8 gap-y-2">
           {[
-            { value: '1,000', label: 'Geothermal features targeted' },
-            { value: '~70,000', label: 'Sequences read per sample' },
+            { value: '1,000', label: 'geothermal features targeted' },
+            { value: '~70,000', label: 'sequences read per sample' },
             { value: '97%', label: 'OTU similarity threshold' },
-            { value: '250 bp', label: 'Trimmed read length' },
+            { value: '250 bp', label: 'trimmed read length' },
           ].map(stat => (
-            <div key={stat.label}>
-              <p className="text-2xl font-bold text-teal-700">{stat.value}</p>
-              <p className="text-xs text-teal-600 mt-0.5">{stat.label}</p>
+            <div key={stat.label} className="flex items-baseline gap-2">
+              <span className="font-mono font-semibold text-teal-700 text-sm">{stat.value}</span>
+              <span className="text-xs text-slate-500">{stat.label}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* ── Dataflow diagram ────────────────────────────────────── */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-2">
-        <p className="text-xs font-bold uppercase tracking-widest text-teal-600 mb-3">Overview diagram</p>
-        <div className="rounded-xl overflow-hidden border border-slate-200">
-          <div className="relative w-full" style={{ paddingBottom: '40%' }}>
-            <Image
-              src={`${BASE}/1000-springs-dataflow.png`}
-              alt="1000 Springs data flow, from field sampling through analysis and computing to the online database"
-              fill
-              className="object-contain bg-white"
-              sizes="(max-width: 1024px) 100vw, 960px"
-            />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-2">
+        <MetaLabel>Overview diagram</MetaLabel>
+        <figure>
+          <div className="border border-slate-300 overflow-hidden">
+            <div className="relative w-full" style={{ paddingBottom: '40%' }}>
+              <Image
+                src={`${BASE}/1000-springs-dataflow.png`}
+                alt="1000 Springs data flow, from field sampling through analysis and computing to the online database"
+                fill
+                className="object-contain bg-white"
+                sizes="(max-width: 1024px) 100vw, 960px"
+              />
+            </div>
           </div>
-          <p className="text-xs text-slate-500 text-center py-2 bg-slate-50 border-t border-slate-200">
-            Data flow from field sampling through laboratory analysis and computing to the online database
-          </p>
-        </div>
+          <figcaption className="text-xs text-slate-500 mt-2">
+            <span className="font-semibold text-slate-600">Fig. 1.</span>{' '}
+            Data flow from field sampling through laboratory analysis and computing to the online database.
+          </figcaption>
+        </figure>
       </div>
 
       {/* ══════════════════════════════════════════════════════════
           FEATURE SAMPLING
       ══════════════════════════════════════════════════════════ */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <SectionAnchor id="sampling" />
-        <SectionLabel>01: Feature Sampling</SectionLabel>
-        <h2 className="text-2xl font-bold text-slate-800 mb-6">Sample site selection &amp; water collection</h2>
+        <MetaLabel>01: Feature Sampling</MetaLabel>
+        <h2 className="text-xl font-bold text-slate-800 mb-6">Sample site selection &amp; water collection</h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
           <div>
@@ -228,12 +230,13 @@ export default function MethodologiesPage() {
           </div>
         </div>
 
-        {/* Sample distribution */}
-        <h3 className="font-semibold text-slate-800 mb-4">Sample water distribution</h3>
-        <div className="overflow-x-auto rounded-xl border border-slate-200 mb-10">
+        {/* Table 1: Sample water distribution */}
+        <h3 className="font-semibold text-slate-800 mb-2">Sample water distribution</h3>
+        <p className="text-xs text-slate-400 font-mono mb-3">Table 1. Volume and container allocation per sample.</p>
+        <div className="overflow-x-auto border border-slate-200 mb-10">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 text-slate-600 text-xs uppercase tracking-wide">
-              <tr>
+            <thead>
+              <tr className="border-b border-slate-300 bg-slate-50 text-xs text-slate-500 uppercase tracking-wide">
                 <th className="text-left px-4 py-3 font-semibold">Volume</th>
                 <th className="text-left px-4 py-3 font-semibold">Container</th>
                 <th className="text-left px-4 py-3 font-semibold">Purpose</th>
@@ -254,24 +257,28 @@ export default function MethodologiesPage() {
         {/* Field sampling photos */}
         <div className="grid grid-cols-2 gap-4 mb-10">
           {[
-            { src: `${BASE}/sampling/field_sampling_tiny.jpg`, caption: 'Collecting water samples using the telescopic sampling pole' },
-            { src: `${BASE}/sampling/field%20sampling_2_small.jpg`, caption: 'Field sampling documentation and mobile lab setup' },
+            { src: `${BASE}/sampling/field_sampling_tiny.jpg`, fig: 'Fig. 2.', caption: 'Collecting water samples using the telescopic sampling pole.' },
+            { src: `${BASE}/sampling/field%20sampling_2_small.jpg`, fig: 'Fig. 3.', caption: 'Field sampling documentation and mobile lab setup.' },
           ].map(img => (
-            <div key={img.src} className="rounded-xl overflow-hidden border border-slate-200">
-              <div className="relative h-48">
-                <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="50vw" />
+            <figure key={img.src}>
+              <div className="border border-slate-200 overflow-hidden">
+                <div className="relative h-48">
+                  <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="50vw" />
+                </div>
               </div>
-              <p className="text-xs text-slate-500 text-center py-2 bg-slate-50 border-t border-slate-200 px-3">{img.caption}</p>
-            </div>
+              <figcaption className="text-xs text-slate-500 mt-1.5">
+                <span className="font-semibold text-slate-600">{img.fig}</span> {img.caption}
+              </figcaption>
+            </figure>
           ))}
         </div>
 
         {/* Field metadata */}
-        <h3 className="font-semibold text-slate-800 mb-4">Field metadata recorded</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <h3 className="font-semibold text-slate-800 mb-3">Field metadata recorded</h3>
+        <div className="divide-y divide-slate-100 border-t border-slate-100">
           {fieldMetadata.map(item => (
-            <div key={item} className="flex items-start gap-2 text-sm text-slate-600 bg-slate-50 rounded-lg px-4 py-2.5">
-              <span className="text-teal-500 flex-shrink-0 mt-0.5">→</span>
+            <div key={item} className="flex gap-3 py-2 text-sm text-slate-600">
+              <span className="text-slate-300 flex-shrink-0 mt-px">›</span>
               {item}
             </div>
           ))}
@@ -281,32 +288,32 @@ export default function MethodologiesPage() {
       {/* ══════════════════════════════════════════════════════════
           FIELD & LAB PROCESSING
       ══════════════════════════════════════════════════════════ */}
-      <div className="bg-slate-50 border-y border-slate-100 py-14 px-4">
+      <div className="bg-slate-50 border-y border-slate-200 py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <SectionAnchor id="processing" />
-          <SectionLabel>02: Field &amp; Laboratory Processing</SectionLabel>
-          <h2 className="text-2xl font-bold text-slate-800 mb-6">Measurements, filtration &amp; chemistry</h2>
+          <MetaLabel>02: Field &amp; Laboratory Processing</MetaLabel>
+          <h2 className="text-xl font-bold text-slate-800 mb-6">Measurements, filtration &amp; chemistry</h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
             {/* Field measurements */}
-            <div className="bg-white border border-slate-200 rounded-xl p-6">
-              <h3 className="font-semibold text-slate-800 mb-4">Field measurements</h3>
+            <div className="bg-white border border-slate-200 p-6">
+              <h3 className="font-semibold text-slate-800 mb-3">Field measurements</h3>
               <p className="text-xs text-slate-500 mb-4">
                 Processing occurs in a 4WD field van configured as a mobile laboratory to minimise
                 temperature changes, dissolved oxygen changes, and microbial activity effects.
               </p>
-              <div className="space-y-2">
+              <div className="divide-y divide-slate-100">
                 {fieldMeasurements.map(m => (
-                  <div key={m.param} className="flex justify-between items-start gap-3 py-2 border-b border-slate-100 last:border-0">
+                  <div key={m.param} className="flex justify-between items-start gap-3 py-2">
                     <span className="text-sm font-medium text-slate-700">{m.param}</span>
-                    <span className="text-xs text-slate-500 text-right">{m.instrument}</span>
+                    <span className="text-xs text-slate-500 text-right flex-shrink-0">{m.instrument}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Microorganism collection */}
-            <div className="bg-white border border-slate-200 rounded-xl p-6">
+            <div className="bg-white border border-slate-200 p-6">
               <h3 className="font-semibold text-slate-800 mb-4">Microorganism collection</h3>
               <p className="text-sm text-slate-600 leading-relaxed mb-3">
                 A battery-operated peristaltic pump pushes up to 2 litres through a{' '}
@@ -325,17 +332,19 @@ export default function MethodologiesPage() {
               </p>
 
               <div className="mt-5 pt-4 border-t border-slate-100">
-                <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">
+                <p className="text-xs font-mono uppercase tracking-widest text-slate-400 mb-3">
                   Chemistry analysis locations
                 </p>
                 <div className="space-y-1.5">
                   {[
                     ['NZGAL', 'NZ Geothermal Analytical Laboratory, GNS Science'],
                     ['ERG', 'Extremophile Research Group, GNS Science'],
-                    ['UWaikato', "University of Waikato, School of Science"],
+                    ['UWaikato', 'University of Waikato, School of Science'],
                   ].map(([abbr, full]) => (
                     <div key={abbr} className="flex gap-2 text-xs text-slate-600">
-                      <span className="font-mono bg-teal-50 text-teal-700 px-1.5 py-0.5 rounded font-semibold flex-shrink-0">{abbr}</span>
+                      <span className="font-mono bg-teal-50 text-teal-700 px-1.5 py-0.5 border border-teal-100 font-semibold flex-shrink-0">
+                        {abbr}
+                      </span>
                       {full}
                     </div>
                   ))}
@@ -347,24 +356,29 @@ export default function MethodologiesPage() {
           {/* Field & lab photos */}
           <div className="grid grid-cols-2 gap-4 mb-10">
             {[
-              { src: `${BASE}/field_lab/field_and_lab_tiny.jpg`, caption: 'The 4WD mobile laboratory used for field processing' },
-              { src: `${BASE}/field_lab/field_and_lab_2_tiny.jpg`, caption: 'Filtering samples through the Sterivex column' },
+              { src: `${BASE}/field_lab/field_and_lab_tiny.jpg`, fig: 'Fig. 4.', caption: 'The 4WD mobile laboratory used for field processing.' },
+              { src: `${BASE}/field_lab/field_and_lab_2_tiny.jpg`, fig: 'Fig. 5.', caption: 'Filtering samples through the Sterivex column.' },
             ].map(img => (
-              <div key={img.src} className="rounded-xl overflow-hidden border border-slate-200">
-                <div className="relative h-48">
-                  <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="50vw" />
+              <figure key={img.src}>
+                <div className="border border-slate-200 overflow-hidden">
+                  <div className="relative h-48">
+                    <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="50vw" />
+                  </div>
                 </div>
-                <p className="text-xs text-slate-500 text-center py-2 bg-white border-t border-slate-200 px-3">{img.caption}</p>
-              </div>
+                <figcaption className="text-xs text-slate-500 mt-1.5">
+                  <span className="font-semibold text-slate-600">{img.fig}</span> {img.caption}
+                </figcaption>
+              </figure>
             ))}
           </div>
 
-          {/* Processing table */}
-          <h3 className="font-semibold text-slate-800 mb-4">Sample processing summary</h3>
-          <div className="overflow-x-auto rounded-xl border border-slate-200 mb-8">
+          {/* Table 2: Processing summary */}
+          <h3 className="font-semibold text-slate-800 mb-2">Sample processing summary</h3>
+          <p className="text-xs text-slate-400 font-mono mb-3">Table 2. Container, processing method, storage, and analysis location per parameter.</p>
+          <div className="overflow-x-auto border border-slate-200 mb-8">
             <table className="w-full text-xs">
-              <thead className="bg-slate-100 text-slate-600 uppercase tracking-wide">
-                <tr>
+              <thead>
+                <tr className="border-b border-slate-300 bg-slate-50 text-slate-500 uppercase tracking-wide">
                   <th className="text-left px-3 py-3 font-semibold">Container</th>
                   <th className="text-left px-3 py-3 font-semibold">Processing</th>
                   <th className="text-left px-3 py-3 font-semibold">Storage</th>
@@ -389,8 +403,8 @@ export default function MethodologiesPage() {
           </div>
 
           {/* ICP elements */}
-          <div className="bg-white border border-slate-200 rounded-xl p-6">
-            <h3 className="font-semibold text-slate-800 mb-2">
+          <div className="bg-white border border-slate-200 p-6">
+            <h3 className="font-semibold text-slate-800 mb-1">
               Elements measured via ICP-MS
             </h3>
             <p className="text-xs text-slate-500 mb-4">
@@ -399,7 +413,10 @@ export default function MethodologiesPage() {
             </p>
             <div className="flex flex-wrap gap-1.5">
               {icpElements.map(el => (
-                <span key={el} className="bg-teal-50 text-teal-800 text-xs px-2 py-0.5 rounded border border-teal-100">
+                <span
+                  key={el}
+                  className="bg-teal-50 text-teal-800 text-xs px-2 py-0.5 border border-teal-100 font-mono"
+                >
                   {el}
                 </span>
               ))}
@@ -411,11 +428,11 @@ export default function MethodologiesPage() {
       {/* ══════════════════════════════════════════════════════════
           SEQUENCING
       ══════════════════════════════════════════════════════════ */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <SectionAnchor id="sequencing" />
-        <SectionLabel>03: Sequencing</SectionLabel>
-        <h2 className="text-2xl font-bold text-slate-800 mb-3">Microbial diversity assessment</h2>
-        <p className="text-slate-500 mb-10 max-w-2xl">
+        <MetaLabel>03: Sequencing</MetaLabel>
+        <h2 className="text-xl font-bold text-slate-800 mb-3">Microbial diversity assessment</h2>
+        <p className="text-slate-500 text-sm mb-10 max-w-2xl leading-relaxed">
           Soil and freshwater can contain up to one billion and ten million cells respectively,
           making exhaustive identification impractical. The project instead extracts total microbial
           DNA, sequences a universal gene, and uses bioinformatics pipelines to assign taxonomy at
@@ -424,11 +441,11 @@ export default function MethodologiesPage() {
 
         {/* Phase 1: DNA Extraction */}
         <div className="mb-12">
-          <div className="flex items-center gap-3 mb-5">
-            <span className="bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full">Phase 1</span>
-            <h3 className="text-lg font-bold text-slate-800">DNA Extraction</h3>
+          <div className="flex items-baseline gap-3 mb-5">
+            <span className="font-mono text-xs text-teal-600 uppercase tracking-widest">Phase 1</span>
+            <h3 className="text-base font-bold text-slate-800">DNA Extraction</h3>
           </div>
-          <div className="bg-teal-50 border border-teal-100 rounded-xl p-5 mb-5">
+          <div className="border-l-4 border-teal-400 bg-teal-50 pl-5 py-4 pr-4 mb-5">
             <p className="text-sm text-teal-800 leading-relaxed">
               <strong>Summary:</strong> Chemical and physical techniques extract, purify, and
               concentrate DNA from microorganisms. Before cell disruption, sterile skim milk blocks
@@ -439,7 +456,7 @@ export default function MethodologiesPage() {
               chloroform-isoamyl alcohol. DNA is then concentrated via magnetic bead-adsorption.
             </p>
           </div>
-          <div className="space-y-4">
+          <div className="divide-y divide-slate-100 border-t border-slate-100">
             {[
               {
                 step: '1',
@@ -457,12 +474,10 @@ export default function MethodologiesPage() {
                 body: 'Equal volume of 100% ethanol and 40 µL MoBio beads are added to the aqueous phase. Samples are agitated every 30 s–5 min, then placed on a magnetic stand for 2 minutes. Supernatant is removed and beads are washed with 500 µL of 100% ethanol, cleaning tube walls. All ethanol is removed and beads are resuspended in 30 µL Tris (pH 8.0) by gentle pipetting and brief vortexing.',
               },
             ].map(s => (
-              <div key={s.step} className="flex gap-4 bg-white border border-slate-200 rounded-xl p-5">
-                <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold text-sm flex items-center justify-center flex-shrink-0">
-                  {s.step}
-                </div>
+              <div key={s.step} className="flex gap-5 py-5">
+                <span className="font-mono text-slate-300 text-sm flex-shrink-0 tabular-nums pt-px">{s.step}.</span>
                 <div>
-                  <p className="font-semibold text-slate-800 mb-1">{s.title}</p>
+                  <p className="font-semibold text-slate-800 mb-1 text-sm">{s.title}</p>
                   <p className="text-sm text-slate-600 leading-relaxed">{s.body}</p>
                 </div>
               </div>
@@ -472,11 +487,11 @@ export default function MethodologiesPage() {
 
         {/* Phase 2: Amplification */}
         <div className="mb-12">
-          <div className="flex items-center gap-3 mb-5">
-            <span className="bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full">Phase 2</span>
-            <h3 className="text-lg font-bold text-slate-800">DNA Amplification &amp; NGS Preparation</h3>
+          <div className="flex items-baseline gap-3 mb-5">
+            <span className="font-mono text-xs text-teal-600 uppercase tracking-widest">Phase 2</span>
+            <h3 className="text-base font-bold text-slate-800">DNA Amplification &amp; NGS Preparation</h3>
           </div>
-          <div className="bg-teal-50 border border-teal-100 rounded-xl p-5 mb-5">
+          <div className="border-l-4 border-teal-400 bg-teal-50 pl-5 py-4 pr-4 mb-5">
             <p className="text-sm text-teal-800 leading-relaxed">
               <strong>Summary:</strong> Microbial diversity is determined by sequencing the{' '}
               <strong>16S ribosomal RNA gene</strong> (~1,540 nucleotides), a short gene possessed
@@ -485,7 +500,7 @@ export default function MethodologiesPage() {
               <strong>~70,000 sequences</strong> (~270 bp each) are read per sample.
             </p>
           </div>
-          <div className="space-y-4">
+          <div className="divide-y divide-slate-100 border-t border-slate-100">
             {[
               {
                 step: '1',
@@ -499,14 +514,14 @@ export default function MethodologiesPage() {
                     </p>
                     <div className="space-y-2 mb-3">
                       <div className="flex items-start gap-3">
-                        <span className="text-xs font-bold text-teal-700 bg-teal-50 px-2 py-1 rounded flex-shrink-0">F515</span>
-                        <code className="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 rounded break-all">
+                        <span className="text-xs font-bold text-teal-700 bg-teal-50 border border-teal-100 px-2 py-1 flex-shrink-0 font-mono">F515</span>
+                        <code className="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 break-all">
                           5′-GTGCCAGCMGCCGCGGTAA-3′
                         </code>
                       </div>
                       <div className="flex items-start gap-3">
-                        <span className="text-xs font-bold text-teal-700 bg-teal-50 px-2 py-1 rounded flex-shrink-0">R806</span>
-                        <code className="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 rounded break-all">
+                        <span className="text-xs font-bold text-teal-700 bg-teal-50 border border-teal-100 px-2 py-1 flex-shrink-0 font-mono">R806</span>
+                        <code className="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 break-all">
                           5′-GGACTACVSGGGTATCTAAT-3′
                         </code>
                       </div>
@@ -533,7 +548,7 @@ export default function MethodologiesPage() {
                       ['2.0 µL', 'Soil community DNA (0.5 ng/µL template)'],
                     ].map(([vol, desc]) => (
                       <div key={desc} className="flex gap-2 items-start">
-                        <span className="font-mono text-teal-700 text-xs bg-teal-50 px-1.5 py-0.5 rounded flex-shrink-0">{vol}</span>
+                        <span className="font-mono text-teal-700 text-xs bg-teal-50 border border-teal-100 px-1.5 py-0.5 flex-shrink-0">{vol}</span>
                         <span>{desc}</span>
                       </div>
                     ))}
@@ -543,7 +558,7 @@ export default function MethodologiesPage() {
                       and template addition.
                     </p>
                     <div className="col-span-full mt-2 pt-2 border-t border-slate-100">
-                      <p className="font-medium text-slate-700 mb-1 text-xs uppercase tracking-wide">Thermocycling</p>
+                      <p className="font-mono text-xs uppercase tracking-widest text-slate-400 mb-1">Thermocycling</p>
                       <p className="text-xs text-slate-600">
                         Initial denaturation 94 °C / 3 min → 30 cycles: 94 °C / 45 s · 50 °C / 1 min · 72 °C / 1.5 min → Final extension 72 °C / 10 min
                       </p>
@@ -568,12 +583,10 @@ export default function MethodologiesPage() {
                 ),
               },
             ].map(s => (
-              <div key={s.step} className="flex gap-4 bg-white border border-slate-200 rounded-xl p-5">
-                <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold text-sm flex items-center justify-center flex-shrink-0 mt-0.5">
-                  {s.step}
-                </div>
+              <div key={s.step} className="flex gap-5 py-5">
+                <span className="font-mono text-slate-300 text-sm flex-shrink-0 tabular-nums pt-px">{s.step}.</span>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-slate-800 mb-2">{s.title}</p>
+                  <p className="font-semibold text-slate-800 mb-2 text-sm">{s.title}</p>
                   {s.body}
                 </div>
               </div>
@@ -584,26 +597,30 @@ export default function MethodologiesPage() {
         {/* Sequencing equipment photos */}
         <div className="grid grid-cols-3 gap-4 mb-12">
           {[
-            { src: `${BASE}/sequencing/ion_torrent_small.jpg`, caption: 'Ion Torrent PGM sequencer' },
-            { src: `${BASE}/sequencing/loading_chip_tiny.jpg`, caption: 'Loading the Ion 318v2 chip' },
-            { src: `${BASE}/sequencing/ion_torrent_chips_tiny.jpg`, caption: 'Ion Torrent sequencing chips' },
+            { src: `${BASE}/sequencing/ion_torrent_small.jpg`, fig: 'Fig. 6.', caption: 'Ion Torrent PGM sequencer.' },
+            { src: `${BASE}/sequencing/loading_chip_tiny.jpg`, fig: 'Fig. 7.', caption: 'Loading the Ion 318v2 chip.' },
+            { src: `${BASE}/sequencing/ion_torrent_chips_tiny.jpg`, fig: 'Fig. 8.', caption: 'Ion Torrent sequencing chips.' },
           ].map(img => (
-            <div key={img.src} className="rounded-xl overflow-hidden border border-slate-200">
-              <div className="relative h-40">
-                <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="33vw" />
+            <figure key={img.src}>
+              <div className="border border-slate-200 overflow-hidden">
+                <div className="relative h-40">
+                  <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="33vw" />
+                </div>
               </div>
-              <p className="text-xs text-slate-500 text-center py-2 bg-slate-50 border-t border-slate-200 px-2">{img.caption}</p>
-            </div>
+              <figcaption className="text-xs text-slate-500 mt-1.5">
+                <span className="font-semibold text-slate-600">{img.fig}</span> {img.caption}
+              </figcaption>
+            </figure>
           ))}
         </div>
 
         {/* Phase 3: Post-sequencing */}
         <div>
-          <div className="flex items-center gap-3 mb-5">
-            <span className="bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full">Phase 3</span>
-            <h3 className="text-lg font-bold text-slate-800">Post-sequencing Bioinformatics</h3>
+          <div className="flex items-baseline gap-3 mb-5">
+            <span className="font-mono text-xs text-teal-600 uppercase tracking-widest">Phase 3</span>
+            <h3 className="text-base font-bold text-slate-800">Post-sequencing Bioinformatics</h3>
           </div>
-          <div className="bg-teal-50 border border-teal-100 rounded-xl p-5 mb-5">
+          <div className="border-l-4 border-teal-400 bg-teal-50 pl-5 py-4 pr-4 mb-5">
             <p className="text-sm text-teal-800 leading-relaxed">
               <strong>Summary:</strong> ~70,000 raw reads per sample are processed by customised
               bioinformatic pipelines. Erroneous reads are removed, tagging sequences are stripped,
@@ -614,14 +631,14 @@ export default function MethodologiesPage() {
               with &gt; 5 reads per sample are presented graphically.
             </p>
           </div>
-          <div className="bg-white border border-slate-200 rounded-xl p-6">
-            <h4 className="font-semibold text-slate-800 mb-3">Pipeline details</h4>
+          <div className="bg-white border border-slate-200 p-6">
+            <h4 className="font-semibold text-slate-800 mb-3 text-sm">Pipeline details</h4>
             <div className="space-y-3 text-sm text-slate-600">
               <p>
                 Raw reads in <strong>FASTQ format</strong> are processed using a custom pipeline
                 based on <strong>Mothur</strong> and <strong>USEARCH</strong>.
               </p>
-              <ul className="space-y-2 pl-4">
+              <div className="divide-y divide-slate-100 border-t border-slate-100">
                 {[
                   'Reads outside 275–345 bp are removed',
                   'Reads with any error in barcode or forward PCR primer are removed',
@@ -632,12 +649,12 @@ export default function MethodologiesPage() {
                   'USEARCH generates OTUs via centroid-based clustering (97% similarity) and removes chimeras',
                   'OTUs are taxonomically assigned using RDP Classifier with RDP Release 11.2',
                 ].map(step => (
-                  <li key={step} className="flex gap-2 items-start">
-                    <span className="text-teal-400 flex-shrink-0 mt-1">›</span>
+                  <div key={step} className="flex gap-3 py-2">
+                    <span className="text-slate-300 flex-shrink-0 mt-px">›</span>
                     {step}
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -646,19 +663,16 @@ export default function MethodologiesPage() {
       {/* ══════════════════════════════════════════════════════════
           HEALTH & SAFETY
       ══════════════════════════════════════════════════════════ */}
-      <div className="bg-amber-50 border-y border-amber-200 py-14 px-4">
+      <div className="bg-amber-50 border-y border-amber-200 py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <SectionAnchor id="safety" />
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-full border-2 border-amber-600 text-amber-700 font-bold text-lg flex items-center justify-center flex-shrink-0">!</div>
-            <div>
-              <SectionLabel>04: Health &amp; Safety</SectionLabel>
-              <h2 className="text-2xl font-bold text-amber-900">Geothermal field safety</h2>
-            </div>
-          </div>
+          <p className="text-xs font-mono uppercase tracking-widest text-amber-700 mb-2">
+            04: Health &amp; Safety
+          </p>
+          <h2 className="text-xl font-bold text-amber-900 mb-6">Geothermal field safety</h2>
 
-          <div className="bg-amber-100 border border-amber-300 rounded-xl p-6 mb-8">
-            <p className="text-amber-900 font-semibold mb-2">Important safety notice</p>
+          <div className="border-l-4 border-amber-500 bg-amber-100/60 pl-5 py-4 pr-4 mb-8">
+            <p className="text-amber-900 font-semibold mb-1 text-sm">Important safety notice</p>
             <p className="text-amber-800 text-sm leading-relaxed">
               Sampling springs in geothermal environments presents serious danger and{' '}
               <strong>should not be attempted by the public</strong>. Ground surrounding hot springs
@@ -672,34 +686,38 @@ export default function MethodologiesPage() {
           {/* H&S photos */}
           <div className="grid grid-cols-2 gap-4 mb-8">
             {[
-              { src: `${BASE}/health_safety/h%26s_small.jpg`, caption: 'Team equipped for geothermal field work' },
-              { src: `${BASE}/health_safety/h%26s_2_tiny.jpg`, caption: 'Personal protective equipment for sampling' },
+              { src: `${BASE}/health_safety/h%26s_small.jpg`, fig: 'Fig. 9.', caption: 'Team equipped for geothermal field work.' },
+              { src: `${BASE}/health_safety/h%26s_2_tiny.jpg`, fig: 'Fig. 10.', caption: 'Personal protective equipment for sampling.' },
             ].map(img => (
-              <div key={img.src} className="rounded-xl overflow-hidden border border-amber-200">
-                <div className="relative h-52">
-                  <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="50vw" />
+              <figure key={img.src}>
+                <div className="border border-amber-200 overflow-hidden">
+                  <div className="relative h-52">
+                    <Image src={img.src} alt={img.caption} fill className="object-cover" sizes="50vw" />
+                  </div>
                 </div>
-                <p className="text-xs text-amber-700 text-center py-2 bg-amber-50 border-t border-amber-200 px-3">{img.caption}</p>
-              </div>
+                <figcaption className="text-xs text-amber-700 mt-1.5">
+                  <span className="font-semibold">{img.fig}</span> {img.caption}
+                </figcaption>
+              </figure>
             ))}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
-              <h3 className="font-semibold text-amber-900 mb-4">Personal protective equipment &amp; emergency kit</h3>
-              <ul className="space-y-2">
+              <h3 className="font-semibold text-amber-900 mb-3 text-sm">Personal protective equipment &amp; emergency kit</h3>
+              <div className="divide-y divide-amber-100 border-t border-amber-100">
                 {ppeItems.map(item => (
-                  <li key={item} className="flex gap-3 text-sm text-amber-800 bg-white border border-amber-200 rounded-lg px-4 py-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0 mt-1.5" />
+                  <div key={item} className="flex gap-3 py-2 text-sm text-amber-800">
+                    <span className="text-amber-300 flex-shrink-0 mt-px">›</span>
                     {item}
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
             <div>
-              <h3 className="font-semibold text-amber-900 mb-4">Clothing &amp; footwear</h3>
-              <div className="space-y-3 text-sm text-amber-800">
-                <div className="bg-white border border-amber-200 rounded-xl p-5">
+              <h3 className="font-semibold text-amber-900 mb-3 text-sm">Clothing &amp; footwear</h3>
+              <div className="divide-y divide-amber-100 border-t border-amber-100 text-sm text-amber-800">
+                <div className="py-4">
                   <p className="font-medium mb-1">Footwear</p>
                   <p>
                     Leather boots topped with <strong>neoprene puttees (gaiters)</strong> are
@@ -707,14 +725,14 @@ export default function MethodologiesPage() {
                     unstable terrain.
                   </p>
                 </div>
-                <div className="bg-white border border-amber-200 rounded-xl p-5">
+                <div className="py-4">
                   <p className="font-medium mb-1">Trousers</p>
                   <p>
                     Locally made <strong>Cactus SuperTrousers</strong> protect against vegetation
                     and slow water/mud infiltration if accidents occur.
                   </p>
                 </div>
-                <div className="bg-white border border-amber-200 rounded-xl p-5">
+                <div className="py-4">
                   <p className="font-medium mb-1">General guidance for visitors</p>
                   <p>
                     When visiting geothermal environments: do not leave formed tracks, do not
@@ -730,38 +748,32 @@ export default function MethodologiesPage() {
       {/* ══════════════════════════════════════════════════════════
           REFERENCES
       ══════════════════════════════════════════════════════════ */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <SectionAnchor id="references" />
-        <SectionLabel>References</SectionLabel>
-        <h2 className="text-2xl font-bold text-slate-800 mb-6">Literature cited</h2>
-        <div className="space-y-3">
+        <MetaLabel>References</MetaLabel>
+        <h2 className="text-xl font-bold text-slate-800 mb-6">Literature cited</h2>
+        <div className="divide-y divide-slate-100 border-t border-slate-100">
           {references.map(ref => (
-            <div key={ref.id} className="flex gap-4 bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
-              <span className="text-teal-400 flex-shrink-0 mt-0.5 text-lg">›</span>
+            <div key={ref.id} className="flex gap-4 py-4">
+              <span className="text-slate-300 flex-shrink-0 mt-0.5">›</span>
               <p className="text-sm text-slate-600 leading-relaxed">{ref.citation}</p>
             </div>
           ))}
         </div>
 
-        {/* Footer CTAs */}
-        <div className="flex flex-wrap gap-3 mt-12 pt-8 border-t border-slate-200">
-          <Link
-            href="/explore"
-            className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
-          >
+        {/* Document navigation */}
+        <div className="flex flex-wrap gap-6 text-sm mt-10 pt-8 border-t border-slate-200">
+          <Link href="/explore" className="text-teal-700 hover:underline">
             Explore springs →
           </Link>
-          <Link
-            href="/about"
-            className="border border-slate-300 text-slate-600 hover:bg-slate-100 font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
-          >
+          <Link href="/about" className="text-slate-500 hover:text-slate-700 hover:underline">
             About the project
           </Link>
           <a
             href="https://1000springs.org.nz/methodologies"
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-slate-300 text-slate-600 hover:bg-slate-100 font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
+            className="text-slate-500 hover:text-slate-700 hover:underline"
           >
             Official methodologies page ↗
           </a>
