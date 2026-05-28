@@ -6,54 +6,57 @@ import type { SpringSummary } from '@/lib/types'
 
 type ScatterColorBy = 'system' | 'temperature' | 'ph' | 'distinctiveness'
 
+// ── ColorBrewer RdBu-4: blue (cold) → red (hot) ───────────────────────────────
 function scatterTempColor(t: number | null): string {
-  if (t === null) return '#94a3b8'
-  if (t >= 80) return '#dc2626'
-  if (t >= 60) return '#ea580c'
-  if (t >= 40) return '#ca8a04'
-  return '#16a34a'
+  if (t === null) return '#d9d9d9'
+  if (t >= 80) return '#b2182b'   // dark red   — very hot
+  if (t >= 60) return '#d6604d'   // medium red — hot
+  if (t >= 40) return '#f4a582'   // salmon     — warm
+  return '#2166ac'                 // blue       — cool
 }
 
+// ── ColorBrewer RdBu-5: red (acidic) → blue (alkaline) ───────────────────────
 function scatterPhColor(p: number | null): string {
-  if (p === null) return '#94a3b8'
-  if (p < 2)  return '#7c3aed'
-  if (p < 4)  return '#dc2626'
-  if (p < 6)  return '#ea580c'
-  if (p < 8)  return '#16a34a'
-  return '#2563eb'
+  if (p === null) return '#d9d9d9'
+  if (p < 2)  return '#b2182b'   // dark red   — extremely acidic
+  if (p < 4)  return '#d6604d'   // medium red — acidic
+  if (p < 6)  return '#f4a582'   // salmon     — mildly acidic
+  if (p < 8)  return '#4393c3'   // medium blue — near neutral
+  return '#2166ac'                // dark blue  — alkaline
 }
 
+// ── ColorBrewer Greens-4: grey (common) → dark green (distinctive) ───────────
 function scatterDistinctColor(score: number | null): string {
-  if (score === null) return '#94a3b8'
-  if (score >= 80) return '#059669'  // emerald — highly distinctive
-  if (score >= 60) return '#0d9488'  // teal
-  if (score >= 40) return '#d97706'  // amber
-  return '#64748b'                    // slate — common profile
+  if (score === null) return '#d9d9d9'
+  if (score >= 80) return '#006d2c'   // dark green
+  if (score >= 60) return '#31a354'   // medium green
+  if (score >= 40) return '#74c476'   // light green
+  return '#bdbdbd'                     // grey — common profile
 }
 
 const SCATTER_TEMP_LEGEND = [
-  { label: '≥ 80°C',   color: '#dc2626' },
-  { label: '60–79°C',  color: '#ea580c' },
-  { label: '40–59°C',  color: '#ca8a04' },
-  { label: '< 40°C',   color: '#16a34a' },
-  { label: 'No data',  color: '#94a3b8' },
+  { label: '≥ 80°C (very hot)',    color: '#b2182b' },
+  { label: '60–79°C (hot)',        color: '#d6604d' },
+  { label: '40–59°C (warm)',       color: '#f4a582' },
+  { label: '< 40°C (cool)',        color: '#2166ac' },
+  { label: 'Not recorded',         color: '#d9d9d9' },
 ]
 
 const SCATTER_PH_LEGEND = [
-  { label: 'pH < 2',   color: '#7c3aed' },
-  { label: 'pH 2–4',   color: '#dc2626' },
-  { label: 'pH 4–6',   color: '#ea580c' },
-  { label: 'pH 6–8',   color: '#16a34a' },
-  { label: 'pH ≥ 8',   color: '#2563eb' },
-  { label: 'No data',  color: '#94a3b8' },
+  { label: 'pH < 2 (ext. acidic)', color: '#b2182b' },
+  { label: 'pH 2–4 (acidic)',      color: '#d6604d' },
+  { label: 'pH 4–6 (mild. acidic)',color: '#f4a582' },
+  { label: 'pH 6–8 (near neutral)',color: '#4393c3' },
+  { label: 'pH ≥ 8 (alkaline)',    color: '#2166ac' },
+  { label: 'Not recorded',         color: '#d9d9d9' },
 ]
 
 const SCATTER_DISTINCT_LEGEND = [
-  { label: 'Score 80–100 (high)',    color: '#059669' },
-  { label: 'Score 60–79',            color: '#0d9488' },
-  { label: 'Score 40–59',            color: '#d97706' },
-  { label: 'Score < 40 (common)',    color: '#64748b' },
-  { label: 'No taxonomy data',       color: '#94a3b8' },
+  { label: 'Score 80–100 (high)',  color: '#006d2c' },
+  { label: 'Score 60–79',          color: '#31a354' },
+  { label: 'Score 40–59',          color: '#74c476' },
+  { label: 'Score < 40 (common)',  color: '#bdbdbd' },
+  { label: 'No taxonomy data',     color: '#d9d9d9' },
 ]
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -72,26 +75,28 @@ interface Props {
 
 // ─── Distribution band definitions ───────────────────────────────────────────
 
+// ColorBrewer RdBu-4 — matches scatter plot temp colour function
 const TEMP_BANDS = [
-  { label: '< 40°C',  min: -Infinity, max: 40,       color: '#16a34a', bgColor: 'bg-green-600' },
-  { label: '40–59°C', min: 40,        max: 60,        color: '#ca8a04', bgColor: 'bg-amber-600' },
-  { label: '60–79°C', min: 60,        max: 80,        color: '#ea580c', bgColor: 'bg-orange-600' },
-  { label: '≥ 80°C',  min: 80,        max: Infinity,  color: '#dc2626', bgColor: 'bg-red-600' },
+  { label: '< 40°C',  min: -Infinity, max: 40,       color: '#2166ac' },
+  { label: '40–59°C', min: 40,        max: 60,        color: '#f4a582' },
+  { label: '60–79°C', min: 60,        max: 80,        color: '#d6604d' },
+  { label: '≥ 80°C',  min: 80,        max: Infinity,  color: '#b2182b' },
 ]
 
+// ColorBrewer RdBu-5 — matches scatter plot pH colour function
 const PH_BANDS = [
-  { label: '< 2 (ext. acidic)',  min: -Infinity, max: 2,        color: '#7c3aed', bgColor: 'bg-violet-700' },
-  { label: '2–4 (acidic)',       min: 2,         max: 4,        color: '#dc2626', bgColor: 'bg-red-600' },
-  { label: '4–6 (mildly acidic)',min: 4,         max: 6,        color: '#ea580c', bgColor: 'bg-orange-600' },
-  { label: '6–8 (near neutral)', min: 6,         max: 8,        color: '#16a34a', bgColor: 'bg-green-600' },
-  { label: '≥ 8 (alkaline)',     min: 8,         max: Infinity, color: '#2563eb', bgColor: 'bg-blue-600' },
+  { label: '< 2 (ext. acidic)',  min: -Infinity, max: 2,        color: '#b2182b' },
+  { label: '2–4 (acidic)',       min: 2,         max: 4,        color: '#d6604d' },
+  { label: '4–6 (mildly acidic)',min: 4,         max: 6,        color: '#f4a582' },
+  { label: '6–8 (near neutral)', min: 6,         max: 8,        color: '#4393c3' },
+  { label: '≥ 8 (alkaline)',     min: 8,         max: Infinity, color: '#2166ac' },
 ]
 
-// Categorical colors for systems (same palette as SpringsMap)
+// Tableau-10 muted categorical palette — publication standard (Nature, ISME J.)
 const SYSTEM_PALETTE = [
-  '#00AECC', '#10b981', '#f59e0b', '#6366f1', '#3b82f6',
-  '#8b5cf6', '#14b8a6', '#f97316', '#ef4444', '#84cc16',
-  '#0ea5e9', '#d946ef',
+  '#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f',
+  '#edc948', '#b07aa1', '#ff9da7', '#9c755f', '#bab0ac',
+  '#3d9970', '#8c564b',
 ]
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -251,7 +256,7 @@ function ScatterPlot({ springs, systemColorMap, colorBy }: {
                         : systemColorMap[s.geothermal_system] ?? '#94a3b8'
             return (
               <g key={s.id}>
-                <circle cx={cx} cy={cy} r={2.5} fill={color} fillOpacity={0.65} stroke="none" />
+                <circle cx={cx} cy={cy} r={3} fill={color} fillOpacity={0.80} stroke="white" strokeWidth={0.5} strokeOpacity={0.7} />
                 <circle
                   cx={cx} cy={cy} r={7}
                   fill="transparent"

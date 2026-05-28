@@ -42,74 +42,78 @@ const TILES: Record<BaseTile, { url: string; attribution: string; label: string;
   },
 }
 
-// ─── Color scales ─────────────────────────────────────────────────────────────
+// ─── Color scales (ColorBrewer / Tableau publication palettes) ────────────────
 
+// ColorBrewer RdBu-4: blue (cool) → red (hot)
 function tempColor(temp: number | null): string {
-  if (temp === null) return '#94a3b8'
-  if (temp >= 80) return '#dc2626'
-  if (temp >= 60) return '#ea580c'
-  if (temp >= 40) return '#ca8a04'
-  return '#16a34a'
+  if (temp === null) return '#d9d9d9'
+  if (temp >= 80) return '#b2182b'
+  if (temp >= 60) return '#d6604d'
+  if (temp >= 40) return '#f4a582'
+  return '#2166ac'
 }
 
+// ColorBrewer RdBu-5: red (acidic) → blue (alkaline)
 function phColor(ph: number | null): string {
-  if (ph === null) return '#94a3b8'
-  if (ph < 2)  return '#7c3aed'
-  if (ph < 4)  return '#dc2626'
-  if (ph < 6)  return '#ea580c'
-  if (ph < 8)  return '#16a34a'
-  return '#2563eb'
+  if (ph === null) return '#d9d9d9'
+  if (ph < 2)  return '#b2182b'
+  if (ph < 4)  return '#d6604d'
+  if (ph < 6)  return '#f4a582'
+  if (ph < 8)  return '#4393c3'
+  return '#2166ac'
 }
 
+// Tableau-10 muted categorical palette — matches DatasetInsights system palette
 const FEATURE_COLORS: Record<string, string> = {
-  Spring:        '#00AECC',
-  Geyser:        '#dc2626',
-  Stream:        '#3b82f6',
-  Lake:          '#1d4ed8',
-  Terrace:       '#d97706',
-  Miscellaneous: '#94a3b8',
+  Spring:        '#4e79a7',
+  Geyser:        '#e15759',
+  Stream:        '#59a14f',
+  Lake:          '#76b7b2',
+  Terrace:       '#f28e2b',
+  Miscellaneous: '#bab0ac',
 }
 
-// 12 categorical colours for geothermal systems
+// Tableau-10 muted — publication standard (Nature, ISME J., etc.)
 const SYSTEM_PALETTE = [
-  '#00AECC', '#10b981', '#f59e0b', '#6366f1', '#3b82f6',
-  '#8b5cf6', '#14b8a6', '#f97316', '#ef4444', '#84cc16',
-  '#0ea5e9', '#d946ef',
+  '#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f',
+  '#edc948', '#b07aa1', '#ff9da7', '#9c755f', '#bab0ac',
+  '#3d9970', '#8c564b',
 ]
 
+// ColorBrewer Greens-4: grey (common) → dark green (distinctive)
 function distinctivenessColor(score: number | null): string {
-  if (score === null) return '#94a3b8'
-  if (score >= 80) return '#059669'
-  if (score >= 60) return '#0d9488'
-  if (score >= 40) return '#d97706'
-  return '#64748b'
+  if (score === null) return '#d9d9d9'
+  if (score >= 80) return '#006d2c'
+  if (score >= 60) return '#31a354'
+  if (score >= 40) return '#74c476'
+  return '#bdbdbd'
 }
 
 // ─── Legend configurations ────────────────────────────────────────────────────
 
 const TEMP_LEGEND = [
-  { label: '≥ 80°C', color: '#dc2626' },
-  { label: '60–79°C', color: '#ea580c' },
-  { label: '40–59°C', color: '#ca8a04' },
-  { label: '< 40°C',  color: '#16a34a' },
-  { label: 'Not recorded', color: '#94a3b8' },
+  { label: '≥ 80°C (very hot)',  color: '#b2182b' },
+  { label: '60–79°C (hot)',      color: '#d6604d' },
+  { label: '40–59°C (warm)',     color: '#f4a582' },
+  { label: '< 40°C (cool)',      color: '#2166ac' },
+  { label: 'Not recorded',       color: '#d9d9d9' },
 ]
 
 const PH_LEGEND = [
-  { label: 'pH < 2 (extremely acidic)', color: '#7c3aed' },
-  { label: 'pH 2–4 (strongly acidic)',  color: '#dc2626' },
-  { label: 'pH 4–6 (moderately acidic)', color: '#ea580c' },
-  { label: 'pH 6–8 (near neutral)',     color: '#16a34a' },
-  { label: 'pH ≥ 8 (alkaline)',         color: '#2563eb' },
-  { label: 'Not recorded',              color: '#94a3b8' },
+  { label: 'pH < 2 (ext. acidic)',  color: '#b2182b' },
+  { label: 'pH 2–4 (acidic)',       color: '#d6604d' },
+  { label: 'pH 4–6 (mild. acidic)', color: '#f4a582' },
+  { label: 'pH 6–8 (near neutral)', color: '#4393c3' },
+  { label: 'pH ≥ 8 (alkaline)',     color: '#2166ac' },
+  { label: 'Not recorded',          color: '#d9d9d9' },
 ]
 
 const DISTINCT_LEGEND = [
-  { label: 'Score 80–100 (highly distinctive)', color: '#059669' },
-  { label: 'Score 60–79',                       color: '#0d9488' },
-  { label: 'Score 40–59',                       color: '#d97706' },
-  { label: 'Score < 40 (common profile)',        color: '#64748b' },
-  { label: 'No taxonomy data',                   color: '#94a3b8' },
+  { label: 'Score 80–100 (high)',  color: '#006d2c' },
+  { label: 'Score 60–79',          color: '#31a354' },
+  { label: 'Score 40–59',          color: '#74c476' },
+  { label: 'Score < 40 (common)',  color: '#bdbdbd' },
+  { label: 'No taxonomy data',     color: '#d9d9d9' },
 ]
 
 // ─── Icon factories ───────────────────────────────────────────────────────────
