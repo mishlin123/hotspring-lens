@@ -12,7 +12,7 @@ import type { SpringSummary } from '@/lib/types'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type LayerMode = 'temperature' | 'ph' | 'featureType' | 'system'
+type LayerMode = 'temperature' | 'ph' | 'featureType' | 'system' | 'distinctiveness'
 type BaseTile = 'street' | 'topographic' | 'satellite'
 
 // ─── Tile layer configs ───────────────────────────────────────────────────────
@@ -77,6 +77,14 @@ const SYSTEM_PALETTE = [
   '#0ea5e9', '#d946ef',
 ]
 
+function distinctivenessColor(score: number | null): string {
+  if (score === null) return '#94a3b8'
+  if (score >= 80) return '#059669'
+  if (score >= 60) return '#0d9488'
+  if (score >= 40) return '#d97706'
+  return '#64748b'
+}
+
 // ─── Legend configurations ────────────────────────────────────────────────────
 
 const TEMP_LEGEND = [
@@ -94,6 +102,14 @@ const PH_LEGEND = [
   { label: 'pH 6–8 (near neutral)',     color: '#16a34a' },
   { label: 'pH ≥ 8 (alkaline)',         color: '#2563eb' },
   { label: 'Not recorded',              color: '#94a3b8' },
+]
+
+const DISTINCT_LEGEND = [
+  { label: 'Score 80–100 (highly distinctive)', color: '#059669' },
+  { label: 'Score 60–79',                       color: '#0d9488' },
+  { label: 'Score 40–59',                       color: '#d97706' },
+  { label: 'Score < 40 (common profile)',        color: '#64748b' },
+  { label: 'No taxonomy data',                   color: '#94a3b8' },
 ]
 
 // ─── Icon factories ───────────────────────────────────────────────────────────
@@ -179,10 +195,11 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
   const getColor = useCallback(
     (s: SpringSummary): string => {
       switch (layerMode) {
-        case 'temperature': return tempColor(s.temperature_c)
-        case 'ph':          return phColor(s.ph)
-        case 'featureType': return FEATURE_COLORS[s.feature_type] ?? '#94a3b8'
-        case 'system':      return systemColorMap[s.geothermal_system] ?? '#94a3b8'
+        case 'temperature':    return tempColor(s.temperature_c)
+        case 'ph':             return phColor(s.ph)
+        case 'featureType':    return FEATURE_COLORS[s.feature_type] ?? '#94a3b8'
+        case 'system':         return systemColorMap[s.geothermal_system] ?? '#94a3b8'
+        case 'distinctiveness': return distinctivenessColor(s.distinctiveness_score)
       }
     },
     [layerMode, systemColorMap],
@@ -204,6 +221,8 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
           title: 'Geothermal system',
           items: Object.entries(systemColorMap).map(([label, color]) => ({ label, color })),
         }
+      case 'distinctiveness':
+        return { title: 'Microbial distinctiveness', items: DISTINCT_LEGEND }
     }
   }, [layerMode, systemColorMap])
 
@@ -300,6 +319,7 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
           <option value="ph">Colour: pH</option>
           <option value="featureType">Colour: Feature type</option>
           <option value="system">Colour: System</option>
+          <option value="distinctiveness">Colour: Distinctiveness</option>
         </select>
       </div>
 

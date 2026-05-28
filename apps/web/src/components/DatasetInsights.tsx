@@ -4,7 +4,7 @@ import { useMemo, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import type { SpringSummary } from '@/lib/types'
 
-type ScatterColorBy = 'system' | 'temperature' | 'ph'
+type ScatterColorBy = 'system' | 'temperature' | 'ph' | 'distinctiveness'
 
 function scatterTempColor(t: number | null): string {
   if (t === null) return '#94a3b8'
@@ -23,6 +23,14 @@ function scatterPhColor(p: number | null): string {
   return '#2563eb'
 }
 
+function scatterDistinctColor(score: number | null): string {
+  if (score === null) return '#94a3b8'
+  if (score >= 80) return '#059669'  // emerald — highly distinctive
+  if (score >= 60) return '#0d9488'  // teal
+  if (score >= 40) return '#d97706'  // amber
+  return '#64748b'                    // slate — common profile
+}
+
 const SCATTER_TEMP_LEGEND = [
   { label: '≥ 80°C',   color: '#dc2626' },
   { label: '60–79°C',  color: '#ea580c' },
@@ -38,6 +46,14 @@ const SCATTER_PH_LEGEND = [
   { label: 'pH 6–8',   color: '#16a34a' },
   { label: 'pH ≥ 8',   color: '#2563eb' },
   { label: 'No data',  color: '#94a3b8' },
+]
+
+const SCATTER_DISTINCT_LEGEND = [
+  { label: 'Score 80–100 (high)',    color: '#059669' },
+  { label: 'Score 60–79',            color: '#0d9488' },
+  { label: 'Score 40–59',            color: '#d97706' },
+  { label: 'Score < 40 (common)',    color: '#64748b' },
+  { label: 'No taxonomy data',       color: '#94a3b8' },
 ]
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -229,8 +245,9 @@ function ScatterPlot({ springs, systemColorMap, colorBy }: {
           {pts.map(s => {
             const cx = xScale(s.temperature_c!)
             const cy = yScale(s.ph!)
-            const color = colorBy === 'temperature' ? scatterTempColor(s.temperature_c)
-                        : colorBy === 'ph'          ? scatterPhColor(s.ph)
+            const color = colorBy === 'temperature'    ? scatterTempColor(s.temperature_c)
+                        : colorBy === 'ph'             ? scatterPhColor(s.ph)
+                        : colorBy === 'distinctiveness' ? scatterDistinctColor(s.distinctiveness_score)
                         : systemColorMap[s.geothermal_system] ?? '#94a3b8'
             return (
               <g key={s.id}>
@@ -360,9 +377,10 @@ export default function DatasetInsights({
 
   const [scatterColorBy, setScatterColorBy] = useState<ScatterColorBy>('system')
 
-  // Legend items to show below the scatter plot (only for temp/pH modes)
-  const scatterLegend = scatterColorBy === 'temperature' ? SCATTER_TEMP_LEGEND
-                      : scatterColorBy === 'ph'          ? SCATTER_PH_LEGEND
+  // Legend items to show below the scatter plot (all non-system modes)
+  const scatterLegend = scatterColorBy === 'temperature'    ? SCATTER_TEMP_LEGEND
+                      : scatterColorBy === 'ph'             ? SCATTER_PH_LEGEND
+                      : scatterColorBy === 'distinctiveness' ? SCATTER_DISTINCT_LEGEND
                       : null
 
   return (
@@ -391,19 +409,24 @@ export default function DatasetInsights({
           <p className="text-xs font-semibold text-slate-600 tracking-wide">
             pH vs temperature
           </p>
-          <div className="flex items-center gap-1">
-            <span className="text-xs text-slate-500 mr-1">Colour by:</span>
-            {(['system', 'temperature', 'ph'] as ScatterColorBy[]).map(mode => (
+          <div className="flex items-center gap-0.5 bg-slate-100 rounded-lg p-0.5">
+            <span className="text-xs text-slate-500 px-2">Colour:</span>
+            {([
+              { key: 'system',          label: 'System' },
+              { key: 'temperature',     label: 'Temp' },
+              { key: 'ph',              label: 'pH' },
+              { key: 'distinctiveness', label: 'Distinct' },
+            ] as { key: ScatterColorBy; label: string }[]).map(({ key, label }) => (
               <button
-                key={mode}
-                onClick={() => setScatterColorBy(mode)}
-                className={`text-xs px-2 py-0.5 rounded transition-colors font-medium ${
-                  scatterColorBy === mode
-                    ? 'bg-teal-600 text-white'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                key={key}
+                onClick={() => setScatterColorBy(key)}
+                className={`text-xs px-2.5 py-1 rounded-md transition-colors font-medium ${
+                  scatterColorBy === key
+                    ? 'bg-white text-teal-700 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-700'
                 }`}
               >
-                {mode === 'system' ? 'System' : mode === 'temperature' ? 'Temp' : 'pH'}
+                {label}
               </button>
             ))}
           </div>
