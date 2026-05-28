@@ -30,7 +30,7 @@ export default function HomePage() {
             New Zealand's geothermal springs
           </h1>
           <p className="text-slate-300 text-lg mb-8 max-w-xl leading-relaxed">
-            A free, non-commercial field guide to the microbiology, chemistry, and geothermal
+            A free field guide to the microbiology, chemistry, and geothermal
             science of hot springs across the Taupō Volcanic Zone. It uses data from the 1000
             Springs Project.
           </p>
