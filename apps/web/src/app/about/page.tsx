@@ -428,35 +428,39 @@ export default function AboutPage() {
       {/* ── Research team ───────────────────────────────────────── */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <MetaLabel>Research team</MetaLabel>
-        <p className="text-xs text-slate-600 -mt-4 mb-8">
+        <p className="text-sm text-slate-600 -mt-2 mb-10">
           GNS Science and University of Waikato. Roles as at time of project.
         </p>
-        <div className="divide-y divide-slate-100">
-          {team.map(person => (
-            <div
-              key={person.name}
-              className="py-5 grid grid-cols-1 sm:grid-cols-[16rem_1fr] gap-y-2 gap-x-8"
-            >
-              <div className="flex items-center gap-3">
-                <Thumb photo={person.photo} name={person.name} />
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
+          {team.map(person => {
+            const initials = person.name.split(' ').map(n => n[0]).join('').slice(0, 2)
+            return (
+              <div key={person.name} className="flex flex-col gap-3">
+                <div className="w-24 h-24 rounded-full overflow-hidden bg-teal-100 relative flex-shrink-0">
+                  {person.photo ? (
+                    <Image src={person.photo} alt={person.name} fill className="object-cover" sizes="96px" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <span className="text-teal-700 font-bold text-xl">{initials}</span>
+                    </div>
+                  )}
+                </div>
                 <div>
                   <p className="font-semibold text-slate-800 text-base leading-snug">{person.name}</p>
-                  <p className="text-xs text-teal-600">{person.institution}</p>
+                  <p className="text-sm text-teal-600 mt-0.5">{person.institution}</p>
+                  <p className="text-sm text-slate-600 mt-2 leading-snug">{person.title}</p>
+                  <p className="text-sm text-slate-400 mt-1">{person.roles}</p>
                 </div>
               </div>
-              <div className="pl-[4.5rem] sm:pl-0 mt-0.5">
-                <p className="text-xs text-slate-800 leading-snug">{person.title}</p>
-                <p className="text-xs text-slate-500 mt-0.5">{person.roles}</p>
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
-        <div className="mt-8 pt-6 border-t border-slate-100">
+        <div className="mt-10 pt-6 border-t border-slate-100">
           <p className="text-xs uppercase tracking-widest text-slate-500 mb-2">
             Also assisted by
           </p>
-          <p className="text-sm text-slate-800">
+          <p className="text-base text-slate-800">
             {assistedMembers.map((m, i) => (
               <span key={m.name}>
                 {m.name}{i < assistedMembers.length - 1 ? ' · ' : ''}
