@@ -313,7 +313,7 @@ export default function AboutPage() {
           geothermal ecosystems, knowledge that informs science, policy, and kaitiakitanga.
         </p>
 
-        <figure className="max-w-[768px]">
+        <figure className="max-w-[384px]">
           <div className="border border-slate-300 overflow-hidden">
             <Image
               src={`${BASE}/about/TVZ_hotspots_map_small.jpg`}
