@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
@@ -25,11 +26,15 @@ export default function NavBar() {
     <nav className="bg-teal-900 text-white border-b border-teal-950/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
-          <Link
-            href="/"
-            className="font-bold text-lg tracking-tight hover:text-teal-200 transition-colors flex-shrink-0"
-          >
-            1000 Springs
+          <Link href="/" className="flex-shrink-0 hover:opacity-75 transition-opacity">
+            <Image
+              src="/logo.png"
+              alt="One Thousand Springs"
+              width={186}
+              height={32}
+              className="h-8 w-auto brightness-0 invert"
+              priority
+            />
           </Link>
 
           {/* Desktop nav — hidden on mobile */}
