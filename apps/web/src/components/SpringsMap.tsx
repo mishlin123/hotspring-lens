@@ -143,7 +143,7 @@ function PinchZoomBooster() {
       if (!e.ctrlKey) return           // regular scroll — let Leaflet handle it
       e.preventDefault()
       e.stopImmediatePropagation()     // block Leaflet's own wheel handler
-      const delta = -e.deltaY * 0.08  // pinch deltas ≈ ±1–10; scale to useful zoom rate
+      const delta = -e.deltaY * 0.05  // pinch deltas ≈ ±1–10; scale to useful zoom rate
       map.setZoom(map.getZoom() + delta, { animate: false })
     }
     container.addEventListener('wheel', handler, { passive: false, capture: true })
