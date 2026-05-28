@@ -25,21 +25,32 @@ export default function ExplorePage({ searchParams }: Props) {
     : []
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Explore Springs</h1>
-        <p className="text-slate-600 mt-1">
-          {summaries.length} spring records across {systems.length} geothermal systems.
-          Hover any card to add it to a comparison.
-        </p>
+    <>
+      {/* ── Hero band ─────────────────────────────────────────── */}
+      <div className="bg-teal-900 text-white py-10 sm:py-12 px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-xs uppercase tracking-widest text-teal-400 mb-4">
+            Taupō Volcanic Zone · Aotearoa New Zealand
+          </p>
+          <h1 className="text-4xl sm:text-5xl font-bold mb-3 leading-tight tracking-tight">
+            Explore Springs
+          </h1>
+          <p className="text-teal-200 text-lg leading-relaxed">
+            {summaries.length.toLocaleString()} spring records across {systems.length} geothermal systems.
+          </p>
+        </div>
       </div>
-      <ExploreClient
-        springs={summaries}
-        systems={systems}
-        featureTypes={featureTypes}
-        initialSystem={initialSystem}
-        initialCompareIds={initialCompareIds}
-      />
-    </div>
+
+      {/* ── Spring list + map ─────────────────────────────────── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <ExploreClient
+          springs={summaries}
+          systems={systems}
+          featureTypes={featureTypes}
+          initialSystem={initialSystem}
+          initialCompareIds={initialCompareIds}
+        />
+      </div>
+    </>
   )
 }

@@ -92,22 +92,27 @@ export default function SpringDetailPage({ params }: Props) {
   if (!spring) notFound()
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      {/* Back + compare link */}
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-        <Link
-          href="/explore"
-          className="inline-flex items-center gap-1 text-sm text-teal-600 hover:text-teal-800 transition-colors"
-        >
-          ← Back to explorer
-        </Link>
-        <Link
-          href={`/explore?compare=${spring.id}`}
-          className="text-sm text-slate-600 hover:text-slate-700 border border-slate-200 rounded px-3 py-1 transition-colors hover:border-slate-300"
-        >
-          Compare this spring
-        </Link>
+    <div>
+      {/* ── Context band ────────────────────────────────────────── */}
+      <div className="bg-teal-900 text-teal-300 px-4 py-3 text-sm">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between flex-wrap gap-3">
+          <div className="flex items-center gap-2">
+            <Link href="/explore" className="hover:text-white transition-colors">
+              ← Explore
+            </Link>
+            <span className="text-teal-700">·</span>
+            <span className="text-teal-400 truncate">{spring.geothermal_system}</span>
+          </div>
+          <Link
+            href={`/explore?compare=${spring.id}`}
+            className="text-teal-300 hover:text-white border border-teal-700 hover:border-teal-500 rounded px-3 py-1 transition-colors text-xs"
+          >
+            Compare this spring
+          </Link>
+        </div>
       </div>
+
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
       {/* Safety warning */}
       {spring.safety_warning && (
@@ -133,15 +138,13 @@ export default function SpringDetailPage({ params }: Props) {
 
       {/* Title block */}
       <div className="mb-8">
-        <p className="text-xs text-slate-600 mb-2 font-medium">
-          {spring.geothermal_system}
-          <span className="mx-2 text-slate-300">·</span>
+        <p className="text-xs text-slate-500 mb-2 uppercase tracking-widest">
           {spring.feature_type}
           <span className="mx-2 text-slate-300">·</span>
-          <span className="">{spring.sample_number}</span>
+          {spring.sample_number}
         </p>
-        <h1 className="text-3xl font-bold text-slate-800 mb-1 tracking-tight">{spring.name}</h1>
-        <p className="text-slate-600 text-sm">{spring.location_text}</p>
+        <h1 className="text-4xl font-bold text-slate-800 mb-2 tracking-tight leading-tight">{spring.name}</h1>
+        <p className="text-slate-600 text-base">{spring.location_text}</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -269,6 +272,7 @@ export default function SpringDetailPage({ params }: Props) {
 
         </div>
       </div>
+    </div>
     </div>
   )
 }

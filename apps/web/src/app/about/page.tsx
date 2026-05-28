@@ -281,16 +281,16 @@ export default function AboutPage() {
   return (
     <div className="pb-20">
 
-      {/* ── Header ──────────────────────────────────────────────── */}
-      <div className="bg-teal-900 text-white py-10 px-4">
+      {/* ── Hero band ───────────────────────────────────────────── */}
+      <div className="bg-teal-900 text-white py-14 sm:py-16 px-4">
         <div className="max-w-5xl mx-auto">
-          <p className="text-xs uppercase tracking-widest text-teal-400 mb-3">
+          <p className="text-xs uppercase tracking-widest text-teal-400 mb-4">
             Joint research initiative · GNS Science &amp; University of Waikato
           </p>
-          <h1 className="text-3xl font-bold mb-3 leading-tight">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-5 leading-tight tracking-tight">
             The 1000 Springs Project
           </h1>
-          <p className="text-teal-200 max-w-2xl text-base leading-relaxed">
+          <p className="text-teal-200 max-w-2xl text-lg leading-relaxed">
             Documenting the physical, chemical, and microbial biodiversity of geothermal
             ecosystems across Aotearoa New Zealand. Funded by MBIE.
           </p>
@@ -307,7 +307,7 @@ export default function AboutPage() {
             Volcanic Zone."
           </p>
         </blockquote>
-        <p className="text-slate-800 text-sm leading-relaxed mb-10 max-w-3xl">
+        <p className="text-slate-800 text-base leading-relaxed mb-10 max-w-3xl">
           Beyond documentation, the project aims to assess the conservation, cultural,
           recreational, and resource development value of microbial components in these
           geothermal ecosystems, knowledge that informs science, policy, and kaitiakitanga.
