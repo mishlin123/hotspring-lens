@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useMemo, useCallback } from 'react'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { useState, useMemo, useCallback, useEffect } from 'react'
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import MarkerClusterGroup from 'react-leaflet-cluster'
 import 'leaflet/dist/leaflet.css'
 import 'react-leaflet-cluster/dist/assets/MarkerCluster.css'
@@ -128,6 +128,30 @@ function createClusterIcon(cluster: { getChildCount(): number }): L.DivIcon {
   })
 }
 
+// ─── Pinch zoom booster ───────────────────────────────────────────────────────
+// Mac trackpad pinch generates wheel events with ctrlKey=true and tiny deltas
+// (±1–5 per frame vs ±100s for scroll). Leaflet's wheelPxPerZoomLevel applies
+// equally to both, so pinch feels far slower than scroll. This component
+// intercepts pinch events in the capture phase, applies a multiplier, and calls
+// setZoom directly — preventing Leaflet's own handler from seeing the raw tiny delta.
+
+function PinchZoomBooster() {
+  const map = useMap()
+  useEffect(() => {
+    const container = map.getContainer()
+    const handler = (e: WheelEvent) => {
+      if (!e.ctrlKey) return           // regular scroll — let Leaflet handle it
+      e.preventDefault()
+      e.stopImmediatePropagation()     // block Leaflet's own wheel handler
+      const delta = -e.deltaY * 0.08  // pinch deltas ≈ ±1–10; scale to useful zoom rate
+      map.setZoom(map.getZoom() + delta, { animate: false })
+    }
+    container.addEventListener('wheel', handler, { passive: false, capture: true })
+    return () => container.removeEventListener('wheel', handler, { capture: true })
+  }, [map])
+  return null
+}
+
 // ─── Main component ───────────────────────────────────────────────────────────
 
 interface Props {
@@ -197,6 +221,7 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
         zoomSnap={0}
         wheelPxPerZoomLevel={30}
       >
+        <PinchZoomBooster />
         <TileLayer key={baseTile} url={tile.url} attribution={tile.attribution} maxNativeZoom={tile.maxNativeZoom} />
 
         <MarkerClusterGroup
