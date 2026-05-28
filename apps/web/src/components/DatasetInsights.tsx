@@ -9,7 +9,7 @@ import type { SpringSummary } from '@/lib/types'
 interface Props {
   allSprings: SpringSummary[]       // full dataset — drives system/feature bars
   filteredSprings: SpringSummary[]  // current filter result — drives distributions
-  activeSystem: string
+  activeSystem: string[]
   activeFeatureType: string[]
   onSystemClick: (system: string) => void
   onFeatureTypeClick: (type: string) => void
@@ -391,8 +391,8 @@ export default function DatasetInsights({
                 count={count}
                 maxCount={maxSystemCount}
                 color={systemColors[sys] ?? '#94a3b8'}
-                active={activeSystem === sys}
-                onClick={() => onSystemClick(activeSystem === sys ? '' : sys)}
+                active={activeSystem.includes(sys)}
+                onClick={() => onSystemClick(sys)}
               />
             ))}
           </div>

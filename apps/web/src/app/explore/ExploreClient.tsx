@@ -28,7 +28,7 @@ interface Props {
 
 export default function ExploreClient({ springs, systems, featureTypes, initialSystem = '', initialCompareIds = [] }: Props) {
   const [search, setSearch]             = useState('')
-  const [system, setSystem]             = useState(initialSystem)
+  const [system, setSystem]             = useState<string[]>(initialSystem ? [initialSystem] : [])
   const [featureType, setFeatureType]   = useState<string[]>([])
   const [tempMin, setTempMin]           = useState('')
   const [tempMax, setTempMax]           = useState('')
@@ -55,7 +55,7 @@ export default function ExploreClient({ springs, systems, featureTypes, initialS
         const inSystem   = (s.geothermal_system ?? '').toLowerCase().includes(q)
         if (!inName && !inLocation && !inSystem) return false
       }
-      if (system                  && s.geothermal_system !== system)                   return false
+      if (system.length > 0      && !system.includes(s.geothermal_system))             return false
       if (featureType.length > 0 && !featureType.includes(s.feature_type))           return false
       if (tMin !== null && (s.temperature_c === null || s.temperature_c < tMin)) return false
       if (tMax !== null && (s.temperature_c === null || s.temperature_c > tMax)) return false
@@ -83,7 +83,7 @@ export default function ExploreClient({ springs, systems, featureTypes, initialS
 
   const clearFilters = useCallback(() => {
     setSearch('')
-    setSystem('')
+    setSystem([])
     setFeatureType([])
     setTempMin('')
     setTempMax('')
@@ -91,7 +91,7 @@ export default function ExploreClient({ springs, systems, featureTypes, initialS
     setPhMax('')
   }, [])
 
-  const hasFilters = search || system || featureType.length > 0 || tempMin || tempMax || phMin || phMax
+  const hasFilters = search || system.length > 0 || featureType.length > 0 || tempMin || tempMax || phMin || phMax
 
   const toggleCompare = useCallback((id: string) => {
     setCompareIds(prev =>
@@ -130,7 +130,7 @@ export default function ExploreClient({ springs, systems, featureTypes, initialS
           filteredSprings={filtered}
           activeSystem={system}
           activeFeatureType={featureType}
-          onSystemClick={sys => setSystem(sys)}
+          onSystemClick={sys => setSystem(prev => prev.includes(sys) ? prev.filter(x => x !== sys) : [...prev, sys])}
           onFeatureTypeClick={ft => setFeatureType(prev => prev.includes(ft) ? prev.filter(x => x !== ft) : [...prev, ft])}
         />
       )}
@@ -149,11 +149,11 @@ export default function ExploreClient({ springs, systems, featureTypes, initialS
             />
           </div>
           <select
-            value={system}
-            onChange={e => setSystem(e.target.value)}
+            value={system.length === 1 ? system[0] : ''}
+            onChange={e => setSystem(e.target.value ? [e.target.value] : [])}
             className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 bg-white"
           >
-            <option value="">All systems</option>
+            <option value="">{system.length > 1 ? `${system.length} systems selected` : 'All systems'}</option>
             {systems.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
           <select
