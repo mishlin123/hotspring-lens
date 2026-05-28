@@ -30,7 +30,7 @@ export default function HomePage() {
             A field guide to New Zealand's geothermal springs
           </h1>
           <p className="text-slate-300 text-lg mb-8 max-w-xl leading-relaxed">
-            Free, non-commercial records from the 1000 Springs Project (GNS Science &amp; University
+            Records from the 1000 Springs Project (GNS Science &amp; University
             of Waikato). Physical measurements, water chemistry, and microbial diversity for
             springs across the Taupō Volcanic Zone.
           </p>
