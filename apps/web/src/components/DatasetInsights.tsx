@@ -332,8 +332,8 @@ export default function DatasetInsights({
         </div>
       </div>
 
-      {/* Full-width scatter plot */}
-      <div className="mb-5">
+      {/* Full-width scatter plot — hidden on mobile (dots too small to use) */}
+      <div className="hidden sm:block mb-5">
         <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
           pH vs temperature
         </p>
