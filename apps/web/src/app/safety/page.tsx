@@ -12,7 +12,7 @@ export default function SafetyPage() {
 
       {/* ── Header ──────────────────────────────────────────────── */}
       <div className="mb-10">
-        <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-3">
+        <p className="text-xs uppercase tracking-widest text-slate-500 mb-3">
           Field safety protocol
         </p>
         <h1 className="text-2xl font-bold text-slate-800 mb-2">
@@ -25,7 +25,7 @@ export default function SafetyPage() {
 
       {/* ── Primary warning ─────────────────────────────────────── */}
       <div className="border-l-4 border-red-600 pl-5 mb-8">
-        <p className="text-xs font-mono uppercase tracking-widest text-red-600 mb-2">Warning</p>
+        <p className="text-xs uppercase tracking-widest text-red-600 mb-2">Warning</p>
         <p className="text-xl font-bold text-slate-900 mb-2 leading-tight">
           Hot springs can cause serious injury or death.
         </p>
@@ -38,7 +38,7 @@ export default function SafetyPage() {
 
       {/* ── Navigation notice ───────────────────────────────────── */}
       <div className="bg-amber-50 border border-amber-300 px-4 py-3 mb-12 flex gap-3 items-start">
-        <span className="text-xs font-mono uppercase tracking-widest text-amber-600 flex-shrink-0 mt-0.5 leading-tight">
+        <span className="text-xs uppercase tracking-widest text-amber-600 flex-shrink-0 mt-0.5 leading-tight">
           Notice
         </span>
         <p className="text-sm text-amber-800 leading-relaxed">
@@ -50,7 +50,7 @@ export default function SafetyPage() {
 
       {/* ── Safety protocol ─────────────────────────────────────── */}
       <section className="mb-14">
-        <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-6">
+        <p className="text-xs uppercase tracking-widest text-slate-500 mb-6">
           Safety protocol
         </p>
         <div className="divide-y divide-slate-100">
@@ -99,7 +99,7 @@ export default function SafetyPage() {
 
       {/* ── Emergency ───────────────────────────────────────────── */}
       <section className="mb-14 border-t-2 border-red-600 pt-6">
-        <p className="text-xs font-mono uppercase tracking-widest text-red-600 mb-5">
+        <p className="text-xs uppercase tracking-widest text-red-600 mb-5">
           In an emergency
         </p>
         <div className="flex items-baseline gap-5 mb-7">
@@ -117,7 +117,7 @@ export default function SafetyPage() {
 
       {/* ── Disclaimer ──────────────────────────────────────────── */}
       <section className="mb-12 border-t border-slate-200 pt-8">
-        <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-5">
+        <p className="text-xs uppercase tracking-widest text-slate-500 mb-5">
           Disclaimer — limitations of this site
         </p>
         <div className="text-sm text-slate-800 space-y-2.5 leading-relaxed">

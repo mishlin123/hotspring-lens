@@ -107,7 +107,7 @@ const references = [
 
 function MetaLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
-    <p className={`text-xs font-mono uppercase tracking-widest mb-2 ${light ? 'text-teal-400' : 'text-slate-500'}`}>
+    <p className={`text-xs uppercase tracking-widest mb-2 ${light ? 'text-teal-400' : 'text-slate-500'}`}>
       {children}
     </p>
   )
@@ -135,7 +135,7 @@ export default function MethodologiesPage() {
             health &amp; safety guidelines used across the 1000 Springs Project.
           </p>
           {/* Anchor nav */}
-          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-mono text-teal-300">
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-teal-300">
             {[
               { href: '#sampling', label: 'Feature Sampling' },
               { href: '#processing', label: 'Field & Lab Processing' },
@@ -332,7 +332,7 @@ export default function MethodologiesPage() {
               </p>
 
               <div className="mt-5 pt-4 border-t border-slate-100">
-                <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-3">
+                <p className="text-xs uppercase tracking-widest text-slate-500 mb-3">
                   Chemistry analysis locations
                 </p>
                 <div className="space-y-1.5">
@@ -442,7 +442,7 @@ export default function MethodologiesPage() {
         {/* Phase 1: DNA Extraction */}
         <div className="mb-12">
           <div className="flex items-baseline gap-3 mb-5">
-            <span className="font-mono text-xs text-teal-600 uppercase tracking-widest">Phase 1</span>
+            <span className="text-xs text-teal-600 uppercase tracking-widest">Phase 1</span>
             <h3 className="text-base font-bold text-slate-800">DNA Extraction</h3>
           </div>
           <div className="border-l-4 border-teal-400 bg-teal-50 pl-5 py-4 pr-4 mb-5">
@@ -488,7 +488,7 @@ export default function MethodologiesPage() {
         {/* Phase 2: Amplification */}
         <div className="mb-12">
           <div className="flex items-baseline gap-3 mb-5">
-            <span className="font-mono text-xs text-teal-600 uppercase tracking-widest">Phase 2</span>
+            <span className="text-xs text-teal-600 uppercase tracking-widest">Phase 2</span>
             <h3 className="text-base font-bold text-slate-800">DNA Amplification &amp; NGS Preparation</h3>
           </div>
           <div className="border-l-4 border-teal-400 bg-teal-50 pl-5 py-4 pr-4 mb-5">
@@ -558,7 +558,7 @@ export default function MethodologiesPage() {
                       and template addition.
                     </p>
                     <div className="col-span-full mt-2 pt-2 border-t border-slate-100">
-                      <p className="font-mono text-xs uppercase tracking-widest text-slate-500 mb-1">Thermocycling</p>
+                      <p className="text-xs uppercase tracking-widest text-slate-500 mb-1">Thermocycling</p>
                       <p className="text-xs text-slate-800">
                         Initial denaturation 94 °C / 3 min → 30 cycles: 94 °C / 45 s · 50 °C / 1 min · 72 °C / 1.5 min → Final extension 72 °C / 10 min
                       </p>
@@ -617,7 +617,7 @@ export default function MethodologiesPage() {
         {/* Phase 3: Post-sequencing */}
         <div>
           <div className="flex items-baseline gap-3 mb-5">
-            <span className="font-mono text-xs text-teal-600 uppercase tracking-widest">Phase 3</span>
+            <span className="text-xs text-teal-600 uppercase tracking-widest">Phase 3</span>
             <h3 className="text-base font-bold text-slate-800">Post-sequencing Bioinformatics</h3>
           </div>
           <div className="border-l-4 border-teal-400 bg-teal-50 pl-5 py-4 pr-4 mb-5">
@@ -666,7 +666,7 @@ export default function MethodologiesPage() {
       <div className="bg-amber-50 border-y border-amber-200 py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <SectionAnchor id="safety" />
-          <p className="text-xs font-mono uppercase tracking-widest text-amber-700 mb-2">
+          <p className="text-xs uppercase tracking-widest text-amber-700 mb-2">
             04: Health &amp; Safety
           </p>
           <h2 className="text-xl font-bold text-amber-900 mb-6">Geothermal field safety</h2>

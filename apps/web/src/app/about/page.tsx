@@ -246,7 +246,7 @@ const tourismPartners: {
 
 function MetaLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-6">
+    <p className="text-xs uppercase tracking-widest text-slate-500 mb-6">
       {children}
     </p>
   )
@@ -254,7 +254,7 @@ function MetaLabel({ children }: { children: React.ReactNode }) {
 
 function MetaLabelLight({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-mono uppercase tracking-widest text-teal-400 mb-6">
+    <p className="text-xs uppercase tracking-widest text-teal-400 mb-6">
       {children}
     </p>
   )
@@ -284,7 +284,7 @@ export default function AboutPage() {
       {/* ── Header ──────────────────────────────────────────────── */}
       <div className="bg-teal-900 text-white py-10 px-4">
         <div className="max-w-5xl mx-auto">
-          <p className="text-xs font-mono uppercase tracking-widest text-teal-400 mb-3">
+          <p className="text-xs uppercase tracking-widest text-teal-400 mb-3">
             Joint research initiative · GNS Science &amp; University of Waikato
           </p>
           <h1 className="text-3xl font-bold mb-3 leading-tight">
@@ -414,7 +414,7 @@ export default function AboutPage() {
               >
                 <p className="font-semibold text-white">{inst.name}</p>
                 <div>
-                  <p className="text-xs font-mono uppercase tracking-wider text-teal-400 mb-0.5">
+                  <p className="text-xs uppercase tracking-wider text-teal-400 mb-0.5">
                     {inst.role}
                   </p>
                   <p className="text-teal-200 text-sm">{inst.detail}</p>
@@ -453,7 +453,7 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-slate-100">
-          <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-2">
+          <p className="text-xs uppercase tracking-widest text-slate-500 mb-2">
             Also assisted by
           </p>
           <p className="text-sm text-slate-800">
@@ -476,7 +476,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-12 gap-y-10">
             {tourismPartners.map(region => (
               <div key={region.region}>
-                <p className="text-xs font-mono uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-2 mb-4">
+                <p className="text-xs uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-2 mb-4">
                   {region.region}
                 </p>
                 <ul className="space-y-5">
@@ -530,7 +530,7 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 mb-10 max-w-3xl">
             <div>
-              <p className="text-xs font-mono uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-2 mb-4">
+              <p className="text-xs uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-2 mb-4">
                 What this is
               </p>
               <ul className="space-y-2 text-sm text-slate-800">
@@ -548,7 +548,7 @@ export default function AboutPage() {
               </ul>
             </div>
             <div>
-              <p className="text-xs font-mono uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-2 mb-4">
+              <p className="text-xs uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-2 mb-4">
                 What this is not
               </p>
               <ul className="space-y-2 text-sm text-slate-800">
