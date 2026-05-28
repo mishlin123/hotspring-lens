@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import type { SpringSummary } from '@/lib/types'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -98,6 +99,7 @@ function ClickableBar({
 
 /** pH vs Temperature scatter plot — pure SVG with React hover tooltip */
 function ScatterPlot({ springs }: { springs: SpringSummary[] }) {
+  const router = useRouter()
   const wrapRef = useRef<HTMLDivElement>(null)
   const [tooltip, setTooltip] = useState<{
     x: number; y: number; spring: SpringSummary
@@ -185,9 +187,10 @@ function ScatterPlot({ springs }: { springs: SpringSummary[] }) {
                 <circle
                   cx={cx} cy={cy} r={7}
                   fill="transparent"
-                  style={{ cursor: 'crosshair' }}
+                  style={{ cursor: 'pointer' }}
                   onMouseEnter={e => handleEnter(e, s)}
                   onMouseLeave={() => setTooltip(null)}
+                  onClick={() => router.push(`/springs/${s.id}`)}
                 />
               </g>
             )
@@ -378,7 +381,7 @@ export default function DatasetInsights({
           </p>
           <ScatterPlot springs={filteredSprings} />
           <p className="text-xs text-slate-400 mt-1">
-            Colour by geothermal system · hover a point for details
+            Colour by geothermal system · hover for details · click to open spring
           </p>
         </div>
       </div>
