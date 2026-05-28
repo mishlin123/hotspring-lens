@@ -36,6 +36,9 @@ export function getAllSpringSummaries(): SpringSummary[] {
     longitude: s.longitude,
     location_text: s.location_text,
     image_url: s.image_url,
+    safety_warning: s.safety_warning,
+    chemistry_record_count: s.chemistry_record_count,
+    taxonomy_record_count: s.taxonomy_record_count,
   }))
 }
 

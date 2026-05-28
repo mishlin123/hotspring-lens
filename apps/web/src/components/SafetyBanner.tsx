@@ -7,7 +7,7 @@ export default function SafetyBanner() {
         <span className="inline-flex items-center justify-center w-5 h-5 rounded-full border border-amber-600 text-amber-700 font-bold text-xs flex-shrink-0 leading-none">!</span>
         <span>
           Hot springs can cause serious injury or death. Stay on marked paths, follow local signs,
-          never cross barriers, and do not rely on this app for safe navigation.{' '}
+          never cross barriers, and do not rely on this site for safe navigation.{' '}
           <Link href="/safety" className="font-semibold underline hover:text-amber-900">
             Safety information →
           </Link>

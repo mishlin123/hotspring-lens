@@ -27,14 +27,14 @@ export default function HomePage() {
             Taupō Volcanic Zone · Aotearoa New Zealand
           </p>
           <h1 className="text-4xl sm:text-5xl font-bold mb-5 leading-tight tracking-tight">
-            New Zealand's geothermal springs
+            A field guide to New Zealand's geothermal springs
           </h1>
           <p className="text-slate-300 text-lg mb-8 max-w-xl leading-relaxed">
-            A free, non-commercial field guide to the microbiology, chemistry, and geothermal
-            science of hot springs across the Taupō Volcanic Zone. Built on the 1000 Springs
-            Project dataset.
+            Free, non-commercial records from the 1000 Springs Project (GNS Science &amp; University
+            of Waikato) — physical measurements, water chemistry, and microbial diversity for
+            springs across the Taupō Volcanic Zone.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-3 mb-5">
             <Link
               href="/explore"
               className="bg-teal-600 hover:bg-teal-500 text-white font-semibold px-8 py-3 rounded transition-colors"
@@ -48,6 +48,10 @@ export default function HomePage() {
               About this project
             </Link>
           </div>
+          <p className="text-slate-400 text-xs">
+            Many springs are on private land or in restricted areas. Check access status before visiting.{' '}
+            <Link href="/safety" className="text-teal-400 hover:underline">Safety information →</Link>
+          </p>
         </div>
       </section>
 

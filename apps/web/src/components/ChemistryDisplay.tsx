@@ -1,15 +1,51 @@
 import type { ChemistryRecord } from '@/lib/types'
 
-const MICROMO_ANALYTES = new Set(['co', 'h2', 'ch4'])
+// CO, H₂, CH₄ are measured in µM; everything else in mg/L
+const MICROMOLAR_ANALYTES = new Set(['co', 'h2', 'ch4', 'methane'])
 
-function formatUnit(analyte: string): string {
-  return MICROMO_ANALYTES.has(analyte.toLowerCase()) ? 'µM' : 'mg/L'
+function getUnit(analyte: string): string {
+  return MICROMOLAR_ANALYTES.has(analyte.toLowerCase()) ? 'µM' : 'mg/L'
 }
 
 function formatValue(value: number): string {
-  if (value >= 100) return value.toFixed(0)
-  if (value >= 1) return value.toFixed(2)
-  return value.toFixed(4)
+  if (value >= 100)  return value.toFixed(0)
+  if (value >= 1)    return value.toFixed(2)
+  if (value >= 0.01) return value.toFixed(4)
+  return value.toExponential(2)
+}
+
+function analyteLabel(analyte: string): string {
+  return analyte
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, c => c.toUpperCase())
+    .replace(/\bH2\b/gi, 'H₂')
+    .replace(/\bCh4\b/gi, 'CH₄')
+    .replace(/\bCo\b/gi, 'CO')
+}
+
+// Module-level component avoids React re-creating it on every parent render
+function AnalyteRow({ row, maxValue }: { row: ChemistryRecord; maxValue: number }) {
+  const pct  = maxValue > 0 ? Math.min((row.value / maxValue) * 100, 100) : 0
+  const unit = getUnit(row.analyte)
+  return (
+    <div className="py-1.5 border-b border-slate-100 last:border-0">
+      <div className="flex items-baseline justify-between mb-1">
+        <span className="text-xs font-medium text-slate-700">
+          {analyteLabel(row.analyte)}
+        </span>
+        <span className="text-xs font-mono text-slate-800 ml-2 flex-shrink-0">
+          {formatValue(row.value)}{' '}
+          <span className="text-slate-400 font-sans font-normal">{unit}</span>
+        </span>
+      </div>
+      <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+        <div
+          className="h-full bg-teal-600 rounded-full"
+          style={{ width: `${Math.max(pct, 0.5)}%`, opacity: 0.75 }}
+        />
+      </div>
+    </div>
+  )
 }
 
 interface Props {
@@ -19,50 +55,44 @@ interface Props {
 
 export default function ChemistryDisplay({ chemistry, totalCount }: Props) {
   if (!chemistry || chemistry.length === 0) {
-    return <p className="text-sm text-slate-500">No chemistry data available.</p>
+    return <p className="text-sm text-slate-500">No chemistry data available for this record.</p>
   }
+
+  // Separate by unit group so bars don't compare across different scales
+  const mgL    = chemistry.filter(r => !MICROMOLAR_ANALYTES.has(r.analyte.toLowerCase()))
+  const microM = chemistry.filter(r =>  MICROMOLAR_ANALYTES.has(r.analyte.toLowerCase()))
+
+  const maxMgL    = mgL.length    ? Math.max(...mgL.map(r => r.value))    : 1
+  const maxMicroM = microM.length ? Math.max(...microM.map(r => r.value)) : 1
 
   return (
     <div>
       <p className="text-xs text-slate-500 mb-3">
-        Showing top {chemistry.length} analytes from {totalCount.toLocaleString()} chemistry records.
+        {chemistry.length} analytes shown from {totalCount.toLocaleString()} chemistry records.
+        Bar length is relative to the highest value in each unit group.
         Most values in mg/L; CO, H₂, CH₄ in µM.
       </p>
-      <div className="overflow-x-auto">
-        <table className="min-w-full text-sm">
-          <thead>
-            <tr className="border-b border-slate-200">
-              <th className="text-left py-2 pr-4 text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                Analyte
-              </th>
-              <th className="text-right py-2 pr-4 text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                Value
-              </th>
-              <th className="text-right py-2 text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                Unit
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {chemistry.map((row, i) => (
-              <tr
-                key={i}
-                className={`border-b border-slate-100 ${i % 2 === 0 ? '' : 'bg-slate-50/50'}`}
-              >
-                <td className="py-1.5 pr-4 font-medium text-slate-700 capitalize">
-                  {row.analyte.replace(/_/g, ' ')}
-                </td>
-                <td className="py-1.5 pr-4 text-right font-mono text-slate-800">
-                  {formatValue(row.value)}
-                </td>
-                <td className="py-1.5 text-right text-slate-500">
-                  {formatUnit(row.analyte)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+
+      {/* mg/L analytes */}
+      {mgL.length > 0 && (
+        <div className="mb-3">
+          {mgL.map((row, i) => (
+            <AnalyteRow key={i} row={row} maxValue={maxMgL} />
+          ))}
+        </div>
+      )}
+
+      {/* µM analytes — separate scale, labelled explicitly */}
+      {microM.length > 0 && (
+        <div>
+          <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1 mt-3">
+            Dissolved gases (µM scale)
+          </p>
+          {microM.map((row, i) => (
+            <AnalyteRow key={i} row={row} maxValue={maxMicroM} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

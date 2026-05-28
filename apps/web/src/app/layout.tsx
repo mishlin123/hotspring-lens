@@ -32,7 +32,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div>
                 <p className="font-semibold text-white mb-1">Data source</p>
                 <p className="text-sm">
-                  1000 Springs Project — GNS Science & University of Waikato.
+                  <a
+                    href="https://1000springs.org.nz"
+                    className="text-teal-400 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    1000 Springs Project
+                  </a>{' '}
+                  — GNS Science &amp; University of Waikato.
                 </p>
                 <p className="text-sm mt-1">
                   Licence:{' '}

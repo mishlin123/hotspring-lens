@@ -11,8 +11,8 @@ export default function SafetyPage() {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <h1 className="text-3xl font-bold text-slate-800 mb-2">Safety Guidelines</h1>
       <p className="text-slate-500 mb-8">
-        Geothermal springs in New Zealand are beautiful and scientifically fascinating — they are
-        also dangerous. Please read this before visiting any spring.
+        Geothermal springs in New Zealand are beautiful and scientifically fascinating.
+        They are also dangerous. Please read this before visiting any spring.
       </p>
 
       {/* Main warning */}
@@ -34,7 +34,7 @@ export default function SafetyPage() {
 
       {/* Rules */}
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-slate-800 mb-4">Rules to follow always</h2>
+        <h2 className="text-xl font-semibold text-slate-800 mb-4">Field safety guidelines</h2>
         <div className="space-y-3">
           {[
             {
@@ -50,7 +50,7 @@ export default function SafetyPage() {
               body: 'Follow all instructions posted at geothermal sites and from site staff or rangers. Rules differ between sites.',
             },
             {
-              title: 'Do not use this app for navigation',
+              title: 'Do not use this site for navigation',
               body: '1000 Springs is an educational tool. Do not use it to navigate to springs or plan routes. Location data may be approximate.',
             },
             {
@@ -96,22 +96,22 @@ export default function SafetyPage() {
 
       {/* App limitations */}
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-slate-800 mb-4">Limitations of this app</h2>
+        <h2 className="text-xl font-semibold text-slate-800 mb-4">Limitations of this site</h2>
         <div className="bg-white border border-slate-200 rounded-lg p-5 text-sm text-slate-600 space-y-2">
           <p>• This app is non-commercial and educational. It is not a safety tool.</p>
           <p>• Location data is sourced from the 1000 Springs Project and may be approximate.</p>
           <p>• Access status and site conditions change. This app may not reflect current conditions.</p>
           <p>• This app does not grant permission to access any spring or land.</p>
-          <p>• Do not rely on this app to determine whether a site is safe or accessible.</p>
+          <p>• Do not rely on this site to determine whether a site is safe or accessible.</p>
         </div>
       </section>
 
       <div className="text-center">
         <Link
           href="/explore"
-          className="inline-block bg-teal-600 hover:bg-teal-700 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
+          className="inline-block bg-teal-600 hover:bg-teal-700 text-white font-semibold px-8 py-3 rounded transition-colors"
         >
-          Continue to explorer →
+          Return to the explorer
         </Link>
       </div>
     </div>
