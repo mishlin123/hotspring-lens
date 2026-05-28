@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { DM_Sans } from 'next/font/google'
+import Image from 'next/image'
 import './globals.css'
 import NavBar from '@/components/NavBar'
 import SafetyBanner from '@/components/SafetyBanner'
@@ -26,8 +27,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
               <div>
-                <p className="font-semibold text-white mb-1">1000 Springs Project</p>
-                <p className="text-sm">Free, non-commercial educational tool.</p>
+                <Image
+                  src="/logo.png"
+                  alt="One Thousand Springs"
+                  width={186}
+                  height={32}
+                  className="h-8 w-auto brightness-0 invert"
+                />
               </div>
               <div>
                 <p className="font-semibold text-white mb-1">Data source</p>
