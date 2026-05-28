@@ -103,7 +103,7 @@ function ScatterPlot({ springs }: { springs: SpringSummary[] }) {
     x: number; y: number; spring: SpringSummary
   } | null>(null)
 
-  const W = 320, H = 210
+  const W = 440, H = 280
   const PAD = { top: 8, right: 8, bottom: 28, left: 28 }
   const plotW = W - PAD.left - PAD.right
   const plotH = H - PAD.top - PAD.bottom
@@ -320,54 +320,58 @@ export default function DatasetInsights({
         </div>
       </div>
 
-      {/* Three-column grid: temp dist | pH dist | scatter */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5 items-start">
+      {/* Two-column grid: distributions (left) | scatter (right, larger) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5 items-start">
 
-        {/* Temperature distribution */}
-        <div>
-          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
-            Temperature at sampling
-          </p>
-          <div className="space-y-1">
-            {tempDist.map(band => (
-              <BandRow
-                key={band.label}
-                label={band.label}
-                count={band.count}
-                total={tempTotal}
-                color={band.color}
-                pct={tempTotal > 0 ? (band.count / tempTotal) * 100 : 0}
-              />
-            ))}
+        {/* Left: temperature + pH distributions stacked */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+          {/* Temperature distribution */}
+          <div>
+            <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
+              Temperature at sampling
+            </p>
+            <div className="space-y-1">
+              {tempDist.map(band => (
+                <BandRow
+                  key={band.label}
+                  label={band.label}
+                  count={band.count}
+                  total={tempTotal}
+                  color={band.color}
+                  pct={tempTotal > 0 ? (band.count / tempTotal) * 100 : 0}
+                />
+              ))}
+            </div>
+            <p className="text-xs text-slate-400 mt-2">
+              Range: 13.9–99.8°C across {tempTotal} records
+            </p>
           </div>
-          <p className="text-xs text-slate-400 mt-2">
-            Range: 13.9–99.8°C across {tempTotal} records
-          </p>
+
+          {/* pH distribution */}
+          <div>
+            <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
+              pH at sampling
+            </p>
+            <div className="space-y-1">
+              {phDist.map(band => (
+                <BandRow
+                  key={band.label}
+                  label={band.label}
+                  count={band.count}
+                  total={phTotal}
+                  color={band.color}
+                  pct={phTotal > 0 ? (band.count / phTotal) * 100 : 0}
+                />
+              ))}
+            </div>
+            <p className="text-xs text-slate-400 mt-2">
+              Bimodal: sulfuric (acidic) and bicarbonate (neutral–alkaline) spring types
+            </p>
+          </div>
         </div>
 
-        {/* pH distribution */}
-        <div>
-          <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
-            pH at sampling
-          </p>
-          <div className="space-y-1">
-            {phDist.map(band => (
-              <BandRow
-                key={band.label}
-                label={band.label}
-                count={band.count}
-                total={phTotal}
-                color={band.color}
-                pct={phTotal > 0 ? (band.count / phTotal) * 100 : 0}
-              />
-            ))}
-          </div>
-          <p className="text-xs text-slate-400 mt-2">
-            Bimodal: sulfuric (acidic) and bicarbonate (neutral–alkaline) spring types
-          </p>
-        </div>
-
-        {/* Scatter plot */}
+        {/* Right: scatter plot — takes full right half of the card */}
         <div>
           <p className="text-xs font-semibold text-slate-500 tracking-wide mb-2">
             pH vs temperature
