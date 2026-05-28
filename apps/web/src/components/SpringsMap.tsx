@@ -279,8 +279,8 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
             onClick={() => setBaseTile(key)}
             className={`px-2.5 py-1 text-xs font-medium rounded border shadow-sm transition-colors ${
               baseTile === key
-                ? 'bg-white text-teal-800 border-teal-300 shadow-md'
-                : 'bg-white/85 text-slate-800 border-slate-200 hover:bg-white'
+                ? 'bg-slate-900/90 text-white border-white/20 shadow-md'
+                : 'bg-slate-900/65 text-slate-200 border-white/10 hover:bg-slate-900/85 hover:text-white'
             }`}
           >
             {TILES[key].label}
@@ -293,7 +293,7 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
         <select
           value={layerMode}
           onChange={e => setLayerMode(e.target.value as LayerMode)}
-          className="bg-white border border-slate-200 rounded shadow-sm text-xs text-slate-700 px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-teal-500 cursor-pointer"
+          className="bg-slate-900/85 backdrop-blur-sm border border-white/10 rounded shadow-sm text-xs text-slate-200 px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-teal-400 cursor-pointer"
           aria-label="Map colour layer"
         >
           <option value="temperature">Colour: Temperature</option>
@@ -304,15 +304,15 @@ export default function SpringsMap({ springs, height = '520px' }: Props) {
       </div>
 
       {/* Legend — bottom right, scrollable if many items */}
-      <div className="absolute bottom-8 right-3 bg-white/92 backdrop-blur-sm rounded-lg shadow border border-slate-200/80 p-2.5 z-[400] max-h-52 overflow-y-auto">
-        <p className="text-xs font-semibold text-slate-800 mb-1.5">{legend.title}</p>
+      <div className="absolute bottom-8 right-3 bg-slate-900/85 backdrop-blur-sm rounded-lg shadow border border-white/10 p-2.5 z-[400] max-h-52 overflow-y-auto">
+        <p className="text-xs font-semibold text-white mb-1.5">{legend.title}</p>
         {legend.items.map(l => (
           <div key={l.label} className="flex items-center gap-1.5 mb-0.5 last:mb-0">
             <span
-              className="w-2.5 h-2.5 rounded-full flex-shrink-0 border border-white/60"
+              className="w-2.5 h-2.5 rounded-full flex-shrink-0 border border-white/25"
               style={{ backgroundColor: l.color }}
             />
-            <span className="text-xs text-slate-800 leading-tight whitespace-nowrap">{l.label}</span>
+            <span className="text-xs text-slate-200 leading-tight whitespace-nowrap">{l.label}</span>
           </div>
         ))}
       </div>

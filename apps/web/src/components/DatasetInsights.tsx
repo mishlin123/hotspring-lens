@@ -4,6 +4,42 @@ import { useMemo, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import type { SpringSummary } from '@/lib/types'
 
+type ScatterColorBy = 'system' | 'temperature' | 'ph'
+
+function scatterTempColor(t: number | null): string {
+  if (t === null) return '#94a3b8'
+  if (t >= 80) return '#dc2626'
+  if (t >= 60) return '#ea580c'
+  if (t >= 40) return '#ca8a04'
+  return '#16a34a'
+}
+
+function scatterPhColor(p: number | null): string {
+  if (p === null) return '#94a3b8'
+  if (p < 2)  return '#7c3aed'
+  if (p < 4)  return '#dc2626'
+  if (p < 6)  return '#ea580c'
+  if (p < 8)  return '#16a34a'
+  return '#2563eb'
+}
+
+const SCATTER_TEMP_LEGEND = [
+  { label: '≥ 80°C',   color: '#dc2626' },
+  { label: '60–79°C',  color: '#ea580c' },
+  { label: '40–59°C',  color: '#ca8a04' },
+  { label: '< 40°C',   color: '#16a34a' },
+  { label: 'No data',  color: '#94a3b8' },
+]
+
+const SCATTER_PH_LEGEND = [
+  { label: 'pH < 2',   color: '#7c3aed' },
+  { label: 'pH 2–4',   color: '#dc2626' },
+  { label: 'pH 4–6',   color: '#ea580c' },
+  { label: 'pH 6–8',   color: '#16a34a' },
+  { label: 'pH ≥ 8',   color: '#2563eb' },
+  { label: 'No data',  color: '#94a3b8' },
+]
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface Props {
@@ -113,9 +149,10 @@ function ClickableBar({
 }
 
 /** pH vs Temperature scatter plot — pure SVG with React hover tooltip */
-function ScatterPlot({ springs, systemColorMap }: {
+function ScatterPlot({ springs, systemColorMap, colorBy }: {
   springs: SpringSummary[]
   systemColorMap: Record<string, string>
+  colorBy: ScatterColorBy
 }) {
   const router = useRouter()
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -192,7 +229,9 @@ function ScatterPlot({ springs, systemColorMap }: {
           {pts.map(s => {
             const cx = xScale(s.temperature_c!)
             const cy = yScale(s.ph!)
-            const color = systemColorMap[s.geothermal_system] ?? '#94a3b8'
+            const color = colorBy === 'temperature' ? scatterTempColor(s.temperature_c)
+                        : colorBy === 'ph'          ? scatterPhColor(s.ph)
+                        : systemColorMap[s.geothermal_system] ?? '#94a3b8'
             return (
               <g key={s.id}>
                 <circle cx={cx} cy={cy} r={2.5} fill={color} fillOpacity={0.65} stroke="none" />
@@ -319,6 +358,13 @@ export default function DatasetInsights({
   const tempTotal = tempDist.reduce((s, b) => s + b.count, 0)
   const phTotal   = phDist.reduce((s, b) => s + b.count, 0)
 
+  const [scatterColorBy, setScatterColorBy] = useState<ScatterColorBy>('system')
+
+  // Legend items to show below the scatter plot (only for temp/pH modes)
+  const scatterLegend = scatterColorBy === 'temperature' ? SCATTER_TEMP_LEGEND
+                      : scatterColorBy === 'ph'          ? SCATTER_PH_LEGEND
+                      : null
+
   return (
     <div className="bg-white border border-slate-200 rounded-xl p-4 mb-5">
       {/* Header */}
@@ -340,13 +386,49 @@ export default function DatasetInsights({
 
       {/* Full-width scatter plot — hidden on mobile (dots too small to use) */}
       <div className="hidden sm:block mb-5">
-        <p className="text-xs font-semibold text-slate-600 tracking-wide mb-2">
-          pH vs temperature
-        </p>
-        <ScatterPlot springs={filteredSprings} systemColorMap={systemColors} />
-        <p className="text-xs text-slate-500 mt-1">
-          Colour by geothermal system · hover for details · click to open spring
-        </p>
+        {/* Header row with title + colour-by toggle */}
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-xs font-semibold text-slate-600 tracking-wide">
+            pH vs temperature
+          </p>
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-slate-500 mr-1">Colour by:</span>
+            {(['system', 'temperature', 'ph'] as ScatterColorBy[]).map(mode => (
+              <button
+                key={mode}
+                onClick={() => setScatterColorBy(mode)}
+                className={`text-xs px-2 py-0.5 rounded transition-colors font-medium ${
+                  scatterColorBy === mode
+                    ? 'bg-teal-600 text-white'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                }`}
+              >
+                {mode === 'system' ? 'System' : mode === 'temperature' ? 'Temp' : 'pH'}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <ScatterPlot springs={filteredSprings} systemColorMap={systemColors} colorBy={scatterColorBy} />
+
+        {/* Dynamic legend for temp/pH modes, or plain note for system mode */}
+        {scatterLegend ? (
+          <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2">
+            {scatterLegend.map(item => (
+              <div key={item.label} className="flex items-center gap-1">
+                <span
+                  className="w-2 h-2 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: item.color }}
+                />
+                <span className="text-xs text-slate-500">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-xs text-slate-500 mt-1">
+            Colour by geothermal system · hover for details · click to open spring
+          </p>
+        )}
       </div>
 
       {/* Four-column grid: distributions + clickable selectors */}
