@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+  Prevent white flash during rubber-band overscroll on macOS/iOS.
+  Setting the html background to teal-900 means overscrolling at
+  the top or bottom shows teal instead of white.
+*/
+html {
+  background-color: #002c35;
+}
