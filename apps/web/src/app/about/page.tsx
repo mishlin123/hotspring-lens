@@ -326,15 +326,15 @@ export default function AboutPage() {
           recreational, and resource development value of microbial components in these
           geothermal ecosystems — knowledge that informs science, policy, and kaitiakitanga.
         </p>
-        {/* TVZ map — full image, no cropping */}
-        <div className="rounded-xl overflow-hidden border border-slate-200">
+        {/* TVZ map — 80% of original width, centred */}
+        <div className="rounded-xl overflow-hidden border border-slate-200 max-w-[768px] mx-auto">
           <Image
             src={`${BASE}/about/TVZ_hotspots_map_small.jpg`}
             alt="Map of geothermal hotspot locations across the Taupō Volcanic Zone"
             width={960}
             height={700}
             className="w-full h-auto"
-            sizes="(max-width: 1024px) 100vw, 960px"
+            sizes="(max-width: 768px) 100vw, 768px"
           />
           <p className="text-xs text-slate-500 text-center py-2 bg-slate-50 border-t border-slate-200">
             Geothermal hotspot locations across the Taupō Volcanic Zone
