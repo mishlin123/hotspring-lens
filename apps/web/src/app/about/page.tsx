@@ -263,12 +263,12 @@ function MetaLabelLight({ children }: { children: React.ReactNode }) {
 function Thumb({ photo, name }: { photo: string | null; name: string }) {
   const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2)
   return (
-    <div className="w-8 h-8 rounded-full overflow-hidden bg-teal-100 relative flex-shrink-0">
+    <div className="w-14 h-14 rounded-full overflow-hidden bg-teal-100 relative flex-shrink-0">
       {photo ? (
-        <Image src={photo} alt={name} fill className="object-cover" sizes="32px" />
+        <Image src={photo} alt={name} fill className="object-cover" sizes="56px" />
       ) : (
         <div className="w-full h-full flex items-center justify-center">
-          <span className="text-teal-700 font-bold text-xs">{initials}</span>
+          <span className="text-teal-700 font-bold text-sm">{initials}</span>
         </div>
       )}
     </div>
@@ -300,14 +300,14 @@ export default function AboutPage() {
       {/* ── Primary goal + map ──────────────────────────────────── */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <MetaLabel>Primary goal</MetaLabel>
-        <blockquote className="border-l-2 border-teal-500 pl-5 mb-5 max-w-3xl">
+        <blockquote className="border-l-2 border-teal-500 pl-5 mb-5">
           <p className="text-slate-700 italic text-lg leading-relaxed">
             "The primary goal of the research project is to collate the physical, chemical, and
             microbial biodiversity information from 1,000 geothermal ecosystems from the Taupō
             Volcanic Zone."
           </p>
         </blockquote>
-        <p className="text-slate-800 text-base leading-relaxed mb-10 max-w-3xl">
+        <p className="text-slate-800 text-base leading-relaxed mb-10">
           Beyond documentation, the project aims to assess the conservation, cultural,
           recreational, and resource development value of microbial components in these
           geothermal ecosystems, knowledge that informs science, policy, and kaitiakitanga.
@@ -336,7 +336,7 @@ export default function AboutPage() {
       <div className="border-t border-slate-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <MetaLabel>Research aims</MetaLabel>
-          <div className="divide-y divide-slate-100 max-w-3xl">
+          <div className="divide-y divide-slate-100">
             {researchAims.map(aim => (
               <div key={aim.number} className="grid grid-cols-[3rem_1fr] gap-5 py-6">
                 <p className="text-2xl font-light text-slate-300 leading-none pt-0.5 tabular-nums">
@@ -357,7 +357,7 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <MetaLabel>Project outputs</MetaLabel>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm max-w-3xl">
+            <table className="w-full text-base">
               <thead>
                 <tr className="border-b border-slate-300">
                   <th className="text-left text-xs font-semibold text-slate-600 pb-2 pr-8 uppercase tracking-wide w-44">
@@ -375,7 +375,7 @@ export default function AboutPage() {
                       <span className="text-xs text-teal-600 bg-teal-50 px-1.5 py-0.5 border border-teal-100">
                         {o.label}
                       </span>
-                      <p className="font-medium text-slate-700 mt-1.5 text-sm">{o.title}</p>
+                      <p className="font-medium text-slate-700 mt-1.5 text-base">{o.title}</p>
                     </td>
                     <td className="py-4 text-slate-800 align-top leading-relaxed">{o.body}</td>
                   </tr>
@@ -390,7 +390,7 @@ export default function AboutPage() {
       <div className="bg-teal-900 text-white py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <MetaLabelLight>Institutions &amp; funders</MetaLabelLight>
-          <div className="divide-y divide-teal-800 max-w-3xl">
+          <div className="divide-y divide-teal-800">
             {[
               {
                 name: 'GNS Science',
@@ -417,7 +417,7 @@ export default function AboutPage() {
                   <p className="text-xs uppercase tracking-wider text-teal-400 mb-0.5">
                     {inst.role}
                   </p>
-                  <p className="text-teal-200 text-sm">{inst.detail}</p>
+                  <p className="text-teal-200 text-base">{inst.detail}</p>
                 </div>
               </div>
             ))}
@@ -435,16 +435,16 @@ export default function AboutPage() {
           {team.map(person => (
             <div
               key={person.name}
-              className="py-4 grid grid-cols-1 sm:grid-cols-[14rem_1fr] gap-y-1 gap-x-8"
+              className="py-5 grid grid-cols-1 sm:grid-cols-[16rem_1fr] gap-y-2 gap-x-8"
             >
               <div className="flex items-center gap-3">
                 <Thumb photo={person.photo} name={person.name} />
                 <div>
-                  <p className="font-medium text-slate-800 text-sm leading-snug">{person.name}</p>
+                  <p className="font-semibold text-slate-800 text-base leading-snug">{person.name}</p>
                   <p className="text-xs text-teal-600">{person.institution}</p>
                 </div>
               </div>
-              <div className="pl-11 sm:pl-0 mt-0.5">
+              <div className="pl-[4.5rem] sm:pl-0 mt-0.5">
                 <p className="text-xs text-slate-800 leading-snug">{person.title}</p>
                 <p className="text-xs text-slate-500 mt-0.5">{person.roles}</p>
               </div>
@@ -497,18 +497,18 @@ export default function AboutPage() {
       {/* ── Contact ─────────────────────────────────────────────── */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <MetaLabel>Contact</MetaLabel>
-        <div className="divide-y divide-slate-100 max-w-xl">
+        <div className="divide-y divide-slate-100">
           {contacts.map(c => (
-            <div key={c.name} className="py-4 flex items-center gap-4">
+            <div key={c.name} className="py-5 flex items-center gap-5">
               <Thumb photo={c.photo} name={c.name} />
               <div>
-                <p className="text-sm font-medium text-slate-800">
+                <p className="text-base font-semibold text-slate-800">
                   {c.name}{' '}
                   <span className="font-normal text-slate-600">&middot; {c.org}</span>
                 </p>
                 <a
                   href={`mailto:${c.email}`}
-                  className="text-xs text-teal-600 hover:underline"
+                  className="text-sm text-teal-600 hover:underline"
                 >
                   {c.email}
                 </a>
@@ -523,17 +523,17 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <MetaLabel>About this explorer</MetaLabel>
 
-          <p className="text-base text-slate-800 leading-relaxed mb-10 max-w-3xl">
+          <p className="text-base text-slate-800 leading-relaxed mb-10">
             This explorer is a free, non-commercial tool for making the 1000 Springs Project dataset
             accessible to a broader audience: tourists, students, teachers, and researchers.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 mb-10 max-w-3xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 mb-10">
             <div>
               <p className="text-xs uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-2 mb-4">
                 What this is
               </p>
-              <ul className="space-y-2 text-sm text-slate-800">
+              <ul className="space-y-2.5 text-base text-slate-800">
                 {[
                   'A web-based field guide to NZ geothermal springs',
                   'Built on the 1000 Springs Project dataset',
@@ -551,7 +551,7 @@ export default function AboutPage() {
               <p className="text-xs uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-2 mb-4">
                 What this is not
               </p>
-              <ul className="space-y-2 text-sm text-slate-800">
+              <ul className="space-y-2.5 text-base text-slate-800">
                 {[
                   'Not commercial: no ads, subscriptions, or purchases',
                   'Not a navigation tool: do not use it to access springs',
