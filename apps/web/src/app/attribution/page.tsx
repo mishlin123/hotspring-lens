@@ -10,7 +10,7 @@ export default function AttributionPage() {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <h1 className="text-3xl font-bold text-slate-800 mb-2">Attribution & Licence</h1>
       <p className="text-slate-500 mb-10">
-        Full attribution for the data and tools used in 1000 Springs.
+        Full attribution for the data and tools used in the 1000 Springs Project.
       </p>
 
       {/* Primary attribution */}
@@ -109,7 +109,7 @@ export default function AttributionPage() {
         <h2 className="text-xl font-semibold text-slate-800 mb-3">How this project uses the data</h2>
         <div className="text-sm text-slate-600 space-y-2">
           <p>
-            This explorer uses the 1000 Springs dataset solely for non-commercial educational and
+            This explorer uses the 1000 Springs Project dataset solely for non-commercial educational and
             research purposes, in compliance with the CC BY-NC-SA 4.0 licence.
           </p>
           <p>
@@ -118,11 +118,11 @@ export default function AttributionPage() {
             app.
           </p>
           <p>
-            This project does not imply endorsement by 1000 Springs, GNS Science, the University of
+            This project does not imply endorsement by the 1000 Springs Project, GNS Science, the University of
             Waikato, iwi/hapū, landowners, or tourism operators.
           </p>
           <p>
-            Adapted content derived from the 1000 Springs dataset is published under CC BY-NC-SA 4.0.
+            Adapted content derived from the 1000 Springs Project dataset is published under CC BY-NC-SA 4.0.
           </p>
         </div>
       </section>

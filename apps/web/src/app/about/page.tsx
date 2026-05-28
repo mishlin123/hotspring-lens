@@ -471,7 +471,7 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <MetaLabel>Site access &amp; support</MetaLabel>
           <p className="text-xs text-slate-500 -mt-4 mb-8">
-            The following sites provided access and support for the 1000 Springs sampling programme.
+            The following sites provided access and support for the 1000 Springs Project sampling programme.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-12 gap-y-10">
             {tourismPartners.map(region => (
@@ -524,7 +524,7 @@ export default function AboutPage() {
           <MetaLabel>About this explorer</MetaLabel>
 
           <p className="text-sm text-slate-600 leading-relaxed mb-10 max-w-3xl">
-            This explorer is a free, non-commercial tool for making the 1000 Springs dataset
+            This explorer is a free, non-commercial tool for making the 1000 Springs Project dataset
             accessible to a broader audience: tourists, students, teachers, and researchers.
           </p>
 
@@ -555,7 +555,7 @@ export default function AboutPage() {
                 {[
                   'Not commercial: no ads, subscriptions, or purchases',
                   'Not a navigation tool: do not use it to access springs',
-                  'Not endorsed by 1000 Springs, GNS, or University of Waikato',
+                  'Not endorsed by the 1000 Springs Project, GNS, or University of Waikato',
                   'Not a source of cultural history or interpretation',
                   'Not affiliated with any tourism operator or landowner',
                 ].map(item => (

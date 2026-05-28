@@ -179,7 +179,7 @@ export default function MethodologiesPage() {
             <div className="relative w-full" style={{ paddingBottom: '40%' }}>
               <Image
                 src={`${BASE}/1000-springs-dataflow.png`}
-                alt="1000 Springs data flow, from field sampling through analysis and computing to the online database"
+                alt="1000 Springs Project data flow, from field sampling through analysis and computing to the online database"
                 fill
                 className="object-contain bg-white"
                 sizes="(max-width: 1024px) 100vw, 960px"

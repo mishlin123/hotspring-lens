@@ -42,7 +42,7 @@ export default function SafetyPage() {
           Notice
         </span>
         <p className="text-sm text-amber-800 leading-relaxed">
-          <strong>Do not use this site for navigation.</strong> 1000 Springs is an educational
+          <strong>Do not use this site for navigation.</strong> 1000 Springs Project is an educational
           tool. It does not grant access permission, location data may be approximate, and it
           does not reflect current site conditions.
         </p>

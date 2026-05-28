@@ -128,7 +128,7 @@ export default function HomePage() {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <h2 className="text-xl font-semibold text-slate-800 mb-1">What each spring record contains</h2>
         <p className="text-slate-500 text-sm mb-8">
-          Every record is drawn directly from the 1000 Springs dataset.
+          Every record is drawn directly from the 1000 Springs Project dataset.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {[

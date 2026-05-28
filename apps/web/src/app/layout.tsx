@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
-    default: '1000 Springs | NZ Geothermal Spring Explorer',
-    template: '%s | 1000 Springs',
+    default: '1000 Springs Project | NZ Geothermal Spring Explorer',
+    template: '%s | 1000 Springs Project',
   },
   description:
     'A free, non-commercial educational tool for exploring the microbiology, chemistry, and geothermal science of New Zealand hot springs.',
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
               <div>
-                <p className="font-semibold text-white mb-1">1000 Springs</p>
+                <p className="font-semibold text-white mb-1">1000 Springs Project</p>
                 <p className="text-sm">Free, non-commercial educational tool.</p>
               </div>
               <div>
@@ -63,8 +63,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </div>
             <p className="text-xs text-slate-500 border-t border-slate-700 pt-4">
-              Data from the 1000 Springs Project. Used under CC BY-NC-SA 4.0. Not endorsed by 1000
-              Springs, GNS Science, University of Waikato, iwi/hapū, or landowners.
+              Data from the 1000 Springs Project. Used under CC BY-NC-SA 4.0. Not endorsed by the
+              1000 Springs Project, GNS Science, University of Waikato, iwi/hapū, or landowners.
             </p>
           </div>
         </footer>
