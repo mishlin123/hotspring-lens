@@ -256,7 +256,7 @@ function ScatterPlot({ springs, systemColorMap, colorBy }: {
                         : systemColorMap[s.geothermal_system] ?? '#94a3b8'
             return (
               <g key={s.id}>
-                <circle cx={cx} cy={cy} r={3} fill={color} fillOpacity={0.80} stroke="white" strokeWidth={0.5} strokeOpacity={0.7} />
+                <circle cx={cx} cy={cy} r={4} fill={color} fillOpacity={0.75} stroke="white" strokeWidth={0.6} strokeOpacity={0.7} />
                 <circle
                   cx={cx} cy={cy} r={7}
                   fill="transparent"
@@ -407,8 +407,8 @@ export default function DatasetInsights({
         </div>
       </div>
 
-      {/* Full-width scatter plot — hidden on mobile (dots too small to use) */}
-      <div className="hidden sm:block mb-5">
+      {/* Full-width scatter plot */}
+      <div className="mb-5">
         {/* Header row with title + colour-by toggle */}
         <div className="flex items-center justify-between mb-2">
           <p className="text-xs font-semibold text-slate-600 tracking-wide">
