@@ -3,6 +3,8 @@
 import { useMemo, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import type { SpringSummary } from '@/lib/types'
+import ChartToggle, { type ChartType } from './ChartToggle'
+import PieChart, { pieColor } from './PieChart'
 
 type ScatterColorBy = 'system' | 'temperature' | 'ph' | 'distinctiveness'
 
@@ -382,6 +384,13 @@ export default function DatasetInsights({
 
   const [scatterColorBy, setScatterColorBy] = useState<ScatterColorBy>('system')
 
+  // Per-section bar/pie chart preferences
+  const [tempChart, setTempChart]       = useState<ChartType>('bar')
+  const [phChart, setPhChart]           = useState<ChartType>('bar')
+  const [systemChart, setSystemChart]   = useState<ChartType>('bar')
+  const [featureChart, setFeatureChart] = useState<ChartType>('bar')
+  const [chemChart, setChemChart]       = useState<ChartType>('bar')
+
   // Legend items to show below the scatter plot (all non-system modes)
   const scatterLegend = scatterColorBy === 'temperature'    ? SCATTER_TEMP_LEGEND
                       : scatterColorBy === 'ph'             ? SCATTER_PH_LEGEND
@@ -467,21 +476,32 @@ export default function DatasetInsights({
 
           {/* Temperature distribution */}
           <div>
-            <p className="text-xs font-semibold text-slate-600 tracking-wide mb-2">
-              Temperature at sampling
-            </p>
-            <div className="space-y-1">
-              {tempDist.map(band => (
-                <BandRow
-                  key={band.label}
-                  label={band.label}
-                  count={band.count}
-                  total={tempTotal}
-                  color={band.color}
-                  pct={tempTotal > 0 ? (band.count / tempTotal) * 100 : 0}
-                />
-              ))}
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <p className="text-xs font-semibold text-slate-600 tracking-wide">
+                Temperature at sampling
+              </p>
+              <ChartToggle value={tempChart} onChange={setTempChart} label="Temperature chart type" />
             </div>
+            {tempChart === 'pie' ? (
+              <PieChart
+                data={tempDist.map(b => ({ label: b.label, value: b.count, color: b.color }))}
+                ariaLabel="Temperature distribution of springs"
+                formatValue={v => `${v} spring${v === 1 ? '' : 's'}`}
+              />
+            ) : (
+              <div className="space-y-1">
+                {tempDist.map(band => (
+                  <BandRow
+                    key={band.label}
+                    label={band.label}
+                    count={band.count}
+                    total={tempTotal}
+                    color={band.color}
+                    pct={tempTotal > 0 ? (band.count / tempTotal) * 100 : 0}
+                  />
+                ))}
+              </div>
+            )}
             <p className="text-xs text-slate-500 mt-2">
               Range: 13.9–99.8°C across {tempTotal} records
             </p>
@@ -489,21 +509,32 @@ export default function DatasetInsights({
 
           {/* pH distribution */}
           <div>
-            <p className="text-xs font-semibold text-slate-600 tracking-wide mb-2">
-              pH at sampling
-            </p>
-            <div className="space-y-1">
-              {phDist.map(band => (
-                <BandRow
-                  key={band.label}
-                  label={band.label}
-                  count={band.count}
-                  total={phTotal}
-                  color={band.color}
-                  pct={phTotal > 0 ? (band.count / phTotal) * 100 : 0}
-                />
-              ))}
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <p className="text-xs font-semibold text-slate-600 tracking-wide">
+                pH at sampling
+              </p>
+              <ChartToggle value={phChart} onChange={setPhChart} label="pH chart type" />
             </div>
+            {phChart === 'pie' ? (
+              <PieChart
+                data={phDist.map(b => ({ label: b.label, value: b.count, color: b.color }))}
+                ariaLabel="pH distribution of springs"
+                formatValue={v => `${v} spring${v === 1 ? '' : 's'}`}
+              />
+            ) : (
+              <div className="space-y-1">
+                {phDist.map(band => (
+                  <BandRow
+                    key={band.label}
+                    label={band.label}
+                    count={band.count}
+                    total={phTotal}
+                    color={band.color}
+                    pct={phTotal > 0 ? (band.count / phTotal) * 100 : 0}
+                  />
+                ))}
+              </div>
+            )}
             <p className="text-xs text-slate-500 mt-2">
               Bimodal: sulfuric (acidic) and bicarbonate (neutral–alkaline) spring types
             </p>
@@ -512,65 +543,116 @@ export default function DatasetInsights({
 
         {/* Col 2: Geothermal systems */}
         <div>
-          <p className="text-xs font-semibold text-slate-600 tracking-wide mb-0.5">
-            By geothermal system
-          </p>
-          <p className="text-xs text-slate-500 mb-2">Click to filter · select multiple</p>
-          <div className="space-y-0.5">
-            {systemCounts.map(({ sys, count }) => (
-              <ClickableBar
-                key={sys}
-                label={sys}
-                count={count}
-                maxCount={maxSystemCount}
-                color={systemColors[sys] ?? '#94a3b8'}
-                active={activeSystem.includes(sys)}
-                onClick={() => onSystemClick(sys)}
-              />
-            ))}
+          <div className="flex items-center justify-between gap-2 mb-0.5">
+            <p className="text-xs font-semibold text-slate-600 tracking-wide">
+              By geothermal system
+            </p>
+            <ChartToggle value={systemChart} onChange={setSystemChart} label="Geothermal system chart type" />
           </div>
+          <p className="text-xs text-slate-500 mb-2">Click to filter · select multiple</p>
+          {systemChart === 'pie' ? (
+            <PieChart
+              data={systemCounts.map(({ sys, count }) => ({
+                label: sys,
+                value: count,
+                color: systemColors[sys] ?? '#94a3b8',
+              }))}
+              ariaLabel="Spring count by geothermal system"
+              formatValue={v => `${v} spring${v === 1 ? '' : 's'}`}
+              activeLabels={activeSystem}
+              onSliceClick={onSystemClick}
+            />
+          ) : (
+            <div className="space-y-0.5">
+              {systemCounts.map(({ sys, count }) => (
+                <ClickableBar
+                  key={sys}
+                  label={sys}
+                  count={count}
+                  maxCount={maxSystemCount}
+                  color={systemColors[sys] ?? '#94a3b8'}
+                  active={activeSystem.includes(sys)}
+                  onClick={() => onSystemClick(sys)}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Col 3: Feature types */}
         <div>
-          <p className="text-xs font-semibold text-slate-600 tracking-wide mb-0.5">
-            By feature type
-          </p>
-          <p className="text-xs text-slate-500 mb-2">Click to filter · select multiple</p>
-          <div className="space-y-0.5">
-            {featureTypeCounts.map(({ type, count }) => (
-              <ClickableBar
-                key={type}
-                label={type}
-                count={count}
-                maxCount={maxFtCount}
-                color="#00AECC"
-                active={activeFeatureType.includes(type)}
-                onClick={() => onFeatureTypeClick(type)}
-              />
-            ))}
+          <div className="flex items-center justify-between gap-2 mb-0.5">
+            <p className="text-xs font-semibold text-slate-600 tracking-wide">
+              By feature type
+            </p>
+            <ChartToggle value={featureChart} onChange={setFeatureChart} label="Feature type chart type" />
           </div>
+          <p className="text-xs text-slate-500 mb-2">Click to filter · select multiple</p>
+          {featureChart === 'pie' ? (
+            <PieChart
+              data={featureTypeCounts.map(({ type, count }, i) => ({
+                label: type,
+                value: count,
+                color: pieColor(i),
+              }))}
+              ariaLabel="Spring count by feature type"
+              formatValue={v => `${v} spring${v === 1 ? '' : 's'}`}
+              activeLabels={activeFeatureType}
+              onSliceClick={onFeatureTypeClick}
+            />
+          ) : (
+            <div className="space-y-0.5">
+              {featureTypeCounts.map(({ type, count }) => (
+                <ClickableBar
+                  key={type}
+                  label={type}
+                  count={count}
+                  maxCount={maxFtCount}
+                  color="#00AECC"
+                  active={activeFeatureType.includes(type)}
+                  onClick={() => onFeatureTypeClick(type)}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Col 4: Chemical composition */}
         <div>
-          <p className="text-xs font-semibold text-slate-600 tracking-wide mb-0.5">
-            By chemical composition
-          </p>
-          <p className="text-xs text-slate-500 mb-2">Click to filter · select multiple</p>
-          <div className="space-y-0.5">
-            {allAnalytes.map(({ analyte, count }) => (
-              <ClickableBar
-                key={analyte}
-                label={analyte}
-                count={count}
-                maxCount={allAnalytes[0]?.count ?? 1}
-                color="#0d9488"
-                active={activeAnalyte.includes(analyte)}
-                onClick={() => onAnalyteClick(analyte)}
-              />
-            ))}
+          <div className="flex items-center justify-between gap-2 mb-0.5">
+            <p className="text-xs font-semibold text-slate-600 tracking-wide">
+              By chemical composition
+            </p>
+            <ChartToggle value={chemChart} onChange={setChemChart} label="Chemical composition chart type" />
           </div>
+          <p className="text-xs text-slate-500 mb-2">Click to filter · select multiple</p>
+          {chemChart === 'pie' ? (
+            <PieChart
+              data={allAnalytes.map(({ analyte, count }, i) => ({
+                label: analyte,
+                value: count,
+                color: pieColor(i),
+              }))}
+              ariaLabel="Spring count by chemical composition"
+              formatValue={v => `${v} spring${v === 1 ? '' : 's'}`}
+              activeLabels={activeAnalyte}
+              onSliceClick={onAnalyteClick}
+            />
+          ) : (
+            <div className="space-y-0.5">
+              {allAnalytes.map(({ analyte, count }) => (
+                <ClickableBar
+                  key={analyte}
+                  label={analyte}
+                  count={count}
+                  maxCount={allAnalytes[0]?.count ?? 1}
+                  color="#0d9488"
+                  active={activeAnalyte.includes(analyte)}
+                  onClick={() => onAnalyteClick(analyte)}
+                />
+              ))}
+            </div>
+          )}
           <p className="text-xs text-slate-500 mt-3">
             Based on top analytes per spring from field chemistry records.
           </p>

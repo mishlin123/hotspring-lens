@@ -1,4 +1,9 @@
+'use client'
+
+import { useState } from 'react'
 import type { ChemistryRecord } from '@/lib/types'
+import ChartToggle, { type ChartType } from './ChartToggle'
+import PieChart, { pieColor } from './PieChart'
 
 // CO, H₂, CH₄ are measured in µM; everything else in mg/L
 const MICROMOLAR_ANALYTES = new Set(['co', 'h2', 'ch4', 'methane'])
@@ -48,12 +53,30 @@ function AnalyteRow({ row, maxValue }: { row: ChemistryRecord; maxValue: number 
   )
 }
 
+/** Pie view of one unit group — composition by measured concentration */
+function AnalytePie({ rows, unit }: { rows: ChemistryRecord[]; unit: string }) {
+  const data = rows.map((r, i) => ({
+    label: analyteLabel(r.analyte),
+    value: r.value,
+    color: pieColor(i),
+  }))
+  return (
+    <PieChart
+      data={data}
+      ariaLabel={`Composition of ${unit} analytes by concentration`}
+      formatValue={v => `${formatValue(v)} ${unit}`}
+    />
+  )
+}
+
 interface Props {
   chemistry: ChemistryRecord[]
   totalCount: number
 }
 
 export default function ChemistryDisplay({ chemistry, totalCount }: Props) {
+  const [chartType, setChartType] = useState<ChartType>('bar')
+
   if (!chemistry || chemistry.length === 0) {
     return <p className="text-sm text-slate-600">No chemistry data available for this record.</p>
   }
@@ -67,31 +90,71 @@ export default function ChemistryDisplay({ chemistry, totalCount }: Props) {
 
   return (
     <div>
-      <p className="text-xs text-slate-600 mb-3">
-        {chemistry.length} analytes shown from {totalCount.toLocaleString()} chemistry records.
-        Bar length is relative to the highest value in each unit group.
-        Most values in mg/L; CO, H₂, CH₄ in µM.
-      </p>
-
-      {/* mg/L analytes */}
-      {mgL.length > 0 && (
-        <div className="mb-3">
-          {mgL.map((row, i) => (
-            <AnalyteRow key={i} row={row} maxValue={maxMgL} />
-          ))}
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <p className="text-xs text-slate-600">
+          {chartType === 'bar' ? (
+            <>
+              {chemistry.length} analytes shown from {totalCount.toLocaleString()} chemistry records.
+              Bar length is relative to the highest value in each unit group.
+              Most values in mg/L; CO, H₂, CH₄ in µM.
+            </>
+          ) : (
+            <>
+              {chemistry.length} analytes shown from {totalCount.toLocaleString()} chemistry records.
+              Slices show each analyte&apos;s share of the total measured concentration in its unit group.
+            </>
+          )}
+        </p>
+        <div className="flex-shrink-0">
+          <ChartToggle value={chartType} onChange={setChartType} label="Chemistry chart type" />
         </div>
-      )}
+      </div>
 
-      {/* µM analytes — separate scale, labelled explicitly */}
-      {microM.length > 0 && (
-        <div>
-          <p className="text-xs text-slate-500 font-medium uppercase tracking-wide mb-1 mt-3">
-            Dissolved gases (µM scale)
-          </p>
-          {microM.map((row, i) => (
-            <AnalyteRow key={i} row={row} maxValue={maxMicroM} />
-          ))}
-        </div>
+      {chartType === 'bar' ? (
+        <>
+          {/* mg/L analytes */}
+          {mgL.length > 0 && (
+            <div className="mb-3">
+              {mgL.map((row, i) => (
+                <AnalyteRow key={i} row={row} maxValue={maxMgL} />
+              ))}
+            </div>
+          )}
+
+          {/* µM analytes — separate scale, labelled explicitly */}
+          {microM.length > 0 && (
+            <div>
+              <p className="text-xs text-slate-500 font-medium uppercase tracking-wide mb-1 mt-3">
+                Dissolved gases (µM scale)
+              </p>
+              {microM.map((row, i) => (
+                <AnalyteRow key={i} row={row} maxValue={maxMicroM} />
+              ))}
+            </div>
+          )}
+        </>
+      ) : (
+        <>
+          {/* mg/L composition pie */}
+          {mgL.length > 0 && (
+            <div className="mb-4">
+              <p className="text-xs text-slate-500 font-medium uppercase tracking-wide mb-2">
+                Dissolved solids (mg/L scale)
+              </p>
+              <AnalytePie rows={mgL} unit="mg/L" />
+            </div>
+          )}
+
+          {/* µM composition pie — separate scale */}
+          {microM.length > 0 && (
+            <div>
+              <p className="text-xs text-slate-500 font-medium uppercase tracking-wide mb-2">
+                Dissolved gases (µM scale)
+              </p>
+              <AnalytePie rows={microM} unit="µM" />
+            </div>
+          )}
+        </>
       )}
     </div>
   )
