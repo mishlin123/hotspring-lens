@@ -167,15 +167,15 @@ export default function ExploreClient({ springs, systems, featureTypes, analytes
               className={`flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 transition-colors ${
                 active
                   ? 'bg-white shadow-sm text-teal-700'
-                  : 'text-slate-500 hover:text-slate-700 hover:bg-white/50'
+                  : 'text-slate-700 hover:text-slate-900 hover:bg-white/50'
               }`}
             >
-              <span className={active ? 'text-teal-600' : 'text-slate-400'}>
+              <span className={active ? 'text-teal-600' : 'text-slate-500'}>
                 <Icon />
               </span>
               <span className="text-left leading-tight">
                 <span className="block text-sm font-semibold">{label}</span>
-                <span className="hidden sm:block text-xs font-normal text-slate-400">{sub}</span>
+                <span className="hidden sm:block text-xs font-normal text-slate-500">{sub}</span>
               </span>
             </button>
           )
