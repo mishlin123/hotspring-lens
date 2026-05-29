@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getSpringById } from '@/lib/data'
-import type { Spring, ChemistryRecord, TaxonRecord } from '@/lib/types'
+import type { Spring, ChemistryRecord } from '@/lib/types'
+import { CompareChemistrySection, CompareTaxaSection } from './CompareCharts'
 
 export const metadata: Metadata = {
   title: 'Compare Springs',
@@ -44,10 +45,6 @@ const CORE_ANALYTES = ['chloride', 'sodium', 'sulfate', 'silicon', 'potassium', 
 
 function getAnalyteValue(chem: ChemistryRecord[], analyte: string): number | null {
   return chem.find(c => c.analyte.toLowerCase() === analyte)?.value ?? null
-}
-
-function analyteLabel(a: string): string {
-  return a.charAt(0).toUpperCase() + a.slice(1)
 }
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -106,70 +103,6 @@ function MeasCell({
         {unit && <span className="text-slate-500 font-normal ml-1 text-xs">{unit}</span>}
       </span>
       {label && <p className={`text-xs mt-0.5 ${labelColour ?? 'text-slate-600'}`}>{label}</p>}
-    </div>
-  )
-}
-
-/** Shared-scale horizontal bar for chemistry comparison */
-function ChemBar({
-  value,
-  maxValue,
-  unit = 'mg/L',
-}: {
-  value: number | null
-  maxValue: number
-  unit?: string
-}) {
-  if (value === null) {
-    return <span className="text-xs text-slate-500">No data</span>
-  }
-  const pct = maxValue > 0 ? Math.min((value / maxValue) * 100, 100) : 0
-  const display =
-    value >= 100 ? value.toFixed(0) : value >= 1 ? value.toFixed(2) : value.toFixed(4)
-  return (
-    <div>
-      <div className="flex items-baseline justify-between mb-1">
-        <span className="text-xs text-slate-800">{display}</span>
-        <span className="text-xs text-slate-500 ml-1">{unit}</span>
-      </div>
-      <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-teal-600 rounded-full"
-          style={{ width: `${Math.max(pct, 0.5)}%`, opacity: 0.75 }}
-        />
-      </div>
-    </div>
-  )
-}
-
-/** Taxa bar for one spring in compare view */
-function TaxaList({ taxa }: { taxa: TaxonRecord[] }) {
-  if (!taxa || taxa.length === 0) {
-    return <p className="text-xs text-slate-500 italic">No 16S taxonomy data.</p>
-  }
-  const maxReads = Math.max(...taxa.map(t => t.size))
-  return (
-    <div className="space-y-2">
-      {taxa.slice(0, 5).map((t, i) => {
-        const pct = maxReads > 0 ? (t.size / maxReads) * 100 : 0
-        return (
-          <div key={i}>
-            <div className="flex items-baseline justify-between mb-0.5 gap-1 flex-wrap">
-              <span className="text-xs italic text-slate-800 font-medium leading-tight truncate max-w-[80%]">
-                {t.taxon_name.replace(/_/g, ' ')}
-              </span>
-              <span className="text-xs text-slate-500 flex-shrink-0">{t.size.toLocaleString()}</span>
-            </div>
-            <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-teal-500 rounded-full"
-                style={{ width: `${Math.max(pct, 0.5)}%`, opacity: 0.75 }}
-              />
-            </div>
-          </div>
-        )
-      })}
-      <p className="text-xs text-slate-500 pt-1">Sequence read counts. Not cell abundance.</p>
     </div>
   )
 }
@@ -309,71 +242,23 @@ export default function ComparePage({ searchParams }: Props) {
       </section>
 
       {/* ─── Water chemistry ────────────────────────────────────────────── */}
-      <section className="mb-6">
-        <h2 className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2 px-4">
-          Water chemistry — core analytes (mg/L, shared scale)
-        </h2>
-        <div className="border border-slate-200 rounded-xl overflow-hidden">
-          {/* Column headers — label column + one per spring */}
-          <div
-            className="bg-slate-50 border-b border-slate-200"
-            style={{ display: 'grid', gridTemplateColumns: `140px repeat(${cols}, 1fr)` }}
-          >
-            <div className="px-4 py-2" />
-            {springs.map(s => (
-              <p key={s.id} className="text-xs font-semibold text-slate-800 px-4 py-2 truncate">{s.name}</p>
-            ))}
-          </div>
-
-          {chemData.map(({ analyte, values, max }) => (
-            <div
-              key={analyte}
-              className="border-b border-slate-100 last:border-0"
-              style={{ display: 'grid', gridTemplateColumns: `140px repeat(${cols}, 1fr)` }}
-            >
-              {/* Row label */}
-              <div className="px-4 py-2.5 flex items-center border-r border-slate-100">
-                <p className="text-xs font-medium text-slate-600">{analyteLabel(analyte)}</p>
-              </div>
-              {/* Value cells */}
-              {values.map((val, ci) => (
-                <div key={ci} className="px-4 py-2.5 border-r border-slate-100 last:border-0">
-                  <ChemBar value={val} maxValue={max} />
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-
-        <p className="text-xs text-slate-500 mt-2 px-1">
-          Bars are scaled to the highest value for each analyte across the compared springs.
-          Values from {springs.map(s => s.chemistry_record_count).join('/')} chemistry records respectively.
-        </p>
-      </section>
+      <CompareChemistrySection
+        springNames={springs.map(s => s.name)}
+        chemData={chemData}
+        recordCounts={springs.map(s => s.chemistry_record_count)}
+        cols={cols}
+      />
 
       {/* ─── Microbial diversity ────────────────────────────────────────── */}
-      <section className="mb-6">
-        <h2 className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2 px-4">
-          Microbial diversity — top taxa by sequence reads
-        </h2>
-        <div className={`grid ${gridCols} gap-4`}>
-          {springs.map(s => (
-            <div key={s.id} className="bg-white border border-slate-200 rounded-xl p-4">
-              <p className="text-xs font-semibold text-slate-800 mb-3 truncate">{s.name}</p>
-              <TaxaList taxa={s.top_taxa} />
-              {s.taxonomy_record_count > 0 && (
-                <p className="text-xs text-slate-500 mt-2 pt-2 border-t border-slate-100">
-                  {s.taxonomy_record_count.toLocaleString()} total 16S records
-                </p>
-              )}
-            </div>
-          ))}
-        </div>
-        <p className="text-xs text-slate-500 mt-2 px-1">
-          16S rRNA amplicon data. Read counts reflect sequencing output, not cell abundance.
-          Taxa are identified to varying ranks — do not interpret as species-level.
-        </p>
-      </section>
+      <CompareTaxaSection
+        springs={springs.map(s => ({
+          id: s.id,
+          name: s.name,
+          top_taxa: s.top_taxa,
+          taxonomy_record_count: s.taxonomy_record_count,
+        }))}
+        cols={cols}
+      />
 
       {/* ─── Attribution ────────────────────────────────────────────────── */}
       <section className="border-t border-slate-200 pt-6 mt-6">

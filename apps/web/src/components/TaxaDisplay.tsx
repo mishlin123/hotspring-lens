@@ -1,4 +1,9 @@
+'use client'
+
+import { useState } from 'react'
 import type { TaxonRecord } from '@/lib/types'
+import ChartToggle, { type ChartType } from './ChartToggle'
+import PieChart, { pieColor } from './PieChart'
 
 // Rank → subtle pill colour
 const RANK_STYLES: Record<string, string> = {
@@ -30,6 +35,8 @@ interface Props {
 }
 
 export default function TaxaDisplay({ taxa, totalCount }: Props) {
+  const [chartType, setChartType] = useState<ChartType>('bar')
+
   if (!taxa || taxa.length === 0) {
     return <p className="text-sm text-slate-600">No 16S rRNA taxonomy data for this record.</p>
   }
@@ -38,15 +45,34 @@ export default function TaxaDisplay({ taxa, totalCount }: Props) {
 
   return (
     <div>
-      {/* Caveat */}
-      <p className="text-xs text-slate-600 mb-3 leading-relaxed">
-        Top {taxa.length} taxa by 16S rRNA sequence read count, from{' '}
-        {totalCount.toLocaleString()} total records. Bars show relative read counts —{' '}
-        <strong className="font-medium">not cell abundance</strong>. Identifications
-        are to the rank shown; do not interpret as species-level.
-      </p>
+      {/* Caveat + chart toggle */}
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <p className="text-xs text-slate-600 leading-relaxed">
+          Top {taxa.length} taxa by 16S rRNA sequence read count, from{' '}
+          {totalCount.toLocaleString()} total records.{' '}
+          {chartType === 'bar'
+            ? 'Bars show relative read counts'
+            : 'Slices show each taxon’s share of the charted reads'} —{' '}
+          <strong className="font-medium">not cell abundance</strong>. Identifications
+          are to the rank shown; do not interpret as species-level.
+        </p>
+        <div className="flex-shrink-0">
+          <ChartToggle value={chartType} onChange={setChartType} label="Taxa chart type" />
+        </div>
+      </div>
 
-      {/* Taxa bars */}
+      {chartType === 'pie' ? (
+        <PieChart
+          data={taxa.map((t, i) => ({
+            label: t.taxon_name.replace(/_/g, ' '),
+            value: t.size,
+            color: pieColor(i),
+          }))}
+          ariaLabel="Relative 16S rRNA read counts by taxon"
+          formatValue={v => `${v.toLocaleString()} reads`}
+        />
+      ) : (
+      /* Taxa bars */
       <div className="space-y-2.5">
         {taxa.map((taxon, i) => {
           const pct  = maxReads > 0 ? (taxon.size / maxReads) * 100 : 0
@@ -77,6 +103,7 @@ export default function TaxaDisplay({ taxa, totalCount }: Props) {
           )
         })}
       </div>
+      )}
 
       {/* Lineage path for top entry */}
       {taxa[0]?.lineage && (
