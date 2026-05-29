@@ -4,6 +4,7 @@ import Image from 'next/image'
 import './globals.css'
 import NavBar from '@/components/NavBar'
 import SafetyBanner from '@/components/SafetyBanner'
+import { Analytics } from '@vercel/analytics/next'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </p>
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   )
